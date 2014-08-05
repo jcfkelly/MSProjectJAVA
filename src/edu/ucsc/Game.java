@@ -64,7 +64,7 @@ public class Game {
 			look(area, p, otherWords);
 		}
 		else if (commandType == 2){ //for WALK		
-			walk(area, p, otherWords, direction);
+			walk(panel, area, p, otherWords, direction);
 		}
 		else if (commandType == 3){//for RENAME
 			rename(area, p, otherWords);
@@ -72,8 +72,11 @@ public class Game {
 		else if (commandType == 4){//for TURN
 			turn(area, p, otherWords, direction);
 		}
+		else if (commandType == 5){//for ENTER
+			
+		}
 		else if (commandType == -1){
-			gameOutput(area, "That is not an option. Did you mean to use put, look, rename, or walk?");
+			gameOutput(area, "That is not an option. Did you mean to use put, look, next, start, exit, quit, or walk?");
 		}
 		return true;
 	}
@@ -83,10 +86,21 @@ public class Game {
 			return;
 		}
 		int introState = panel.getIntroState();
-		if (introState == -1 || introState == panel.MAX_INTRO_STATE){
+		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
+		}else if(introState == panel.MAX_INTRO_STATE){
+			panel.setIntroState(-1);
+			enter(panel, area, p, "orchard");
 		}else{
 			panel.setIntroState(introState+1);
+		}
+	}
+	
+	private static void enter(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+		if (otherWords.equalsIgnoreCase("orchard")){
+			walk(panel, area, new Point(0,-1), "", 0);
+		}else{
+			gameOutput(area, "You cannot enter " + otherWords);
 		}
 	}
 	
@@ -144,20 +158,22 @@ public class Game {
 		return direction;
 	}
 	
-	private static void walk(JTextArea area, Point p, String otherWords, int direction){
+	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords, int direction){
 		if (otherWords.substring(0).equals("&") && otherWords.length() >= 2){
 			gameOutput(area, "You walk to address.");
 		}
-		else if (otherWords.equalsIgnoreCase("north") || otherWords.equalsIgnoreCase("north ")){
+		else if (otherWords.equalsIgnoreCase("north") || direction== 0){
 			gameState.movePosition(0,1);
 			if(gameState.isBorder(p)){ //refactored to be helper function
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");
 					gameState.movePosition(0, -1);
 			}else{
 				gameOutput(area, "You move north");
+				panel.moveTo(gameState.getPosition());
 				System.out.println(p);
-				}
-		}else if (otherWords.equalsIgnoreCase("south") || otherWords.equalsIgnoreCase("south ")){
+			}
+			
+		}else if (otherWords.equalsIgnoreCase("south") || direction == 180){
 			gameState.movePosition(0,-1);
 			if(gameState.isBorder(p)){
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");
@@ -166,7 +182,7 @@ public class Game {
 				gameOutput(area, "You move south");
 				System.out.println(p);
 				}
-		}else if (otherWords.equalsIgnoreCase("east") || otherWords.equalsIgnoreCase("east ")){
+		}else if (otherWords.equalsIgnoreCase("east") || direction ==90){
 			gameState.movePosition(1,0);
 			if(gameState.isBorder(p)){
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");
@@ -177,7 +193,7 @@ public class Game {
 				gameOutput(area, "You move east");
 				System.out.println(p);
 				}
-		}else if (otherWords.equalsIgnoreCase("west") || otherWords.equalsIgnoreCase("west ")){
+		}else if (otherWords.equalsIgnoreCase("west") || direction == 270){
 			gameState.movePosition(-1,0);
 			if(gameState.isBorder(p)){
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");

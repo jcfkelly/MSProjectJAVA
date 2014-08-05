@@ -159,6 +159,8 @@ public class GameMainPanel extends JPanel{
     	return introState;
     }
     
-    
+    public void moveTo(Point p){
+    	//draw a tree based on points
+    }
     
 }

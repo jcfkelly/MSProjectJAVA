@@ -23,6 +23,8 @@ public class Input{
 			return 3;
 		}else if (word.equalsIgnoreCase("turn")){
 			return 4;
+		}else if(word.equalsIgnoreCase("enter")){
+			return 5;
 		}
 		else{
 			return -1;

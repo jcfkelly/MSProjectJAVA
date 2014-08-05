@@ -13,7 +13,7 @@ public class GameState{
 	//check whether winState ever works in debugging
 	public GameState(){
 		//complete reset in GameState
-		position = new Point(0,0);
+		position = new Point(0,-1);
 		addressBook = new ArrayList<String>(100); //ensures size is limited
 		for(int i =0 ; i<100; i++){ //all empty strings
 			addressBook.add(null);
@@ -72,7 +72,6 @@ public class GameState{
 	public boolean doesTreeExist(String tree){
 		return treeMap.containsKey(tree);
 	}
-	
 	
 	public Tree getTree(String treeName){
 		return treeMap.get(treeName);
