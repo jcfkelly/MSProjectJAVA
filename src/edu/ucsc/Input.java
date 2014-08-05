@@ -13,7 +13,7 @@ public class Input{
 	public static int isCommand(String line){
 		String firstWord = getFirstWord(line);
 		String word = firstWord.toString();
-		if(word.equalsIgnoreCase("put")){
+		if(word.equalsIgnoreCase("start") || word.equalsIgnoreCase("next")){
 			return 0;
 		}else if(word.equalsIgnoreCase("look")){
 			return 1;
@@ -21,6 +21,8 @@ public class Input{
 			return 2;
 		}else if(word.equalsIgnoreCase("rename")){
 			return 3;
+		}else if (word.equalsIgnoreCase("turn")){
+			return 4;
 		}
 		else{
 			return -1;

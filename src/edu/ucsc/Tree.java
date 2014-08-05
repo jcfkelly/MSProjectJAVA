@@ -1,29 +1,37 @@
 package edu.ucsc;
 
 import java.awt.Point;
-import java.util.Arrays;
-import java.util.List;
 
 public class Tree {
-	private Point location;
-	private List<String> nestNames;
-	//to do constructors : 
+	//Trees hold locations (address)
+	//Trees hold nothing 0, pest 1, or pollinator 2
+	//Tree health (alive or dead)
 	
-	public Point getLocation() {
+	private Point location;
+	private int pest;
+	private boolean alive;
+	
+	public Point getLocation(){
 		return location; 
 	}
 	
-	public List<String> getNests(){
-		return nestNames;
+	public int getPest(){
+		return pest;
 	}
 	
-	public int getNumNests(){
-		return nestNames.size(); //lists have size
+	public boolean getAlive(){
+		return alive;
 	}
 	
-	public Tree(int x, int y, String... nestNames){ //array of nests
+	public boolean setAlive(){
+		alive = !alive;
+		return alive;
+	}
+	
+	public Tree(int x, int y, Integer pollinator){ //array of nests
 		this.location = new Point(x, y);
-		this.nestNames = Arrays.asList(nestNames);
+		this.pest = pollinator;
+		this.alive = true;
 	}
 }
 

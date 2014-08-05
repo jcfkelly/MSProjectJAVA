@@ -60,16 +60,50 @@ public class GameGUI extends JPanel implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(button, c);
         add(button);
-
+        
+        JButton nextButton = new JButton("Next", new ImageIcon("/orchard-game/nextButton.jpg"));
+        c.gridx = 2;
+        c.gridy = 0;
+        c.weightx = 10.0;
+        c.gridheight = 1;
+        c.weighty = 0.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        gridbag.setConstraints(nextButton, c);
+        add(nextButton);
+        
+        JButton guideButton = new JButton("Field Guide");
+        c.gridx = 2;
+        c.gridy = 3;
+        c.weightx = 10.0;
+        c.gridheight = 1;
+        c.weighty = 0.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        gridbag.setConstraints(guideButton, c);
+        add(guideButton);
+        
+        JButton bookButton = new JButton("Address Book");
+        c.gridx = 2;
+        c.gridy = 4;
+        c.weightx = 10.0;
+        c.gridheight = 1;
+        c.weighty = 0.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        gridbag.setConstraints(bookButton, c);
+        add(bookButton);
+        
         setPreferredSize(new Dimension(640, 480));
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        
+        setPreferredSize(new Dimension(640, 480));
+        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        
     }
 
     class MyTextActionListener implements ActionListener {
         /** Handle the text field Return. */
         public void actionPerformed(ActionEvent e) {
             String input = textField.getText();
-            boolean keepLooping = Game.gameLoop(input, textArea);
+            boolean keepLooping = Game.gameLoop(input, textArea, gameMainPanel);
             if (!keepLooping){
                 textField.removeActionListener(gameLoop);
             }
