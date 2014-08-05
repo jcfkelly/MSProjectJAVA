@@ -61,7 +61,7 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(button, c);
         add(button);
         
-        JButton nextButton = new JButton("Next", new ImageIcon("/orchard-game/nextButton.jpg"));
+        JButton nextButton = new JButton("Next", new ImageIcon("nextButton.jpg"));
         c.gridx = 2;
         c.gridy = 0;
         c.weightx = 10.0;

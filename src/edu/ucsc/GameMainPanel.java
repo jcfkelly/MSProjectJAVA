@@ -151,10 +151,14 @@ public class GameMainPanel extends JPanel{
         removeAll();
         add(textPane);
         revalidate();
+        repaint();
+
     }
     
     public int getIntroState(){
     	return introState;
     }
+    
+    
     
 }
