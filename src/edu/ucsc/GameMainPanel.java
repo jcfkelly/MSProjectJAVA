@@ -36,7 +36,7 @@ public class GameMainPanel extends JPanel{
         JTextPane textPane = new JTextPane();
         switch (introState) {
             case 0:
-                textPane.setText("Type Start or press Next");
+                textPane.setText("Type Start or Next");
                 break;
             case 1:
             	textPane.setText("Your Mission: (Should you chose to accept)\n\n"

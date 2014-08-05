@@ -61,6 +61,7 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(button, c);
         add(button);
         
+        //during the game buttons:
         JButton nextButton = new JButton("Next", new ImageIcon("nextButton.jpg"));
         c.gridx = 2;
         c.gridy = 0;
@@ -90,9 +91,6 @@ public class GameGUI extends JPanel implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(bookButton, c);
         add(bookButton);
-        
-        setPreferredSize(new Dimension(640, 480));
-        setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         
         setPreferredSize(new Dimension(640, 480));
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
