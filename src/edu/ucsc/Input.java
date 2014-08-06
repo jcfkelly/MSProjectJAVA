@@ -26,6 +26,11 @@ public class Input{
 		}else if(word.equalsIgnoreCase("enter")){
 			return 5;
 		}
+		else if(word.equalsIgnoreCase("exit")){
+			return 6;
+		}else if(word.contains(" = ")){
+			return 7;
+		}
 		else{
 			return -1;
 		}

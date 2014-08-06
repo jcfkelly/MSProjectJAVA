@@ -74,9 +74,9 @@ public class GameState{
 	}
 	
 	public String treeFromLocation(Point p){
-		for (String tree : treeMap){
+		//for (String tree : treeMap){
 			
-		}
+//		}
 	}
 	
 	public Tree getTree(String treeName){

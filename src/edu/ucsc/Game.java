@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -16,9 +17,11 @@ public class Game {
 	public static GameState getGameState(){
 		return gameState;
 	}
+	
 	public static void resetGameState(){
 		gameState = new GameState();
 	}
+	
 	public static void main(String[] args) throws IOException { 
 		//System.out.println(gameState.pointerTree("unknown1"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -81,6 +84,11 @@ public class Game {
 		else if (commandType == 5){//for ENTER
 			
 		}
+		else if(commandType == 6){//for EXIT
+			
+		}else if(commandType == 7){//for EQUALS
+			
+		}
 		else if (commandType == -1){
 			gameOutput(area, "That is not an option. Did you mean to use put, look, next, start, exit, quit, or walk?");
 		}
@@ -109,6 +117,37 @@ public class Game {
 			gameOutput(area, "You cannot enter " + otherWords);
 		}
 	}
+	
+	private static void exit(){
+	//TODO make code here	
+	}
+	
+	private static String getObject(String otherWords){
+		int indexOfEquals = otherWords.indexOf(" = ");
+		if (indexOfEquals == -1){
+			return "";
+		}else{
+			return otherWords.substring(indexOfEquals+3);
+		}
+	}
+	
+	private static String getSubject(String otherWords){
+		int indexOfEquals = otherWords.indexOf(" = ");
+		if (indexOfEquals == -1){
+			return otherWords;
+		}
+		return otherWords.substring(0, indexOfEquals);
+	}
+	
+	private static void equals(JTextArea area, Point p, String otherWords){
+		//Command Subject = Object
+		if(getSubject(otherWords).startsWith("*Book")){
+			gameOutput(area, "");
+		}else{
+			gameOutput(area, "That is not the poison container or the address book.");
+		}
+	}
+	
 	
 	/*
 	private static void rename(JTextArea area, Point p, String otherWords) {
@@ -153,7 +192,20 @@ public class Game {
 			//Set of conditionals that do description of location
 			gameOutput(area, "You see what is in front of you.");
 		}else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
-			gameOutput(area, "You see the contents of " + otherWords.substring(1));
+			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
+			if(localTree.getPest() == 1){
+				gameOutput(area, "You see the tree contains a pest");
+			}else if(localTree.getPest()==0){
+				gameOutput(area, "You see the tree is empty.");					
+			}else if(localTree.getPest()==2){
+				gameOutput(area, "You see the tree contains a pollinator");
+			}else{
+				gameOutput(area, "Error: you have messed up integers in the code. I don't know how you got here to break it.");
+			}
+		}else if(otherWords.startsWith("&")){
+			gameOutput(area, "Error: you cannot look at addresses.");
+		}else{
+			gameOutput(area, "Error: " +otherWords + " is not a Tree, nor is it an object in game.");
 		}
 	}
 	
