@@ -146,6 +146,14 @@ public class GameMainPanel extends JPanel{
             			+ "Book to walk back to like \n\n"
             			+ "walk &Sunstar");
             	break;
+            case 11:
+            	textPane.setText("If you feel competent, \n"
+            			+ " press next or type \n"
+            			+ "“Enter Orchard”\n\n"
+            			+ "(If you need help during \n"
+            			+ "gameplay, type “help” in \n"
+            			+ "the textbar.)");
+            	break;
         }
         removeAll();
         add(textPane);
@@ -154,14 +162,15 @@ public class GameMainPanel extends JPanel{
 
     }
     
-    public void gamePanel(Point p){
+    public void showTree(Tree tree){
     	removeAll();
-    	ImageIcon imageJPanel = new ImageIcon(species.getTreeSpecies());
+		ImageIcon imageJPanel = new ImageIcon(tree.getTreeSpecies());
 		JLabel label = new JLabel();
 		label.setIcon(imageJPanel);
 		add(label);
 		revalidate();
-    }
+		repaint();
+	}
     
     public int getIntroState(){
     	return introState;

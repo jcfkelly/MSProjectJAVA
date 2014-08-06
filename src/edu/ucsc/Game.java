@@ -5,14 +5,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 import edu.ucsc.Input;
 
 public class Game {
-	private static int direction = 0;
 	private static GameState gameState = new GameState();
 	public static GameState getGameState(){
 		return gameState;
@@ -41,15 +38,6 @@ public class Game {
 		}
 	}
 	
-	public static void changeMainPanel(JTextArea area, GameMainPanel panel, String otherWords){
-		if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
-			ImageIcon imageJPanel = new ImageIcon(gameState.getTree(otherWords.substring(1)).getTreeSpecies());
-			JLabel label = new JLabel();
-			label.setIcon(imageJPanel);
-			panel.add(label);
-		}
-	}
-	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel){
 		
 		if (input.equalsIgnoreCase("quit")){
@@ -73,13 +61,13 @@ public class Game {
 			look(area, p, otherWords);
 		}
 		else if (commandType == 2){ //for WALK		
-			walk(panel, area, p, otherWords, direction);
+			walk(panel, area, p, otherWords);
 		}
 		else if (commandType == 3){//for RENAME
 			//rename(area, p, otherWords);
 		}
 		else if (commandType == 4){//for TURN
-			turn(area, p, otherWords, direction);
+			turn(area, p, otherWords);
 		}
 		else if (commandType == 5){//for ENTER
 			
@@ -103,19 +91,17 @@ public class Game {
 		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
 		}else if(introState == panel.MAX_INTRO_STATE){
+			enter(panel, area, p);
 			panel.setIntroState(-1);
-			enter(panel, area, p, "orchard");
 		}else{
 			panel.setIntroState(introState+1);
 		}
 	}
 	
-	private static void enter(GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		if (otherWords.equalsIgnoreCase("orchard")){
-			walk(panel, area, new Point(0,-1), "", 0);
-		}else{
-			gameOutput(area, "You cannot enter " + otherWords);
-		}
+	private static void enter(GameMainPanel panel, JTextArea area, Point p){
+		walk(panel, area, new Point(0,-1), "");
+		panel.showTree(gameState.getTree("Apple"));
+		gameOutput(area, "You enter the Orchard.");
 	}
 	
 	private static void exit(){
@@ -209,31 +195,67 @@ public class Game {
 		}
 	}
 	
-	private static int turn(JTextArea area, Point p, String otherWords, int direction){
+	private static void turn(JTextArea area, Point p, String otherWords){
 		if (otherWords.equalsIgnoreCase("right")){
-			direction = direction + 90;
+			gameState.turnRight();
+			gameOutput(area, "You turned right");
 		}else if (otherWords.equalsIgnoreCase("left")){
-			direction = direction - 90;
+			gameState.turnLeft();
+			gameOutput(area, "You turned left");
 		}
-		direction = direction%360;
-		return direction;
 	}
 	
-	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords, int direction){
-		if (otherWords.substring(0).equals("&") && otherWords.length() >= 2){
-			gameOutput(area, "You walk to address.");
+	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+		if (otherWords.substring(0).equals("&") && gameState.doesTreeExist(otherWords.substring(1))){
+			panel.showTree(gameState.getTree(otherWords.substring(1)));
+			gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
+			gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+			return;
 		}
-		else if (otherWords.equalsIgnoreCase("north") || direction== 0){
+		
+		if(otherWords.equalsIgnoreCase("north")){
+			gameState.setDirection(0);
+		}else if(otherWords.equalsIgnoreCase("South")){
+			gameState.setDirection(180);
+		}else if(otherWords.equalsIgnoreCase("east")){
+			gameState.setDirection(90);
+		}else if(otherWords.equalsIgnoreCase("west")){
+			gameState.setDirection(270);
+		}else if (!otherWords.equals("")){
+			gameOutput(area, "Error: not a valid direction or address.");
+			return;
+		}
+		//TODO walk forward
+		if (gameState.moveForward()){
+			int dir = gameState.getDirection();
+			if(dir == 0){
+				gameState.movePosition(0, 1);
+				gameOutput(area, "You walk North");
+			}else if (dir ==90){
+				gameState.movePosition(1,0);
+				gameOutput(area, "You walk East");
+			}else if(dir ==180){
+				gameState.movePosition(0, -1);
+				gameOutput(area, "You walk South");
+			}else{//dir == 270
+				gameState.movePosition(-1,0);
+				gameOutput(area, "You walk West");
+			}
+		}else{
+			//ERROR
+			gameOutput(area, "Error: You did not name a direction or valid address.");
+		}
+		/*
+		if (otherWords.equalsIgnoreCase("north") || direction== 0){
 			gameState.movePosition(0,1);
 			if(gameState.isBorder(p)){ //refactored to be helper function
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");
 					gameState.movePosition(0, -1);
 			}else{
 				gameOutput(area, "You move north");
-				panel.gamePanel(gameState.getPosition());
+				panel.showTree(gameState.getTreeFromLocation(p));
 				System.out.println(p);
 			}
-			
 		}else if (otherWords.equalsIgnoreCase("south") || direction == 180){
 			gameState.movePosition(0,-1);
 			if(gameState.isBorder(p)){
@@ -241,15 +263,14 @@ public class Game {
 				gameState.movePosition(0, 1);
 			}else{
 				gameOutput(area, "You move south");
+				panel.showTree(gameState.getTreeFromLocation(p));
 				System.out.println(p);
 				}
 		}else if (otherWords.equalsIgnoreCase("east") || direction ==90){
 			gameState.movePosition(1,0);
 			if(gameState.isBorder(p)){
 				gameOutput(area, "You cannot walk that way, you have reached the edge of the map.");
-				
 					gameState.movePosition(-1,0);
-				
 			}else{							
 				gameOutput(area, "You move east");
 				System.out.println(p);
@@ -266,6 +287,7 @@ public class Game {
 		}else { 
 			gameOutput(area, "That is not an address, or a direction after walk, and you did not choose to just walk.");
 			}
+			*/
 	}
 }
 

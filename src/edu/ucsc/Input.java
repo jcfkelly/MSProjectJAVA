@@ -54,22 +54,6 @@ public class Input{
 		return line.substring(indexOfSpace + 1);
 	}
 	
-	//Command Subject = Object
-	public static String getObject(String otherWords){
-		int indexOfEquals = otherWords.indexOf(" = ");
-		if (indexOfEquals == -1){
-			return "";
-		}else{
-			return otherWords.substring(indexOfEquals+3);
-		}
-	}
 	
-	public static String getSubject(String otherWords){
-		int indexOfEquals = otherWords.indexOf(" = ");
-		if (indexOfEquals == -1){
-			return otherWords;
-		}
-		return otherWords.substring(0, indexOfEquals);
-	}
 	
 }
