@@ -1,14 +1,11 @@
 package edu.ucsc;
 
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 import edu.ucsc.Input;
@@ -42,10 +39,11 @@ public class Game {
 	}
 	
 	public static void changeMainPanel(JTextArea area, GameMainPanel panel, String otherWords){
-		BufferedImage image;
 		if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
 			ImageIcon imageJPanel = new ImageIcon(gameState.getTree(otherWords.substring(1)).getTreeSpecies());
-			panel.add(imageJPanel);
+			JLabel label = new JLabel();
+			label.setIcon(imageJPanel);
+			panel.add(label);
 		}
 	}
 	
@@ -180,7 +178,7 @@ public class Game {
 					gameState.movePosition(0, -1);
 			}else{
 				gameOutput(area, "You move north");
-				panel.moveTo(gameState.getPosition());
+				panel.gamePanel(gameState.getPosition());
 				System.out.println(p);
 			}
 			

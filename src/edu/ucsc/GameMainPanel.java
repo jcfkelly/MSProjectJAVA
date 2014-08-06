@@ -154,10 +154,13 @@ public class GameMainPanel extends JPanel{
 
     }
     
-    public void gamePanel(String tree){
-    	ImageIcon imgPane = new ImageIcon();
+    public void gamePanel(Point p){
     	removeAll();
-    	add(imgPane);
+    	ImageIcon imageJPanel = new ImageIcon(species.getTreeSpecies());
+		JLabel label = new JLabel();
+		label.setIcon(imageJPanel);
+		add(label);
+		revalidate();
     }
     
     public int getIntroState(){

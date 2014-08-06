@@ -49,22 +49,22 @@ public class Input{
 		return line.substring(indexOfSpace + 1);
 	}
 	
-	//verb subject preposition object
+	//Command Subject = Object
 	public static String getObject(String otherWords){
-		int indexOfPreposition = otherWords.indexOf(" in ");
-		if (indexOfPreposition == -1){
+		int indexOfEquals = otherWords.indexOf(" = ");
+		if (indexOfEquals == -1){
 			return "";
 		}else{
-			return otherWords.substring(indexOfPreposition+4);
+			return otherWords.substring(indexOfEquals+3);
 		}
 	}
 	
 	public static String getSubject(String otherWords){
-		int indexOfPreposition = otherWords.indexOf(" in ");
-		if (indexOfPreposition == -1){
+		int indexOfEquals = otherWords.indexOf(" = ");
+		if (indexOfEquals == -1){
 			return otherWords;
 		}
-		return otherWords.substring(0, indexOfPreposition);
+		return otherWords.substring(0, indexOfEquals);
 	}
 	
 }

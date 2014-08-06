@@ -73,6 +73,12 @@ public class GameState{
 		return treeMap.containsKey(tree);
 	}
 	
+	public String treeFromLocation(Point p){
+		for (String tree : treeMap){
+			
+		}
+	}
+	
 	public Tree getTree(String treeName){
 		return treeMap.get(treeName);
 	}
