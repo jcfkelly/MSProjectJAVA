@@ -1,6 +1,7 @@
 package edu.ucsc;
 
 import java.awt.Point;
+import java.io.File;
 
 public class Tree {
 	//Trees hold locations (address)
@@ -10,6 +11,7 @@ public class Tree {
 	private Point location;
 	private int pest;
 	private boolean alive;
+	private File species;
 	
 	public Point getLocation(){
 		return location; 
@@ -28,10 +30,15 @@ public class Tree {
 		return alive;
 	}
 	
-	public Tree(int x, int y, Integer pollinator){ //array of nests
+	public File getTreeSpecies(){
+		return species;
+	}
+	
+	public Tree(int x, int y, Integer pollinator, File type){ 
 		this.location = new Point(x, y);
 		this.pest = pollinator;
 		this.alive = true;
+		this.species = type;
 	}
 }
 

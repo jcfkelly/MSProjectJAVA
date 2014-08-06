@@ -21,10 +21,10 @@ public class GameState{
 
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
 		//Create Trees (Put on one line)
-		treeMap.put("Apple", new Tree(0,1,0));
-		treeMap.put("Apple", new Tree(1,1,0));
-		treeMap.put("Apple", new Tree(1,0,0));
-		treeMap.put("Apple", new Tree(1,1,0));
+		treeMap.put("Apple", new Tree(0,1,0, "assets/MS_Project_Trees_apple.jpg"));
+		treeMap.put("Ananasrenette", new Tree(1,1,0, "assets/MS_Project_Trees_ananasrenette.jpg"));
+		treeMap.put("Amanogawa", new Tree(1,0,0, "assets/MS_Project_Trees_amanogawa.jpg"));
+		treeMap.put("Bahianinha", new Tree(1,1,0, "assets/MS_Project_Trees_bahianinha.jpg"));
 	}
 		
 	public void movePosition(int dx, int dy){

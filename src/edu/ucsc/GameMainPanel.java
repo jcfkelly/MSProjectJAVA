@@ -1,12 +1,11 @@
 package edu.ucsc;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 public class GameMainPanel extends JPanel{
-    /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;
 	private int introState = -1;
@@ -155,12 +154,14 @@ public class GameMainPanel extends JPanel{
 
     }
     
-    public int getIntroState(){
-    	return introState;
+    public void gamePanel(String tree){
+    	ImageIcon imgPane = new ImageIcon();
+    	removeAll();
+    	add(imgPane);
     }
     
-    public void moveTo(Point p){
-    	//draw a tree based on points
+    public int getIntroState(){
+    	return introState;
     }
     
 }

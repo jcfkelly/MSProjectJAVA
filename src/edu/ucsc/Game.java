@@ -1,10 +1,14 @@
 package edu.ucsc;
 
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
 import edu.ucsc.Input;
@@ -37,8 +41,12 @@ public class Game {
 		}
 	}
 	
-	public static void changeMainPanel(JTextArea area, GameMainPanel panel){
-		
+	public static void changeMainPanel(JTextArea area, GameMainPanel panel, String otherWords){
+		BufferedImage image;
+		if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+			ImageIcon imageJPanel = new ImageIcon(gameState.getTree(otherWords.substring(1)).getTreeSpecies());
+			panel.add(imageJPanel);
+		}
 	}
 	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel){
@@ -67,7 +75,7 @@ public class Game {
 			walk(panel, area, p, otherWords, direction);
 		}
 		else if (commandType == 3){//for RENAME
-			rename(area, p, otherWords);
+			//rename(area, p, otherWords);
 		}
 		else if (commandType == 4){//for TURN
 			turn(area, p, otherWords, direction);
@@ -104,6 +112,7 @@ public class Game {
 		}
 	}
 	
+	/*
 	private static void rename(JTextArea area, Point p, String otherWords) {
 		if (otherWords.equalsIgnoreCase("") && !otherWords.contains(",")){
 			gameOutput(area, "You did not say: rename OLDNAME, NEWNAME.");
@@ -136,15 +145,17 @@ public class Game {
 		}
 		
 	}
+	*/
+	
 	private static void look(JTextArea area, Point p, String otherWords) {
 		/*
 		  NOTE: I need to fix this so that if the tree is renamed it looks up the new "rename" :( 
 		  */
-		//String i = Input.getAfterIn(input);
 		if (otherWords.equalsIgnoreCase("")){
 			//Set of conditionals that do description of location
-			gameOutput(area, "You see the Bird Sanctuary.");
-			
+			gameOutput(area, "You see what is in front of you.");
+		}else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+			gameOutput(area, "You see the contents of " + otherWords.substring(1));
 		}
 	}
 	

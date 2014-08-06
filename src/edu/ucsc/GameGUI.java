@@ -62,7 +62,7 @@ public class GameGUI extends JPanel implements ActionListener {
         add(button);
         
         JButton nextButton = new JButton(new ImageIcon("assets/nextButton.jpg"));
-        c.gridx = 2;
+        c.gridx = 3;
         c.gridy = 0;
         c.weightx = 0.0;
         c.gridheight = 1;
@@ -71,22 +71,16 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(nextButton, c);
         add(nextButton);
         
-        JButton guideButton = new JButton("Field Guide");
-        c.gridx = 2;
+        JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+        c.gridx = 3;
         c.gridy = 3;
-        c.weightx = 0.0;
-        c.gridheight = 1;
-        c.weighty = 0.0;
         c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(guideButton, c);
         add(guideButton);
         
-        JButton bookButton = new JButton("Address Book");
-        c.gridx = 2;
+        JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+        c.gridx = 3;
         c.gridy = 4;
-        c.weightx = 0.0;
-        c.gridheight = 1;
-        c.weighty = 0.0;
         c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(bookButton, c);
         add(bookButton);
