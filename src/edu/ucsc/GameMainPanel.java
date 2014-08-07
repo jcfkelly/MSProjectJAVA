@@ -165,9 +165,9 @@ public class GameMainPanel extends JPanel{
     public void showTree(Tree tree){
     	removeAll();
 		ImageIcon imageJPanel = new ImageIcon(tree.getTreeSpecies());
-		JLabel label = new JLabel();
-		label.setIcon(imageJPanel);
-		add(label);
+		JLabel treeLabel = new JLabel();
+		treeLabel.setIcon(imageJPanel);
+		add(treeLabel);
 		revalidate();
 		repaint();
 	}

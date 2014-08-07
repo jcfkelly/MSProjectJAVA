@@ -55,7 +55,7 @@ public class Game {
 		String otherWords = Input.getOtherWords(input);
 		Point p = gameState.getPosition();
 		if (commandType == 0){//for START
-			next(area, panel, p, otherWords);
+			next(area, panel, p);
 		}
 		else if (commandType == 1){//for LOOK
 			look(area, p, otherWords);
@@ -83,7 +83,7 @@ public class Game {
 		return true;
 	}
 	
-	private static void next(JTextArea area, GameMainPanel panel, Point p, String otherWords){
+	private static void next(JTextArea area, GameMainPanel panel, Point p){
 		if (panel == null){
 			return;
 		}
@@ -99,9 +99,10 @@ public class Game {
 	}
 	
 	private static void enter(GameMainPanel panel, JTextArea area, Point p){
-		walk(panel, area, new Point(0,-1), "");
-		panel.showTree(gameState.getTree("Apple"));
-		gameOutput(area, "You enter the Orchard.");
+			walk(panel, area, new Point(0,-1), "");
+			panel.showTree(gameState.getTree("Apple"));
+			gameOutput(area, "You enter the Orchard.");
+		
 	}
 	
 	private static void exit(){
