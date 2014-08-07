@@ -209,11 +209,12 @@ public class Game {
 	}
 	
 	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		if (otherWords.substring(0).equals("&") && gameState.doesTreeExist(otherWords.substring(1))){
+		if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
 			panel.showTree(gameState.getTree(otherWords.substring(1)));
 			gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 			gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
-			return;
+		}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
+			gameOutput(area,"You cannot walk to your inventory.");
 		}
 		
 		if(otherWords.equalsIgnoreCase("north")){
@@ -230,7 +231,9 @@ public class Game {
 		}
 		if (gameState.moveForward()){
 			int dir = gameState.getDirection();
-			if(gameState.movePosition(p.x, p.y)==true){
+			if(gameState.movePosition(p.x, p.y)==false){
+				gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
+			}else{
 				if(dir == 0){
 					gameState.movePosition(0, 1);
 					gameOutput(area, "You walk North");
@@ -245,8 +248,6 @@ public class Game {
 					gameOutput(area, "You walk West");
 				}
 			}
-		}else if(gameState.movePosition(p.x, p.y)==false){
-			gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
 		}
 		else{
 			//ERROR
