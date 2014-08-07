@@ -91,8 +91,8 @@ public class Game {
 		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
 		}else if(introState == panel.MAX_INTRO_STATE){
-			enter(panel, area, p);
 			panel.setIntroState(-1);
+			enter(panel, area, p);
 		}else{
 			panel.setIntroState(introState+1);
 		}
@@ -105,8 +105,10 @@ public class Game {
 		
 	}
 	
-	private static void exit(){
-	//TODO make code here	
+	private static void exit(Point p){
+	//TODO make code here:
+		//make sure that it returns to either the entrance (if at the beginning)
+		//or to last place in game
 	}
 	
 	private static String getObject(String otherWords){
@@ -226,23 +228,27 @@ public class Game {
 			gameOutput(area, "Error: not a valid direction or address.");
 			return;
 		}
-		//TODO walk forward
 		if (gameState.moveForward()){
 			int dir = gameState.getDirection();
-			if(dir == 0){
-				gameState.movePosition(0, 1);
-				gameOutput(area, "You walk North");
-			}else if (dir ==90){
-				gameState.movePosition(1,0);
-				gameOutput(area, "You walk East");
-			}else if(dir ==180){
-				gameState.movePosition(0, -1);
-				gameOutput(area, "You walk South");
-			}else{//dir == 270
-				gameState.movePosition(-1,0);
-				gameOutput(area, "You walk West");
+			if(gameState.movePosition(p.x, p.y)==true){
+				if(dir == 0){
+					gameState.movePosition(0, 1);
+					gameOutput(area, "You walk North");
+				}else if (dir ==90){
+					gameState.movePosition(1,0);
+					gameOutput(area, "You walk East");
+				}else if(dir ==180){
+					gameState.movePosition(0, -1);
+					gameOutput(area, "You walk South");
+				}else{//dir == 270
+					gameState.movePosition(-1,0);
+					gameOutput(area, "You walk West");
+				}
 			}
-		}else{
+		}else if(gameState.movePosition(p.x, p.y)==false){
+			gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
+		}
+		else{
 			//ERROR
 			gameOutput(area, "Error: You did not name a direction or valid address.");
 		}
