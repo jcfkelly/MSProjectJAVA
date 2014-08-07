@@ -1,13 +1,10 @@
 package edu.ucsc;
 
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import javax.swing.JTextArea;
-
-import edu.ucsc.Input;
 
 public class Game {
 	private static GameState gameState = new GameState();
@@ -70,7 +67,11 @@ public class Game {
 			turn(area, p, otherWords);
 		}
 		else if (commandType == 5){//for ENTER
-			
+            if (otherWords.equalsIgnoreCase("orchard")) {
+                enter(panel, area, p);
+            } else {
+                gameOutput(area, "You cannot enter " + otherWords);
+            }
 		}
 		else if(commandType == 6){//for EXIT
 			
@@ -92,18 +93,17 @@ public class Game {
 			gameOutput(area, "Error: This is not in the game.");			
 		}else if(introState == panel.MAX_INTRO_STATE){
 			enter(panel, area, p);
-			panel.setIntroState(-1);
 		}else{
 			panel.setIntroState(introState+1);
 		}
 	}
 	
 	private static void enter(GameMainPanel panel, JTextArea area, Point p){
-			walk(panel, area, new Point(0,-1), "");
-			panel.showTree(gameState.getTree("Apple"));
-			gameOutput(area, "You enter the Orchard.");
-		
-	}
+        panel.setIntroState(-1);
+        walk(panel, area, new Point(0,-1), "");
+        panel.showTree(gameState.getTree("Apple"));
+        gameOutput(area, "You enter the Orchard.");
+    }
 	
 	private static void exit(){
 	//TODO make code here	
