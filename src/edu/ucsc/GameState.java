@@ -16,6 +16,7 @@ public class GameState{
 	private HashMap<String, Tree> treeMap;
 	private boolean winState=false;
 	private int steps=0;
+	private int poison=1;
 	
 	//check whether winState ever works in debugging
 	public GameState(){
@@ -355,6 +356,14 @@ public class GameState{
 	
 	public Tree getTree(String treeName){
 		return treeMap.get(treeName);
+	}
+	
+	public int getPoison(){
+		return poison;
+	}
+	
+	public void changePoison(int i){
+		poison = i;
 	}
 	
 	public boolean winState(){

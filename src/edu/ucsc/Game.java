@@ -138,9 +138,46 @@ public class Game {
 			}else{
 				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
 			}
-		}else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
+		}else if(getSubject(otherWords).equals("*Poison")){
+			if(getObject(otherWords).equals("*Apple")){
+				gameState.changePoison(1);
+				gameOutput(area, "You put the Apple pesticide in the container");
+			}else if(getObject(otherWords).equals("*Orange")){
+				gameState.changePoison(2);
+				gameOutput(area, "You put the Orange pesticide in the container");
+			}else if(getObject(otherWords).equals("*Cherry")){
+				gameState.changePoison(3);
+				gameOutput(area, "You put the Cherry pesticide in the container");
+			}else if(getObject(otherWords).equals("*Nut")){
+				gameState.changePoison(4);
+				gameOutput(area, "You put the Nut pesticide in the container");
+			}else if(getObject(otherWords).equals("*Lemon")){
+				gameState.changePoison(5);
+				gameOutput(area, "You put the Lemon pesticide in the container");
+			}else if(getObject(otherWords).equals("*Lime")){
+				gameState.changePoison(6);
+				gameOutput(area, "You put the Lime pesticide in the container.");
+			}else if(getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot put an address in the poison container.");
+			}else{
+				gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+			}
+		}
+		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
-				gameOutput(area, "You put the pesticide in the tree.");
+				if(gameState.getPoison()==1){
+					gameOutput(area, "You put the Apple pesticide in the tree");
+				}else if(gameState.getPoison()==2){
+					gameOutput(area, "You put the Orange pesticide in the tree");
+				}else if(gameState.getPoison()==3){
+					gameOutput(area, "You put the Cherry pesticide in the tree");
+				}else if(gameState.getPoison()==4){
+					gameOutput(area, "You put the Nut pesticide in the tree");
+				}else if(gameState.getPoison()==5){
+					gameOutput(area, "You put the Lemon pesticide in the tree");
+				}else if(gameState.getPoison()==6){
+					gameOutput(area, "You put the Lime pesticide in the tree.");
+				}
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
 			}
@@ -157,7 +194,22 @@ public class Game {
 		if (otherWords.equalsIgnoreCase("")){
 			//Set of conditionals that do description of location
 			gameOutput(area, "You see what is in front of you.");
-		}else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+		}else if(otherWords.equals("*Poison")){
+			if(gameState.getPoison()==1){
+				gameOutput(area, "You see the Apple poison");
+			}else if(gameState.getPoison()==2){
+				gameOutput(area, "You see the Orange poison");
+			}else if(gameState.getPoison()==3){
+				gameOutput(area, "You see the Cherry poison");
+			}else if(gameState.getPoison()==4){
+				gameOutput(area, "You see the Nut poison");
+			}else if(gameState.getPoison()==5){
+				gameOutput(area, "You see the Lemon poison");
+			}else if(gameState.getPoison()==6){
+				gameOutput(area, "You see the Lime poison");
+			}
+		}
+		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
 			if(localTree.getPest() == 1){
 				gameOutput(area, "You see the tree contains a pest");
@@ -165,8 +217,6 @@ public class Game {
 				gameOutput(area, "You see the tree is empty.");					
 			}else if(localTree.getPest()==2){
 				gameOutput(area, "You see the tree contains a pollinator");
-			}else{
-				gameOutput(area, "Error: you have messed up integers in the code. I don't know how you got here to break it.");
 			}
 		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
