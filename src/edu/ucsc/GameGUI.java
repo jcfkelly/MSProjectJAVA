@@ -77,13 +77,6 @@ public class GameGUI extends JPanel implements ActionListener {
                 textField.removeActionListener(gameLoop);
             }
             textField.setText("");
-
-        	/*int selStart = textArea.getSelectionStart();
-            int selEnd = textArea.getSelectionEnd();
-
-            textArea.replaceRange(textField.getText(),
-                                  selStart, selEnd);
-            textField.selectAll();*/
         }
     }
 

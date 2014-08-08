@@ -20,6 +20,10 @@ public class Tree {
 		return pest;
 	}
 	
+	public int setPest(int pollinator){
+		return pest = pollinator;
+	}
+	
 	public boolean getAlive(){
 		return alive;
 	}

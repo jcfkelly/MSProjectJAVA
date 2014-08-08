@@ -108,10 +108,9 @@ public class Game {
         gameOutput(area, "You enter the Orchard.");
 	}
 	
-	private static void exit(Point p){
-	//TODO make code here:
-		//make sure that it returns to either the entrance (if at the beginning)
-		//or to last place in game
+	private static void exit(GameMainPanel panel, JTextArea area){
+		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
+		gameOutput(area, "You exit back to the game.");
 	}
 	
 	private static String getObject(String otherWords){
@@ -133,15 +132,20 @@ public class Game {
 	
 	private static void equals(JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
-		if(getSubject(otherWords).startsWith("*Book")){
+		if(getSubject(otherWords).equals("*Book")){
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
 				gameOutput(area, "You put the address " + getObject(otherWords) + " in the Book.");
-				
 			}else{
-				
+				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
 			}
-			gameOutput(area, "");
-		}else{
+		}else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
+			if (getObject(otherWords).equals("*Poison")){
+				gameOutput(area, "You put the pesticide in the tree.");
+			}else{
+				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
+			}
+		}
+		else{
 			gameOutput(area, "That is not the poison container or the address book.");
 		}
 	}
