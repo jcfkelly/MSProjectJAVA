@@ -139,6 +139,7 @@ public class Game {
 				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
 			}
 		}else if(getSubject(otherWords).equals("*Poison")){
+			//also have to be in shed, cannot switch poisons from long distance
 			if(getObject(otherWords).equals("*Apple")){
 				gameState.changePoison(1);
 				gameOutput(area, "You put the Apple pesticide in the container");
@@ -177,6 +178,8 @@ public class Game {
 					gameOutput(area, "You put the Lemon pesticide in the tree");
 				}else if(gameState.getPoison()==6){
 					gameOutput(area, "You put the Lime pesticide in the tree.");
+				}else{
+					gameOutput(area, "You cannot put a non-same tree poison in this tree.");
 				}
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
@@ -211,17 +214,17 @@ public class Game {
 		}
 		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
-			if(localTree.getPest() == 1){
+			if(localTree.getResident() == 0){
+				gameOutput(area, "You see the tree is empty.");
+			}else if(localTree.getResident()<5){
 				gameOutput(area, "You see the tree contains a pest");
-			}else if(localTree.getPest()==0){
-				gameOutput(area, "You see the tree is empty.");					
-			}else if(localTree.getPest()==2){
+			}else{
 				gameOutput(area, "You see the tree contains a pollinator");
 			}
 		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
 		}else{
-			gameOutput(area, "Error: " +otherWords + " is not a Tree, nor is it an object in game.");
+			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game.");
 		}
 	}
 	
@@ -237,6 +240,7 @@ public class Game {
 	
 	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
+			//bound with address book
 			panel.showTree(gameState.getTree(otherWords.substring(1)));
 			gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 			gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());

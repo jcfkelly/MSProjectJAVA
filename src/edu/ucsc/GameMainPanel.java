@@ -14,14 +14,14 @@ public class GameMainPanel extends JPanel{
 	 private static String ON_TOP_COMMAND = "ontop";
 	 private static String LAYER_COMMAND = "layer";
 	 
-	 final ImageIcon antsIcon = new ImageIcon("assets/MS_Project_Ants.png");
-	 final ImageIcon aphidsIcon = new ImageIcon("assets/MS_Project_Aphids.png");
-	 final ImageIcon beesIcon = new ImageIcon("assets/MS_Project_Bees.png");
-	 final ImageIcon frogsIcon = new ImageIcon("assets/MS_Project_Frogs.pngf");
-	 final ImageIcon gophersIcon = new ImageIcon("assets/MS_Project_Gophers.png");
-	 final ImageIcon waspsIcon = new ImageIcon("assets/MS_Project_Wasps.png");
-	 final ImageIcon butterfliesIcon = new ImageIcon("assets/MS_Project_Butterflies.png");
-	 final ImageIcon ladybugsIcon = new ImageIcon("assets/MS_Project_Ladybugs.png");
+	 final ImageIcon antsIcon = 		new ImageIcon("assets/MS_Project_Ants.png");
+	 final ImageIcon aphidsIcon = 		new ImageIcon("assets/MS_Project_Aphids.png");
+	 final ImageIcon beesIcon = 		new ImageIcon("assets/MS_Project_Bees.png");
+	 final ImageIcon frogsIcon = 		new ImageIcon("assets/MS_Project_Frogs.png");
+	 final ImageIcon gophersIcon = 		new ImageIcon("assets/MS_Project_Gophers.png");
+	 final ImageIcon waspsIcon = 		new ImageIcon("assets/MS_Project_Wasps.png");
+	 final ImageIcon butterfliesIcon =	new ImageIcon("assets/MS_Project_Butterflies.png");
+	 final ImageIcon ladybugsIcon = 	new ImageIcon("assets/MS_Project_Ladybugs.png");
 	
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;

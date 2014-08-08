@@ -3,6 +3,8 @@ package edu.ucsc;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class GameState{
 	private final int MAX_X=4;
@@ -11,117 +13,17 @@ public class GameState{
 	private final int MIN_Y=0;
 	private int direction = 0;
 	private Point position;
-	private ArrayList<String> treeNames;
 	private ArrayList<String> addressBook; //this is where the things get stored in birdbook 
 	private HashMap<String, Tree> treeMap;
 	private boolean winState=false;
 	private int steps=0;
+	private int season=0;
 	private int poison=1;
 	
 	//check whether winState ever works in debugging
 	public GameState(){
 		//complete reset in GameState
 		position = new Point(0,0);
-		treeNames = new ArrayList<String>(80);
-		treeNames.add("Berna");
-		treeNames.add("Calabrese");
-		treeNames.add("Carvalhal");
-		treeNames.add("Fukuhara"); 
-		treeNames.add("Kona");
-		treeNames.add("Tomango"); 
-		treeNames.add("BonnieBrae"); 
-		treeNames.add("FemmineloStTeresa"); 
-		treeNames.add("Chinese Chestnut");
-		treeNames.add("Cadanera");
-		treeNames.add("Clanor");
-		treeNames.add("Belladonna");
-		treeNames.add("Gardner");
-		treeNames.add("Macetera");
-		treeNames.add("Verna");
-		treeNames.add("Lemon");
-		treeNames.add("Jhambiri");	
-		treeNames.add("BlackWalnut");
-		treeNames.add("ScarletNavel");
-		treeNames.add("Tarocco");
-		treeNames.add("CaraCara");
-		treeNames.add("Homosassa");
-		treeNames.add("Malta");
-		treeNames.add("Vicieda");
-		treeNames.add("Eureka");
-		treeNames.add("Lisbon");
-		treeNames.add("ShagbarkHickory");
-		treeNames.add("Sanguinelli");
-		treeNames.add("Moro");
-		treeNames.add("Maltese");
-		treeNames.add("Jaffa");
-		treeNames.add("Marrs");
-		treeNames.add("Westin");
-		treeNames.add("Meyer");
-		treeNames.add("Verna");
-		treeNames.add("Almond");
-		treeNames.add("DreamNavel");
-		treeNames.add("LateNavel");
-		treeNames.add("CaliforniaNavel");
-		treeNames.add("Jincheng");
-		treeNames.add("Midsweet");
-		treeNames.add("Sorrento");
-		treeNames.add("Ponderosa");
-		treeNames.add("YenBen");
-		treeNames.add("Chestnut");
-		treeNames.add("Bahianinha");
-		treeNames.add("SugarOrange");
-		treeNames.add("BloodOrange");
-		treeNames.add("Mosambi");
-		treeNames.add("ParsonBrown");
-		treeNames.add("KaffirLime");
-		treeNames.add("VariegatedPink");
-		treeNames.add("AmericanHazelnut");
-		treeNames.add("Macadamia");
-		treeNames.add("Orange");
-		treeNames.add("Tangerine");
-		treeNames.add("NavelOrange");
-		treeNames.add("Pera");
-		treeNames.add("Roble");
-		treeNames.add("KeyLime");
-		treeNames.add("RangpurLime");
-		treeNames.add("NorthernHardyPecan");
-		treeNames.add("Pecan");
-		treeNames.add("GoldenDelicious");
-		treeNames.add("PacificRose");
-		treeNames.add("YellowTransparent");
-		treeNames.add("PineappleOrange");
-		treeNames.add("Queen");
-		treeNames.add("MuskLime");
-		treeNames.add("SpanishLime");
-		treeNames.add("RedOak");
-		treeNames.add("Walnut");
-		treeNames.add("Goldenrette");
-		treeNames.add("ArkansasBlack");
-		treeNames.add("Sampion");
-		treeNames.add("RhodeRed");
-		treeNames.add("Sunstar");
-		treeNames.add("PersianLime");
-		treeNames.add("Limequat");
-		treeNames.add("HoneyLocust");
-		treeNames.add("Pistachio");
-		treeNames.add("Fuji");
-		treeNames.add("Gala");
-		treeNames.add("RedDelicious");
-		treeNames.add("PinkLady");
-		treeNames.add("Ananasrenette");
-		treeNames.add("Accolade");
-		treeNames.add("Colorata");
-		treeNames.add("Cherry");
-		treeNames.add("Shirotai");
-		treeNames.add("Bramley");
-		treeNames.add("Washington");
-		treeNames.add("Granny");
-		treeNames.add("McIntosh");
-		treeNames.add("Apple");
-		treeNames.add("Amanogawa");
-		treeNames.add("Kanzan");
-		treeNames.add("Morello");
-		treeNames.add("Ukon");
 
 		addressBook = new ArrayList<String>(100); //ensures size is limited
 		for(int i =0 ; i<100; i++){ //all empty strings
@@ -131,16 +33,17 @@ public class GameState{
 
 		//Create Trees (Put on one line)
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
-		treeMap.put("Apple", new Tree(0,0,0, "assets/MS_Project_Trees_apple.jpg"));
-		treeMap.put("Ananasrenette", new Tree(0,1,0, "assets/MS_Project_Trees_ananasrenette.jpg"));
-		treeMap.put("Amanogawa", new Tree(1,0,0, "assets/MS_Project_Trees_amanogawa.jpg"));
-		treeMap.put("Bahianinha", new Tree(1,1,0, "assets/MS_Project_Trees_bahianinha.jpg"));
-		treeMap.put("Accolade", new Tree(1,1,0, "assets/MS_Project_Trees_accolade.jpg"));
-		treeMap.put("Almond", new Tree(4,7,0, "assets/MS_Project_Trees_Almond.jpg"));
+		//TODO: align
+		treeMap.put("Apple", 			new Tree(0,0,0, "assets/MS_Project_Trees_apple.jpg"));
+		treeMap.put("Ananasrenette", 	new Tree(0,1,0, "assets/MS_Project_Trees_ananasrenette.jpg"));
+		treeMap.put("Amanogawa", 		new Tree(1,0,0, "assets/MS_Project_Trees_amanogawa.jpg"));
+		treeMap.put("Bahianinha", 		new Tree(1,1,0, "assets/MS_Project_Trees_bahianinha.jpg"));
+		treeMap.put("Accolade", 		new Tree(1,1,0, "assets/MS_Project_Trees_accolade.jpg"));
+		treeMap.put("Almond", 			new Tree(4,7,0, "assets/MS_Project_Trees_Almond.jpg"));
 		treeMap.put("AmericanHazelnut", new Tree(3,5,0, "assets/MS_Project_Trees_AmericanHazelnut.jpg"));
-		treeMap.put("ArkansasBlack", new Tree(-3,2,0, "assets/MS_Project_Trees_ArkansasBlack.jpg"));
-		treeMap.put("Bahianinha", new Tree(-4,5,0, "assets/MS_Project_Trees_bahianinha.jpg"));
-		treeMap.put("Belladonna", new Tree(-2,8,0, "assets/MS_Project_Trees_Belladonna.jpg"));
+		treeMap.put("ArkansasBlack",	new Tree(-3,2,0, "assets/MS_Project_Trees_ArkansasBlack.jpg"));
+		treeMap.put("Bahianinha", 		new Tree(-4,5,0, "assets/MS_Project_Trees_bahianinha.jpg"));
+		treeMap.put("Belladonna", 		new Tree(-2,8,0, "assets/MS_Project_Trees_Belladonna.jpg"));
 		treeMap.put("Berna", new Tree(-4,10,0, "assets/MS_Project_Trees_Berna.jpg"));
 		treeMap.put("BlackWalnut", new Tree(4,9,0, "assets/MS_Project_Trees_BlackWalnut.jpg"));
 		treeMap.put("BloodOrange", new Tree(-2,5,0, "assets/MS_Project_Trees_BloodOrange.jpg"));
@@ -183,7 +86,7 @@ public class GameState{
 		treeMap.put("Macetera", new Tree(0,9,0, "assets/MS_Project_Trees_Macetera.jpg"));
 		treeMap.put("Malta", new Tree(0,8,0, "assets/MS_Project_Trees_Malta.jpg"));
 		treeMap.put("Maltese", new Tree(-2,7,0, "assets/MS_Project_Trees_Maltese.jpg"));
-		treeMap.put("Marrs", new Tree(0,0,7, "assets/MS_Project_Trees_Marrs.jpg"));
+		treeMap.put("Marrs", new Tree(0,7,0, "assets/MS_Project_Trees_Marrs.jpg"));
 		treeMap.put("McIntosh", new Tree(-1,0,0, "assets/MS_Project_Trees_McIntosh.jpg"));
 		treeMap.put("Meyer", new Tree(2,7,0, "assets/MS_Project_Trees_Meyer.jpg"));
 		treeMap.put("Midsweet", new Tree(0,6,0, "assets/MS_Project_Trees_Midsweet.jpg"));
@@ -230,8 +133,36 @@ public class GameState{
 		treeMap.put("Westin", new Tree(1,7,0, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent", new Tree(-2,3,0, "assets/MS_Project_Trees_YellowTransparent.jpg"));
 		treeMap.put("YenBen", new Tree(3,6,0, "assets/MS_Project_Trees_YenBen.jpg"));
+		insertRandomPests(6);
 	}
+	
+	private void insertRandomPollinator(){
+		Random random = new Random();
+		List<Tree> treeList=new ArrayList<>(treeMap.values());
+		Tree randomTree = treeList.get(random.nextInt(treeList.size()));
+		int randomPollinator;
+		while (randomTree.getResident()!=0){
+			randomTree = treeList.get(random.nextInt(treeList.size()));
+		}
+		randomPollinator= random.nextInt(4)+5;
+		randomTree.setResident(randomPollinator);
+	}
+	
+	private void insertRandomPests(int numTrees){
+		Random random = new Random();
+		List<Tree> treeList=new ArrayList<>(treeMap.values());
+		Tree randomTree = treeList.get(random.nextInt(treeList.size()));
+		int randomPest;
 		
+		for (int i =0; i < numTrees; i++){
+			while (randomTree.getResident()!=0){
+				randomTree = treeList.get(random.nextInt(treeList.size()));
+			}
+			randomPest = random.nextInt(4)+1;
+			randomTree.setResident(randomPest);
+		}
+	}
+	
 	public boolean movePosition(int dx, int dy){
 		int x = position.x;
 		int y = position.y;
