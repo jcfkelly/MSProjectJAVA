@@ -7,15 +7,17 @@ import java.awt.event.ActionListener;
 
 public class GameGUI extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
-    GameMainPanel gameMainPanel;
-    JTextField textField;
-    JTextArea textArea;
-    MyTextActionListener gameLoop;
-
+    private GameMainPanel gameMainPanel;
+    private JTextField textField;
+    private JTextArea textArea;
+    private MyTextActionListener gameLoop;
+    private GridBagConstraints c;
+    private GridBagLayout gridbag;
+    
     public GameGUI() {
         super(new GridBagLayout());
-        GridBagLayout gridbag = (GridBagLayout)getLayout();
-        GridBagConstraints c = new GridBagConstraints();
+        gridbag = (GridBagLayout)getLayout();
+        c = new GridBagConstraints();
 
         gameMainPanel = new GameMainPanel();
         gameMainPanel.setIntroState(0);
@@ -23,78 +25,54 @@ public class GameGUI extends JPanel implements ActionListener {
         c.gridy = 0;
         c.weightx = 0.0;
         c.gridheight = 4;
-        c.fill = GridBagConstraints.BOTH;
         gridbag.setConstraints(gameMainPanel, c);
         add(gameMainPanel);
 
-        textField = new JTextField(20);
+        textField = new JTextField();
         gameLoop = new MyTextActionListener();
         textField.addActionListener(gameLoop);
         textField.getDocument().putProperty("name", "Text Field");
+        textField.setPreferredSize(new Dimension(400,20));
+        textField.setMinimumSize(new Dimension(400,20));
+        textField.setMaximumSize(new Dimension(400,20));
         c.gridx = 0;
         c.gridy = 4;
         c.weightx = 1.0;
-        c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(textField, c);
         add(textField);
 
         textArea = new JTextArea();
         textArea.getDocument().putProperty("name", "Text Area");
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(200, 75));
+        scrollPane.setPreferredSize(new Dimension(400, 75));
+        scrollPane.setMaximumSize(new Dimension(400, 75));
+        scrollPane.setMinimumSize(new Dimension(400, 75));
         c.gridx = 0;
         c.gridy = 7;
         c.weightx = 0.0;
         c.gridheight = 2;
-        c.fill = GridBagConstraints.BOTH;
         gridbag.setConstraints(scrollPane, c);
         add(scrollPane);
 
         JButton button = new JButton("Enter");
         button.addActionListener(this);
         c.gridx = 1;
-        c.gridy = 6;
+        c.gridy = 4;
         c.weightx = 0.0;
         c.gridheight = 1;
         c.weighty = 0.0;
-        c.fill = GridBagConstraints.HORIZONTAL;
         gridbag.setConstraints(button, c);
         add(button);
         
-        JButton nextButton = new JButton(new ImageIcon("assets/nextButton.jpg"));
-        c.gridx = 3;
-        c.gridy = 0;
-        c.weightx = 0.0;
-        c.gridheight = 1;
-        c.weighty = 0.0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        gridbag.setConstraints(nextButton, c);
-        add(nextButton);
-        
-        JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
-        c.gridx = 3;
-        c.gridy = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        gridbag.setConstraints(guideButton, c);
-        add(guideButton);
-        
-        JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
-        c.gridx = 3;
-        c.gridy = 4;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        gridbag.setConstraints(bookButton, c);
-        add(bookButton);
-        
         setPreferredSize(new Dimension(740, 580));
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-        
     }
 
     class MyTextActionListener implements ActionListener {
         /** Handle the text field Return. */
         public void actionPerformed(ActionEvent e) {
             String input = textField.getText();
-            boolean keepLooping = Game.gameLoop(input, textArea, gameMainPanel);
+            boolean keepLooping = Game.gameLoop(input, textArea, gameMainPanel, GameGUI.this);
             if (!keepLooping){
                 textField.removeActionListener(gameLoop);
             }
@@ -109,6 +87,25 @@ public class GameGUI extends JPanel implements ActionListener {
         }
     }
 
+    public void onEnterOrchard(){
+    	//inventory
+        JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+        c.gridx = 4;
+        c.gridy = 1;
+        gridbag.setConstraints(guideButton, c);
+        add(guideButton);
+        
+        JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+        c.gridx = 4;
+        c.gridy = 2;
+        gridbag.setConstraints(bookButton, c);
+        add(bookButton);      
+        
+        revalidate();
+        repaint();
+    }
+    
+    
     /** Handle button click. */
     public void actionPerformed(ActionEvent e) {
         gameLoop.actionPerformed(e);

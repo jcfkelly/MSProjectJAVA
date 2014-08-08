@@ -5,6 +5,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameMainPanel extends JPanel{
+	 private JLayeredPane layeredPane;
+	 private JLabel dukeLabel;
+	 private JCheckBox onTop;
+	 private JComboBox layerList;
+
+	 //Action commands
+	 private static String ON_TOP_COMMAND = "ontop";
+	 private static String LAYER_COMMAND = "layer";
+	 
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
+	 final ImageIcon icon = createImageIcon("images/dukeWaveRed.gif");
 	
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;

@@ -18,11 +18,12 @@ public class GameState{
 	//check whether winState ever works in debugging
 	public GameState(){
 		//complete reset in GameState
-		position = new Point(0,-1);
+		position = new Point(0,0);
 		addressBook = new ArrayList<String>(100); //ensures size is limited
 		for(int i =0 ; i<100; i++){ //all empty strings
 			addressBook.add(null);
 		}
+		addressBook.add(0, "&Shed");
 
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
 		//Create Trees (Put on one line)
@@ -30,6 +31,7 @@ public class GameState{
 		treeMap.put("Ananasrenette", new Tree(0,1,0, "assets/MS_Project_Trees_ananasrenette.jpg"));
 		treeMap.put("Amanogawa", new Tree(1,0,0, "assets/MS_Project_Trees_amanogawa.jpg"));
 		treeMap.put("Bahianinha", new Tree(1,1,0, "assets/MS_Project_Trees_bahianinha.jpg"));
+		
 	}
 		
 	public boolean movePosition(int dx, int dy){
@@ -55,8 +57,12 @@ public class GameState{
 		}
 		
 		position.move(x+dx, y+dy); //This is because it cannot go into the lake
-		//System.out.println(position.toString());
 		return success;
+	}
+	
+	public ArrayList addToAddressBook(String s){
+		addressBook.add(s);
+		return addressBook;
 	}
 	
 	public void moveToPoint(Point p){
