@@ -166,20 +166,20 @@ public class Game {
 		}
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
-				if(gameState.getPoison()==1){
+				if(gameState.getPoison()==1 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==1){
 					gameOutput(area, "You put the Apple pesticide in the tree");
-				}else if(gameState.getPoison()==2){
+				}else if(gameState.getPoison()==2 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==2){
 					gameOutput(area, "You put the Orange pesticide in the tree");
-				}else if(gameState.getPoison()==3){
+				}else if(gameState.getPoison()==3 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==3){
 					gameOutput(area, "You put the Cherry pesticide in the tree");
-				}else if(gameState.getPoison()==4){
+				}else if(gameState.getPoison()==4 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==4){
 					gameOutput(area, "You put the Nut pesticide in the tree");
-				}else if(gameState.getPoison()==5){
+				}else if(gameState.getPoison()==5 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==5){
 					gameOutput(area, "You put the Lemon pesticide in the tree");
-				}else if(gameState.getPoison()==6){
+				}else if(gameState.getPoison()==6 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==6){
 					gameOutput(area, "You put the Lime pesticide in the tree.");
 				}else{
-					gameOutput(area, "You cannot put a non-same tree poison in this tree.");
+					gameOutput(area, "You cannot put a non-"+getSubject(otherWords).substring(1)+" poison in a "+getSubject(otherWords).substring(1)+" tree.");
 				}
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
@@ -227,6 +227,9 @@ public class Game {
 			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game.");
 		}
 	}
+	
+	
+	//TODO: create help function
 	
 	private static void turn(JTextArea area, Point p, String otherWords){
 		if (otherWords.equalsIgnoreCase("right")){
