@@ -19,7 +19,7 @@ public class Input{
 			return 1;
 		}else if(word.equalsIgnoreCase("walk")){
 			return 2;
-		}else if(word.equalsIgnoreCase("rename")){
+		}else if(word.equalsIgnoreCase("help")){
 			return 3;
 		}else if (word.equalsIgnoreCase("turn")){
 			return 4;

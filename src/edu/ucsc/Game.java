@@ -48,10 +48,8 @@ public class Game {
 			gameOutput(area, "You win!");
 			return false;
 		}
-		//System.out.println(Input.isCommand(input));
 		int commandType = Input.isCommand(input);
 		
-		//System.out.print(input); //for debugging
 		String otherWords = Input.getOtherWords(input);
 		Point p = gameState.getPosition();
 		if (commandType == 0){//for START
@@ -63,8 +61,8 @@ public class Game {
 		else if (commandType == 2){ //for WALK		
 			walk(panel, area, p, otherWords);
 		}
-		else if (commandType == 3){//for RENAME
-			//rename(area, p, otherWords);
+		else if (commandType == 3){//for HELP
+			
 		}
 		else if (commandType == 4){//for TURN
 			turn(area, p, otherWords);
@@ -77,9 +75,9 @@ public class Game {
             }
 		}
 		else if(commandType == 6){//for EXIT
-			
+			exit(panel, area);
 		}else if(commandType == 7){//for EQUALS
-			
+			equals(area, p, otherWords);
 		}
 		else if (commandType == -1){
 			gameOutput(area, "That is not an option. Did you mean to use put, look, next, start, exit, quit, or walk?");
@@ -216,10 +214,22 @@ public class Game {
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
 			if(localTree.getResident() == 0){
 				gameOutput(area, "You see the tree is empty.");
-			}else if(localTree.getResident()<5){
-				gameOutput(area, "You see the tree contains a pest");
-			}else{
-				gameOutput(area, "You see the tree contains a pollinator");
+			}else if(localTree.getResident()==1){
+				gameOutput(area, "You see the tree contains ants. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==2){
+				gameOutput(area, "You see the tree contains wasps. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==3){
+				gameOutput(area, "You see the tree contains gophers. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==4){
+				gameOutput(area, "You see the tree contains aphids. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==5){
+				gameOutput(area, "You see the tree contains butterflies. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==6){
+				gameOutput(area, "You see the tree contains bees. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==7){
+				gameOutput(area, "You see the tree contains frogs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			}else if(localTree.getResident()==8){
+				gameOutput(area, "You see the tree contains ladybugs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
 			}
 		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");

@@ -6,13 +6,6 @@ import java.awt.*;
 
 public class GameMainPanel extends JPanel{
 	 private JLayeredPane layeredPane;
-	 private JLabel pestLabel;
-	 private JCheckBox onTop;
-	 private JComboBox layerList;
-
-	 //Action commands
-	 private static String ON_TOP_COMMAND = "ontop";
-	 private static String LAYER_COMMAND = "layer";
 	 
 	 final ImageIcon antsIcon = 		new ImageIcon("assets/MS_Project_Ants.png");
 	 final ImageIcon aphidsIcon = 		new ImageIcon("assets/MS_Project_Aphids.png");
@@ -183,10 +176,54 @@ public class GameMainPanel extends JPanel{
     
     public void showTree(Tree tree){
     	removeAll();
-		ImageIcon imageJPanel = new ImageIcon(tree.getTreeSpecies());
+		JLayeredPane treeLayer = new JLayeredPane();
+		JLayeredPane pestLayer = new JLayeredPane();
+    	ImageIcon imageJPanel = new ImageIcon(tree.getTreeSpecies());
 		JLabel treeLabel = new JLabel();
 		treeLabel.setIcon(imageJPanel);
+		treeLayer.setLayer(treeLabel, 0);
 		add(treeLabel);
+		if (tree.getResident()==1){
+			JLabel antLabel = new JLabel();
+			pestLayer.setLayer(antLabel, 1);
+			antLabel.setIcon(antsIcon);
+			add(antLabel);
+		}else if (tree.getResident()==2){
+			JLabel waspLabel = new JLabel();
+			pestLayer.setLayer(waspLabel, 1);
+			waspLabel.setIcon(waspsIcon);
+			add(waspLabel);
+		}else if (tree.getResident()==3){
+			JLabel gopherLabel = new JLabel();
+			pestLayer.setLayer(gopherLabel, 1);
+			gopherLabel.setIcon(gophersIcon);
+			add(gopherLabel);
+		}else if (tree.getResident()==4){
+			JLabel aphidLabel = new JLabel();
+			pestLayer.setLayer(aphidLabel, 1);
+			aphidLabel.setIcon(aphidsIcon);
+			add(aphidLabel);
+		}else if (tree.getResident()==5){
+			JLabel butterflyLabel = new JLabel();
+			pestLayer.setLayer(butterflyLabel, 1);
+			butterflyLabel.setIcon(butterfliesIcon);
+			add(butterflyLabel);
+		}else if (tree.getResident()==6){
+			JLabel beeLabel = new JLabel();
+			pestLayer.setLayer(beeLabel, 1);
+			beeLabel.setIcon(beesIcon);
+			add(beeLabel);
+		}else if (tree.getResident()==7){
+			JLabel frogLabel = new JLabel();
+			pestLayer.setLayer(frogLabel, 1);
+			frogLabel.setIcon(frogsIcon);
+			add(frogLabel);
+		}else if (tree.getResident()==8){
+			JLabel ladybugLabel = new JLabel();
+			pestLayer.setLayer(ladybugLabel, 1);
+			ladybugLabel.setIcon(ladybugsIcon);
+			add(ladybugLabel);
+		}
 		revalidate();
 		repaint();
 	}
