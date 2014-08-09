@@ -212,24 +212,28 @@ public class Game {
 		}
 		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
-			if(localTree.getResident() == 0){
-				gameOutput(area, "You see the tree is empty.");
-			}else if(localTree.getResident()==1){
-				gameOutput(area, "You see the tree contains ants. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==2){
-				gameOutput(area, "You see the tree contains wasps. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==3){
-				gameOutput(area, "You see the tree contains gophers. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==4){
-				gameOutput(area, "You see the tree contains aphids. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==5){
-				gameOutput(area, "You see the tree contains butterflies. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==6){
-				gameOutput(area, "You see the tree contains bees. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==7){
-				gameOutput(area, "You see the tree contains frogs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
-			}else if(localTree.getResident()==8){
-				gameOutput(area, "You see the tree contains ladybugs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+			if (localTree.getTreeType()==0){
+				gameOutput(area, "The tree is dead. You see it is empty. Pests must have killed it.");
+			}else{
+				if(localTree.getResident() == 0){
+					gameOutput(area, "You see the tree is empty.");
+				}else if(localTree.getResident()==1){
+					gameOutput(area, "You see the tree contains ants. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==2){
+					gameOutput(area, "You see the tree contains wasps. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==3){
+					gameOutput(area, "You see the tree contains gophers. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==4){
+					gameOutput(area, "You see the tree contains aphids. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==5){
+					gameOutput(area, "You see the tree contains butterflies. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==6){
+					gameOutput(area, "You see the tree contains bees. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==7){
+					gameOutput(area, "You see the tree contains frogs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}else if(localTree.getResident()==8){
+					gameOutput(area, "You see the tree contains ladybugs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+				}				
 			}
 		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
@@ -280,12 +284,16 @@ public class Game {
 			int dir = gameState.getDirection();
 				if(dir == 0){
 					gameOutput(area, "You walk North");
+					gameState.takeStep();
 				}else if (dir ==90){
 					gameOutput(area, "You walk East");
+					gameState.takeStep();
 				}else if(dir ==180){
 					gameOutput(area, "You walk South");
+					gameState.takeStep();
 				}else{//dir == 270
 					gameOutput(area, "You walk West");
+					gameState.takeStep();
 				}
 		}
 		else{

@@ -45,9 +45,9 @@ public class Tree {
 		return treeType;
 	}
 
-	public Tree(int x, int y, int resident, int treeType, String type){ 
+	public Tree(int x, int y, int treeType, String type){ 
 		this.location = new Point(x, y);
-		this.resident = resident;
+		this.resident = 0;
 		this.treeType = treeType;
 		this.alive = true;
 		this.species = type;
