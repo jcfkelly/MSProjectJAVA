@@ -37,6 +37,11 @@ public class Tree {
 		return alive;
 	}
 	
+	public String setTreeSpecies(String s){
+		species = s;
+		return species;
+	}
+	
 	public String getTreeSpecies(){
 		return species;
 	}

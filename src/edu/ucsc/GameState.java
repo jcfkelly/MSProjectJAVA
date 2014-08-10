@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameState{
+	private boolean inGame=false;
 	private int apple=1;
 	private int orange=2;
 	private int cherry=3;
@@ -79,7 +80,7 @@ public class GameState{
 		treeMap.put("HoneyLocust", 			new Tree(3,2, nut, "assets/MS_Project_Trees_HoneyLocust.jpg"));
 		treeMap.put("Jaffa", 				new Tree(-1,7, orange, "assets/MS_Project_Trees_Jaffa.jpg"));
 		treeMap.put("Jhambiri", 			new Tree(3,9, orange, "assets/MS_Project_Trees_Jhambiri.jpg"));
-		treeMap.put("Jincheng", 			new Tree(1,6, orange, "assets/MS_Project_Trees_Jincheng.jpg"));
+		treeMap.put("Jincheng", 			new Tree(-1,6, orange, "assets/MS_Project_Trees_Jincheng.jpg"));
 		treeMap.put("KaffirLime", 			new Tree(1,5, lime, "assets/MS_Project_Trees_KaffirLime.jpg"));
 		treeMap.put("Kanzan", 				new Tree(2,0, cherry, "assets/MS_Project_Trees_Kanzan.jpg"));
 		treeMap.put("KeyLime", 				new Tree(1,4, lime, "assets/MS_Project_Trees_KeyLime.jpg"));
@@ -106,7 +107,7 @@ public class GameState{
 		treeMap.put("PacificRose", 			new Tree(-3,3, apple, "assets/MS_Project_Trees_PacificRose.jpg"));
 		treeMap.put("ParsonBrown", 			new Tree(0,5, orange, "assets/MS_Project_Trees_ParsonBrown.jpg"));
 		treeMap.put("Pecan", 				new Tree(4,4, nut, "assets/MS_Project_Trees_Pecan.jpg"));
-		treeMap.put("Pera", 				new Tree(1,4, orange, "assets/MS_Project_Trees_Pera.jpg"));
+		treeMap.put("Pera", 				new Tree(-1,4, orange, "assets/MS_Project_Trees_Pera.jpg"));
 		treeMap.put("PersianLime", 			new Tree(1,2, lime, "assets/MS_Project_Trees_PersianLime.jpg"));
 		treeMap.put("PineappleOrange", 		new Tree(1,3, orange, "assets/MS_Project_Trees_PineappleOrange.jpg"));
 		treeMap.put("PinkLady", 			new Tree(-1,1, apple, "assets/MS_Project_Trees_PinkLady.jpg"));
@@ -170,6 +171,26 @@ public class GameState{
 		}
 	}
 	
+	public void advanceSeason(){
+			season+=1;
+	}
+	
+	public int getSeason(){
+		return season;
+	}
+	
+	public int getSteps() {
+		return steps;
+	}
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
+	}
+
 	public boolean movePosition(int dx, int dy){
 		int x = position.x;
 		int y = position.y;
@@ -196,9 +217,8 @@ public class GameState{
 		return success;
 	}
 	
-	public ArrayList addToAddressBook(String s){
+	public void addToAddressBook(String s){
 		addressBook.add(s);
-		return addressBook;
 	}
 	
 	public void moveToPoint(Point p){
@@ -286,6 +306,15 @@ public class GameState{
 			}
 		}
 		return null;
+	}
+	
+	
+	public boolean isTreeDead(String treeName){
+		if (season >0 && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public Tree getTreeFromLocation(Point p){
