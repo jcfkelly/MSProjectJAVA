@@ -181,46 +181,46 @@ public class GameMainPanel extends JPanel{
     	ImageIcon imageJPanel = new ImageIcon(tree.getTreeSpecies());
 		JLabel treeLabel = new JLabel();
 		treeLabel.setIcon(imageJPanel);
-		treeLayer.setLayer(treeLabel, 0);
+		treeLayer.setLayer(treeLabel, 1);
 		add(treeLabel);
 		if (tree.getResident()==1){
 			JLabel antLabel = new JLabel();
-			pestLayer.setLayer(antLabel, 1);
+			pestLayer.setLayer(antLabel, 0);
 			antLabel.setIcon(antsIcon);
 			add(antLabel);
 		}else if (tree.getResident()==2){
 			JLabel waspLabel = new JLabel();
-			pestLayer.setLayer(waspLabel, 1);
+			pestLayer.setLayer(waspLabel, 0);
 			waspLabel.setIcon(waspsIcon);
 			add(waspLabel);
 		}else if (tree.getResident()==3){
 			JLabel gopherLabel = new JLabel();
-			pestLayer.setLayer(gopherLabel, 1);
+			pestLayer.setLayer(gopherLabel, 0);
 			gopherLabel.setIcon(gophersIcon);
 			add(gopherLabel);
 		}else if (tree.getResident()==4){
 			JLabel aphidLabel = new JLabel();
-			pestLayer.setLayer(aphidLabel, 1);
+			pestLayer.setLayer(aphidLabel, 0);
 			aphidLabel.setIcon(aphidsIcon);
 			add(aphidLabel);
 		}else if (tree.getResident()==5){
 			JLabel butterflyLabel = new JLabel();
-			pestLayer.setLayer(butterflyLabel, 1);
+			pestLayer.setLayer(butterflyLabel, 0);
 			butterflyLabel.setIcon(butterfliesIcon);
 			add(butterflyLabel);
 		}else if (tree.getResident()==6){
 			JLabel beeLabel = new JLabel();
-			pestLayer.setLayer(beeLabel, 1);
+			pestLayer.setLayer(beeLabel, 0);
 			beeLabel.setIcon(beesIcon);
 			add(beeLabel);
 		}else if (tree.getResident()==7){
 			JLabel frogLabel = new JLabel();
-			pestLayer.setLayer(frogLabel, 1);
+			pestLayer.setLayer(frogLabel, 0);
 			frogLabel.setIcon(frogsIcon);
 			add(frogLabel);
 		}else if (tree.getResident()==8){
 			JLabel ladybugLabel = new JLabel();
-			pestLayer.setLayer(ladybugLabel, 1);
+			pestLayer.setLayer(ladybugLabel, 0);
 			ladybugLabel.setIcon(ladybugsIcon);
 			add(ladybugLabel);
 		}

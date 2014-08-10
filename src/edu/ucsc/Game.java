@@ -50,14 +50,6 @@ public class Game {
 			return false;
 		}
 		
-		if(gameState.getSteps()%200==0){
-			gameState.advanceSeason();
-			if(gameState.getSeason()<4){
-				return true;
-			}else{
-				return false;
-			}
-		}
 		
 		int commandType = Input.isCommand(input);
 		
@@ -77,7 +69,7 @@ public class Game {
 			}
 		}
 		else if (commandType == 3){//for HELP
-			
+			help(panel, area, gameGUI);
 		}
 		else if (commandType == 4){//for TURN
 			turn(area, p, otherWords);
@@ -128,7 +120,13 @@ public class Game {
         gameOutput(area, "You enter the Orchard.");
 	}
 	
+	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
+		panel.setIntroState(0);
+        gameOutput(area, "You are looking at the help menu.");
+	}
+	
 	private static void exit(GameMainPanel panel, JTextArea area){
+		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 		gameOutput(area, "You exit back to the game.");
 	}

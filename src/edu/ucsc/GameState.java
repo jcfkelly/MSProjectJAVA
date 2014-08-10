@@ -338,6 +338,14 @@ public class GameState{
 	}
 	
 	public boolean winState(){
+		if(getSteps()%200==0 && getSteps()!=0){
+			advanceSeason();
+			if(getSeason()==5){
+				winState = true;
+			}else{
+				winState = false;
+			}
+		}
 		return winState;
 	}
 
