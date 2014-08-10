@@ -14,6 +14,7 @@ public class Tree {
 	private String species;
 	private int treeType;
 	private int resident=0;
+	private int season;
 
 	
 	public int getResident() {
@@ -37,13 +38,20 @@ public class Tree {
 		return alive;
 	}
 	
-	public String setTreeSpecies(){
-		species = "assets/MS_Project_Trees_dead.jpg";
-		return species;
+	public void setTreeSpecies(){
+		this.species = "assets/MS_Project_Trees_dead.jpg";
 	}
 	
 	public String getTreeSpecies(){
 		return species;
+	}
+	
+	public int getSeason() {
+		return season;
+	}
+
+	public void setSeason(int season) {
+		this.season = season;
 	}
 	
 	public int getTreeType() {
@@ -56,6 +64,9 @@ public class Tree {
 		this.treeType = treeType;
 		this.alive = true;
 		this.species = type;
+		this.season = 5;
 	}
+
+	
 }
 

@@ -24,7 +24,7 @@ public class GameState{
 	private HashMap<String, Tree> treeMap;
 	private boolean winState=false;
 	private int steps=0;
-	private int season=0; 	//SEASON 
+	private int season=0; //SEASON 
 	private int poison=1;
 
 	//TODO: create win condition
@@ -167,6 +167,7 @@ public class GameState{
 				randomTree = treeList.get(random.nextInt(treeList.size()));
 			}
 			randomPest = random.nextInt(4)+1;
+			randomTree.setSeason(season);
 			randomTree.setResident(randomPest);
 		}
 	}
@@ -282,14 +283,14 @@ public class GameState{
 		return null;
 	}
 	
-	
-	public boolean isTreeDead(String treeName){
-		if (season >0 && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
-			treeMap.get(treeName).setTreeSpecies();
-			return true;
-		}else{
-			return false;
+	public boolean isTreeDead(){
+		for(String treeName : treeMap.keySet()){
+			if (season > treeMap.get(treeName).getSeason() && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
+				treeMap.get(treeName).setTreeSpecies();
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	public Tree getTreeFromLocation(Point p){

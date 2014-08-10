@@ -48,8 +48,7 @@ public class Game {
 		if(gameState.winState()){
 			gameOutput(area, "You win!");
 			return false;
-		}
-		
+		}		
 		
 		int commandType = Input.isCommand(input);
 		
