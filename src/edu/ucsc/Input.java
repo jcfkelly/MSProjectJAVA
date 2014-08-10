@@ -28,7 +28,7 @@ public class Input{
 		}
 		else if(word.equalsIgnoreCase("exit")){
 			return 6;
-		}else if(word.contains(" = ")){
+		}else if(word.contains("put")){
 			return 7;
 		}
 		else{

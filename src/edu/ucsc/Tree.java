@@ -37,8 +37,8 @@ public class Tree {
 		return alive;
 	}
 	
-	public String setTreeSpecies(String s){
-		species = s;
+	public String setTreeSpecies(){
+		species = "assets/MS_Project_Trees_dead.jpg";
 		return species;
 	}
 	

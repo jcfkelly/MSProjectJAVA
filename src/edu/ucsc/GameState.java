@@ -267,33 +267,7 @@ public class GameState{
 	}
 	
 	
-	//Tree		
-	public boolean isBorder(Point p){
-		if(p.x < -4 || p.x > 4 || p.y < 0 || p.y >10){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public void renameTree(String oldName, String newName){
-		if(oldName==null || newName == null){
-			return; //nothing to do here
-		}
-		if (!doesTreeExist(oldName)){
-			return; //nothing to do here
-		}
-		if(newName.equalsIgnoreCase("")){
-			return; //nothing to do here
-		}
-		if(doesTreeExist(newName)){
-			return;
-		}
-		Tree temp = treeMap.get(oldName);
-		treeMap.put(newName, temp);
-		treeMap.remove(oldName);
-	}
-	
+	//Tree	
 	public boolean doesTreeExist(String tree){
 		return treeMap.containsKey(tree);
 	}
@@ -311,6 +285,7 @@ public class GameState{
 	
 	public boolean isTreeDead(String treeName){
 		if (season >0 && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
+			treeMap.get(treeName).setTreeSpecies();
 			return true;
 		}else{
 			return false;

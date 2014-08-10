@@ -65,10 +65,12 @@ public class Game {
 			if(gameState.isInGame()){
 				walk(panel, area, p, otherWords);
 			}else{
-				gameOutput(area, "You cannot walk while you are reading things or looking in the Book or Guide.");
+				gameOutput(area, "You cannot walk while you are reading things or looking"
+						+ "\n in the Book or Guide.");
 			}
 		}
 		else if (commandType == 3){//for HELP
+			gameState.setInGame(false);
 			help(panel, area, gameGUI);
 		}
 		else if (commandType == 4){//for TURN
@@ -94,7 +96,8 @@ public class Game {
 			equals(area, p, otherWords);
 		}
 		else if (commandType == -1){
-			gameOutput(area, "That is not an option. Did you mean to use put, look, next, start, exit, quit, or walk?");
+			gameOutput(area, "That is not an option. Did you mean to use \n"
+					+ "put, look, next, start, exit, quit, or walk?");
 		}
 		return true;
 	}
@@ -121,8 +124,9 @@ public class Game {
 	}
 	
 	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
-		panel.setIntroState(0);
-        gameOutput(area, "You are looking at the help menu.");
+		panel.setIntroState(1);
+        gameOutput(area, "You are looking at the help menu. \n"
+        		+ "Type next to move through, or exit to get back to the game.");
 	}
 	
 	private static void exit(GameMainPanel panel, JTextArea area){

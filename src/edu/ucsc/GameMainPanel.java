@@ -100,7 +100,8 @@ public class GameMainPanel extends JPanel{
             			+ "Exit :: exits the help section. \n\n"
             			+ "Quit :: quits the game \n\n"
             			+ "Guide :: opens the field guide \n\n"
-            			+ "Book :: opens the address book");
+            			+ "Book :: opens the address book \n\n"
+            			+ "Put :: used in conjunction with the = sign");
             	break;
             case 6:
             	textPane.setText("Help: what about & and *? \n\n"
@@ -116,7 +117,7 @@ public class GameMainPanel extends JPanel{
             	textPane.setText("How do you use * and &? \n\n"
             			+ "If you are in the same area as an Apple \n"
             			+ "tree, you could use: \n"
-            			+ "*Book = &Apple \n"
+            			+ "put *Book = &Apple \n"
             			+ "to store the address of the Apple tree in \n"
             			+ "your special address book called Book. \n\n"
             			+ "If you want to know what creature is \n"
@@ -140,8 +141,10 @@ public class GameMainPanel extends JPanel{
             	textPane.setText("HELP: = \n\n"
             			+ "Book only takes addreses. Use \n"
             			+ "of = also requires knowledge of * and & \n\n"
-            			+ "*Book = &Apple :: stores address of the \n"
-            			+ "Apple tree in Book.");
+            			+ "put *Book = &Apple :: stores address of the \n"
+            			+ "Apple tree in Book. \n"
+            			+ "put *Sunstar = *Poison \n"
+            			+ "puts poison in the Sunstar tree.");
             	break;
             case 10:
             	textPane.setText("Note: \n\n"
