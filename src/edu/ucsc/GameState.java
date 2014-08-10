@@ -49,7 +49,7 @@ public class GameState{
 		treeMap.put("AmericanHazelnut", 	new Tree(3,5, nut, "assets/MS_Project_Trees_AmericanHazelnut.jpg"));
 		treeMap.put("ArkansasBlack",		new Tree(-3,2, apple, "assets/MS_Project_Trees_ArkansasBlack.jpg"));
 		treeMap.put("Bahianinha", 			new Tree(-4,5, orange, "assets/MS_Project_Trees_bahianinha.jpg"));
-		treeMap.put("Belladonna",	 		new Tree(-2,8, orange, "assets/MS_Project_Trees_Belladonna.jpg"));
+		treeMap.put("Belladonna",	 		new Tree(-2,9, orange, "assets/MS_Project_Trees_Belladonna.jpg"));
 		treeMap.put("Berna", 				new Tree(-4,10, orange, "assets/MS_Project_Trees_Berna.jpg"));
 		treeMap.put("BlackWalnut",			new Tree(4,9, nut, "assets/MS_Project_Trees_BlackWalnut.jpg"));
 		treeMap.put("BloodOrange",	 		new Tree(-2,5, orange, "assets/MS_Project_Trees_BloodOrange.jpg"));
@@ -77,7 +77,7 @@ public class GameState{
 		treeMap.put("Granny", 				new Tree(-2,0, apple, "assets/MS_Project_Trees_Granny.jpg"));
 		treeMap.put("Homosassa", 			new Tree(-1,8, orange, "assets/MS_Project_Trees_Homosassa.jpg"));
 		treeMap.put("HoneyLocust", 			new Tree(3,2, nut, "assets/MS_Project_Trees_HoneyLocust.jpg"));
-		treeMap.put("Jaffa", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Jaffa.jpg"));
+		treeMap.put("Jaffa", 				new Tree(-1,7, orange, "assets/MS_Project_Trees_Jaffa.jpg"));
 		treeMap.put("Jhambiri", 			new Tree(3,9, orange, "assets/MS_Project_Trees_Jhambiri.jpg"));
 		treeMap.put("Jincheng", 			new Tree(1,6, orange, "assets/MS_Project_Trees_Jincheng.jpg"));
 		treeMap.put("KaffirLime", 			new Tree(1,5, lime, "assets/MS_Project_Trees_KaffirLime.jpg"));
@@ -228,6 +228,10 @@ public class GameState{
 	
 	public int takeStep(){
 		return steps += 1;
+	}
+	
+	public int takeSteps(){
+		return steps+=3;
 	}
 	
 	public boolean moveForward(){
