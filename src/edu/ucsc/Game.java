@@ -165,7 +165,14 @@ public class Game {
 			}else{
 				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
 			}
-		}else if(getSubject(otherWords).equals("*Poison")){
+		}else if(getSubject(otherWords).equals("Book")){
+			if (getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot replace the Book with an address.");
+			}else if(getObject(otherWords).startsWith("*")){
+				gameOutput(area, "You cannot replace the Book with an object");
+			}
+		}
+		else if(getSubject(otherWords).equals("*Poison")){
 			//also have to be in shed, cannot switch poisons from long distance
 			if(getObject(otherWords).equals("*Apple")){
 				gameState.changePoison(1);

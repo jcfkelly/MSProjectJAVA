@@ -141,7 +141,6 @@ public class GameState{
 		treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent",	new Tree(-2,3, apple, "assets/MS_Project_Trees_YellowTransparent.jpg"));
 		treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
-		treeMap.put("DeadTree", 			new Tree(100, 100, 0, ""));
 		insertRandomPests(6);
 	}
 	
