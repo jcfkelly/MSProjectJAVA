@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GameState{
+	private boolean changeSeason=false;
 	private boolean inGame=false;
 	private int apple=1;
 	private int orange=2;
@@ -173,7 +174,7 @@ public class GameState{
 	}
 	
 	public void advanceSeason(){
-			season+=1;
+		season+=1;
 	}
 	
 	public int getSeason(){
@@ -311,6 +312,15 @@ public class GameState{
 	
 	public void changePoison(int i){
 		poison = i;
+	}
+	
+	public boolean changeSeason(boolean thisSeason){
+		changeSeason = thisSeason;
+		return changeSeason;
+	}
+
+	public boolean getChangeSeason(){
+		return changeSeason;
 	}
 	
 	public boolean winState(){

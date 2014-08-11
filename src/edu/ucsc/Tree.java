@@ -64,7 +64,7 @@ public class Tree {
 		this.treeType = treeType;
 		this.alive = true;
 		this.species = type;
-		this.season = 5;
+		this.season = 4;
 	}
 
 	

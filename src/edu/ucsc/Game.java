@@ -50,6 +50,11 @@ public class Game {
 			return false;
 		}		
 		
+		if (gameState.getChangeSeason() == true){
+			gameState.advanceSeason();			
+			gameState.changeSeason(false);
+		}
+		
 		int commandType = Input.isCommand(input);
 		
 		String otherWords = Input.getOtherWords(input);
@@ -310,6 +315,10 @@ public class Game {
 	}
 	
 	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
+			gameState.changeSeason(true);
+		}
+		
 		if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
 			//bound with address book
 			panel.showTree(gameState.getTree(otherWords.substring(1)));
