@@ -6,14 +6,14 @@ import java.awt.*;
 
 public class GameMainPanel extends JPanel{
 	 
-	 final ImageIcon antsIcon = 		new ImageIcon("assets/MS_Project_Ants.png");
-	 final ImageIcon aphidsIcon = 		new ImageIcon("assets/MS_Project_Aphids.png");
-	 final ImageIcon beesIcon = 		new ImageIcon("assets/MS_Project_Bees.png");
-	 final ImageIcon frogsIcon = 		new ImageIcon("assets/MS_Project_Frogs.png");
-	 final ImageIcon gophersIcon = 		new ImageIcon("assets/MS_Project_Gophers.png");
-	 final ImageIcon waspsIcon = 		new ImageIcon("assets/MS_Project_Wasps.png");
-	 final ImageIcon butterfliesIcon =	new ImageIcon("assets/MS_Project_Butterflies.png");
-	 final ImageIcon ladybugsIcon = 	new ImageIcon("assets/MS_Project_Ladybugs.png");
+	 private final ImageIcon antsIcon = 		new ImageIcon("assets/MS_Project_Ants.png");
+	 private final ImageIcon aphidsIcon = 		new ImageIcon("assets/MS_Project_Aphids.png");
+	 private final ImageIcon beesIcon = 		new ImageIcon("assets/MS_Project_Bees.png");
+	 private final ImageIcon frogsIcon = 		new ImageIcon("assets/MS_Project_Frogs.png");
+	 private final ImageIcon gophersIcon = 		new ImageIcon("assets/MS_Project_Gophers.png");
+	 private final ImageIcon waspsIcon = 		new ImageIcon("assets/MS_Project_Wasps.png");
+	 private final ImageIcon butterfliesIcon =	new ImageIcon("assets/MS_Project_Butterflies.png");
+	 private final ImageIcon ladybugsIcon = 	new ImageIcon("assets/MS_Project_Ladybugs.png");
 	
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;
@@ -181,39 +181,39 @@ public class GameMainPanel extends JPanel{
     	ImageIcon treeImageIcon = new ImageIcon(tree.getTreeSpecies());
 		JLabel treeLabel = new JLabel();
 		treeLabel.setIcon(treeImageIcon);
-		treeLayer.setLayer(treeLabel, 0);
+		treeLayer.add(treeLabel, 0);
 		if (tree.getResident()==1){
 			JLabel antLabel = new JLabel();
 			antLabel.setIcon(antsIcon);
-			treeLayer.setLayer(antLabel, 1);
+			treeLayer.add(antLabel, 1);
 		}else if (tree.getResident()==2){
 			JLabel waspLabel = new JLabel();
 			waspLabel.setIcon(waspsIcon);
-			treeLayer.setLayer(waspLabel, 1);
+			treeLayer.add(waspLabel, 1);
 		}else if (tree.getResident()==3){
 			JLabel gopherLabel = new JLabel();
 			gopherLabel.setIcon(gophersIcon);
-			treeLayer.setLayer(gopherLabel, 1);
+			treeLayer.add(gopherLabel, 1);
 		}else if (tree.getResident()==4){
 			JLabel aphidLabel = new JLabel();
 			aphidLabel.setIcon(aphidsIcon);
-			treeLayer.setLayer(aphidLabel, 1);
+			treeLayer.add(aphidLabel, 1);
 		}else if (tree.getResident()==5){
 			JLabel butterflyLabel = new JLabel();
 			butterflyLabel.setIcon(butterfliesIcon);
-			treeLayer.setLayer(butterflyLabel, 1);
+			treeLayer.add(butterflyLabel, 1);
 		}else if (tree.getResident()==6){
 			JLabel beeLabel = new JLabel();
 			beeLabel.setIcon(beesIcon);
-			treeLayer.setLayer(beeLabel, 1);
+			treeLayer.add(beeLabel, 1);
 		}else if (tree.getResident()==7){
 			JLabel frogLabel = new JLabel();
 			frogLabel.setIcon(frogsIcon);
-			treeLayer.setLayer(frogLabel, 1);	
+			treeLayer.add(frogLabel, 1);	
 		}else if (tree.getResident()==8){
 			JLabel ladybugLabel = new JLabel();
 			ladybugLabel.setIcon(ladybugsIcon);
-			treeLayer.setLayer(ladybugLabel, 1);
+			treeLayer.add(ladybugLabel, 1);
 		}
 		add(treeLayer);
 		revalidate();
