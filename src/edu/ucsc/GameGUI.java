@@ -87,7 +87,11 @@ public class GameGUI extends JPanel implements ActionListener {
         c.gridy = 1;
         gridbag.setConstraints(guideButton, c);
         add(guideButton);
-        
+        guideButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	//ugh, how do I access GameState? Do I have to pass it in? 
+            }
+         });
         JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
         c.gridx = 4;
         c.gridy = 2;
