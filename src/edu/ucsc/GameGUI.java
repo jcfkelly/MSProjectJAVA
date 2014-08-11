@@ -98,7 +98,7 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(bookButton, c);
         add(bookButton);      
         
-        //ImageIcon icon = createImageIcon("");
+        //ImageIcon icon = createImageIcon("assets/MS_Project_poison_apple.jpg");
         
         revalidate();
         repaint();
