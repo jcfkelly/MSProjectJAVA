@@ -168,36 +168,47 @@ public class Game {
 		}else if(getSubject(otherWords).equals("Book")){
 			if (getObject(otherWords).startsWith("&")){
 				gameOutput(area, "You cannot replace the Book with an address.");
-			}else if(getObject(otherWords).startsWith("*")){
+			}else{
+				gameOutput(area, "You cannot replace the Book with an object");
+			}
+		}else if(getSubject(otherWords).equals("&Book")){
+			if (getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot trade the Book with the address of an object.");
+			}else{
 				gameOutput(area, "You cannot replace the Book with an object");
 			}
 		}
+		
 		else if(getSubject(otherWords).equals("*Poison")){
-			//also have to be in shed, cannot switch poisons from long distance
-			if(getObject(otherWords).equals("*Apple")){
-				gameState.changePoison(1);
-				gameOutput(area, "You put the Apple pesticide in the container");
-			}else if(getObject(otherWords).equals("*Orange")){
-				gameState.changePoison(2);
-				gameOutput(area, "You put the Orange pesticide in the container");
-			}else if(getObject(otherWords).equals("*Cherry")){
-				gameState.changePoison(3);
-				gameOutput(area, "You put the Cherry pesticide in the container");
-			}else if(getObject(otherWords).equals("*Nut")){
-				gameState.changePoison(4);
-				gameOutput(area, "You put the Nut pesticide in the container");
-			}else if(getObject(otherWords).equals("*Lemon")){
-				gameState.changePoison(5);
-				gameOutput(area, "You put the Lemon pesticide in the container");
-			}else if(getObject(otherWords).equals("*Lime")){
-				gameState.changePoison(6);
-				gameOutput(area, "You put the Lime pesticide in the container.");
-			}else if(getObject(otherWords).startsWith("&")){
-				gameOutput(area, "You cannot put an address in the poison container.");
+			if(gameState.isInGame()==false){
+				if(getObject(otherWords).equals("*Apple")){
+					gameState.changePoison(1);
+					gameOutput(area, "You put the Apple pesticide in the container");
+				}else if(getObject(otherWords).equals("*Orange")){
+					gameState.changePoison(2);
+					gameOutput(area, "You put the Orange pesticide in the container");
+				}else if(getObject(otherWords).equals("*Cherry")){
+					gameState.changePoison(3);
+					gameOutput(area, "You put the Cherry pesticide in the container");
+				}else if(getObject(otherWords).equals("*Nut")){
+					gameState.changePoison(4);
+					gameOutput(area, "You put the Nut pesticide in the container");
+				}else if(getObject(otherWords).equals("*Lemon")){
+					gameState.changePoison(5);
+					gameOutput(area, "You put the Lemon pesticide in the container");
+				}else if(getObject(otherWords).equals("*Lime")){
+					gameState.changePoison(6);
+					gameOutput(area, "You put the Lime pesticide in the container.");
+				}else if(getObject(otherWords).startsWith("&")){
+					gameOutput(area, "You cannot put an address in the poison container.");
+				}else{
+					gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+				}
 			}else{
-				gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+				gameOutput(area, "You are not in the shed.");
 			}
 		}
+
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
 				if(gameState.getPoison()==1 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==1){
@@ -244,13 +255,36 @@ public class Game {
 					}
 				}else{
 					gameOutput(area, "You cannot put a non-"+getSubject(otherWords).substring(1)+" poison in a "+getSubject(otherWords).substring(1)+" tree.");
-				}
+				}	
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
 			}
-		}
-		else{
-			gameOutput(area, "That is not the poison container or the address book.");
+		}else if(getSubject(otherWords).startsWith("*") && !getSubject(otherWords).substring(1).equalsIgnoreCase("poison")){
+			if(getObject(otherWords).startsWith("*") && !getObject(otherWords).substring(1).equalsIgnoreCase("poison")){
+				gameOutput(area, "You cannot move unknown into another tree.");
+			}else if(getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot dig up an unknown to put it at this tree's location.");
+			}else{
+				gameOutput(area, "You cannot plant a new "+ otherWords+ " to replace this tree.");	
+			}
+		}else if(getSubject(otherWords).startsWith("&") && !getSubject(otherWords).substring(1).equalsIgnoreCase("poison") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
+			if(getObject(otherWords).startsWith("*")){
+				gameOutput(area, "You cannot move pests or pollinators to an address.");
+			}else if(getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot dig up a tree to put another here.");
+			}else{
+				gameOutput(area, "You cannot plant a new tree of type "+ otherWords+ " here.");	
+			}
+		}else if(gameState.doesTreeExist(getSubject(otherWords))&& !getObject(otherWords).substring(1).equalsIgnoreCase("poison")){
+			if(getObject(otherWords).startsWith("*")){
+				gameOutput(area, "You cannot replace a tree with pests or pollinators.");
+			}else if(getObject(otherWords).startsWith("&")){
+				gameOutput(area, "You cannot dig up this tree and move it to a new address.");
+			}else{
+				gameOutput(area, "You cannot plant a new tree of type "+ otherWords+ " here.");	
+			}
+		}else{
+			gameOutput(area, "That is not the poison container, a tree, or the address book.");
 		}
 	}
 	
