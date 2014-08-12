@@ -1,9 +1,12 @@
 package edu.ucsc;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GameGUI extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
@@ -85,24 +88,94 @@ public class GameGUI extends JPanel implements ActionListener {
     public void onEnterOrchard(){
     	
     	//inventory
-        JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+        final JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
         c.gridx = 4;
         c.gridy = 1;
         gridbag.setConstraints(guideButton, c);
         add(guideButton);
-        guideButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	//TODO: MAKE ACTIONS WORK
-            	//ugh, how do I access GameState? Do I have to pass it in? 
-            }
-         });
-        JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+        guideButton.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String guideButtonImage;
+				if(gameMainPanel.getIntroState()==13){
+					guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
+					Game.exit(gameMainPanel, textArea);
+				}else{
+					guideButtonImage = "assets/MS_Project_backButton.jpg";
+					Game.guide(GameGUI.this, gameMainPanel, textArea);
+				}
+		    	guideButton.setIcon(new ImageIcon(guideButtonImage));
+		    	revalidate();
+		    	repaint();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
+        final JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+        bookButton.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String bookButtonImage;
+				if(gameMainPanel.getIntroState()==12){
+					bookButtonImage = "assets/MS_Project_addressBook.jpg";
+					Game.exit(gameMainPanel, textArea);
+				}else{
+					bookButtonImage = "assets/MS_Project_backButton.jpg";
+					Game.book(GameGUI.this, gameMainPanel, textArea);
+				}
+		    	bookButton.setIcon(new ImageIcon(bookButtonImage));
+		    	revalidate();
+		    	repaint();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
         c.gridx = 4;
         c.gridy = 2;
         gridbag.setConstraints(bookButton, c);
         add(bookButton);      
         
-        //if(gameState.getPoison()==0){
+        //if(gameState.getPoison()==1){
         	poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
         //}
         //TODO: if poison is different poison set to poison
@@ -110,6 +183,34 @@ public class GameGUI extends JPanel implements ActionListener {
         add(poisonLabel);
         revalidate();
         repaint();
+    }
+    
+    public void setPoison(int poison){
+    	String poisonImage;
+    	switch(poison){
+    		case 1:
+    			poisonImage = "assets/MS_Project_poison_apple.jpg";
+    			break;
+    		case 2:
+    			poisonImage = "assets/MS_Project_poison_orange.jpg";
+    			break;
+    		case 3:
+    			poisonImage = "assets/MS_Project_poison_Cherry.jpg";
+    			break;
+    		case 4:
+    			poisonImage = "assets/MS_Project_poison_nut.jpg";
+    			break;
+    		case 5:
+    			poisonImage = "assets/MS_Project_poison_lemon.jpg";
+    			break;
+    		default:
+    			poisonImage = "assets/MS_Project_poison_Lime.jpg";
+    			break;
+    	}
+    	poisonIcon = new ImageIcon(poisonImage);
+    	poisonLabel.setIcon(poisonIcon);
+    	revalidate();
+    	repaint();
     }
     
     /** Handle button click. */

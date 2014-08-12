@@ -215,14 +215,25 @@ public class GameMainPanel extends JPanel{
     public void showBook(ArrayList<String> addressBook){
     	introState = 12;
     	removeAll();
-    	 JTextPane textPane = new JTextPane();
-    	 for(int i =0; i < 100; i++){
-    		 while (addressBook.get(i)!=null){
-    			 textPane.setText(addressBook.get(i) + "\n");
-    		 }
-    	 }
-    	 revalidate();
-    	 repaint();
+    	JScrollPane scrollPane = new JScrollPane();
+    	scrollPane.setPreferredSize(SIZE);
+    	scrollPane.setMaximumSize(SIZE);
+    	scrollPane.setMinimumSize(SIZE);
+    	StringBuilder sb = new StringBuilder(addressBook.size());
+    	for (String address: addressBook){
+    		if(address==null || address.equals("")){
+    			continue;
+    		}else{
+    			sb.append(address);
+    			sb.append("\n");
+    		}
+    	}
+    	JTextArea textArea = new JTextArea(sb.toString(), addressBook.size(), 1);
+    	textArea.setBackground(Color.PINK);
+    	scrollPane.setBackground(Color.ORANGE);
+    	scrollPane.add(textArea);
+    	revalidate();
+    	repaint();
     }
     
     public void showGuide(){
@@ -232,7 +243,7 @@ public class GameMainPanel extends JPanel{
     	guidePanel.setPreferredSize(SIZE);
     	guidePanel.setMinimumSize(SIZE);
     	guidePanel.setMaximumSize(SIZE);
-    	ImageIcon guideIcon = new ImageIcon("assets/MS_Project_fieldGuide.jpg");
+    	ImageIcon guideIcon = new ImageIcon("assets/MS_Project_insideFieldGuide.jpg");
     	JLabel guideLabel = new JLabel();
     	guideLabel.setSize(SIZE);
     	guideLabel.setIcon(guideIcon);

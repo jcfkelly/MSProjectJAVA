@@ -40,9 +40,6 @@ public class GameState{
 		position = new Point(0,0);
 
 		addressBook = new ArrayList<String>(100); //ensures size is limited
-		for(int i =0 ; i<100; i++){ //all empty strings
-			addressBook.add(null);
-		}
 		addressBook.add(0, "&Shed");
 
 		//Create Trees (Put on one line)

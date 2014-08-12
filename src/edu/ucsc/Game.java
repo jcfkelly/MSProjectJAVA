@@ -85,6 +85,8 @@ public class Game {
 		else if (commandType == 4){//for TURN
 			if(panel.isInGame()){
 				turn(area, p, otherWords);
+			}else{
+				gameOutput(area, "You cannot turn while you are reading things.");
 			}
 		}
 		else if (commandType == 5){//for ENTER
@@ -111,11 +113,11 @@ public class Game {
 				gameOutput(area, "You cannot exit to the game because you have not yet entered the orchard.");
 			}
 		}else if(commandType == 7){//for EQUALS
-			equals(panel, area, p, otherWords);
+			equals(gameGUI, panel, area, p, otherWords);
 		}else if(commandType == 8){//for GUIDE
-			guide(gameGUI, panel, area, p);
+			guide(gameGUI, panel, area);
 		}else if(commandType == 9){//for BOOK
-			book(gameGUI, panel, area, p);
+			book(gameGUI, panel, area);
 		}
 		
 		else if (commandType == -1){
@@ -125,15 +127,14 @@ public class Game {
 		return true;
 	}
 	
-	private static void book(GameGUI gameGUI, GameMainPanel panel,
-			JTextArea area, Point p) {
-		// TODO Auto-generated method stub
+	public static void book(GameGUI gameGUI, GameMainPanel panel,
+			JTextArea area) {
 		panel.showBook(gameState.getAddressBook());
 		gameOutput(area, "You are now looking in the Address Book.");
 	}
 
-	private static void guide(GameGUI gameGUI, GameMainPanel panel,
-			JTextArea area, Point p) {
+	public static void guide(GameGUI gameGUI, GameMainPanel panel,
+			JTextArea area) {
 		panel.showGuide();
 		gameOutput(area, "You are now looking in the Field Guide.");
 	}
@@ -166,7 +167,7 @@ public class Game {
         		+ "Type next to move through, or exit to get back to the game.");
 	}
 	
-	private static void exit(GameMainPanel panel, JTextArea area){
+	public static void exit(GameMainPanel panel, JTextArea area){
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 		gameOutput(area, "You exit back to the game.");
@@ -189,7 +190,7 @@ public class Game {
 		return otherWords.substring(0, indexOfEquals);
 	}
 	
-	private static void equals(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+	private static void equals(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
 		if(getSubject(otherWords).equals("*Book")){
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
@@ -217,21 +218,27 @@ public class Game {
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
 						gameState.changePoison(1);
+						gameGUI.setPoison(1);
 						gameOutput(area, "You put the Apple pesticide in the container");
 					}else if(getObject(otherWords).substring(1).equals("OrangePoison")){
 						gameState.changePoison(2);
+						gameGUI.setPoison(2);
 						gameOutput(area, "You put the Orange pesticide in the container");
 					}else if(getObject(otherWords).substring(1).equals("CherryPoison")){
 						gameState.changePoison(3);
+						gameGUI.setPoison(3);
 						gameOutput(area, "You put the Cherry pesticide in the container");
 					}else if(getObject(otherWords).substring(1).equals("NutPoison")){
 						gameState.changePoison(4);
+						gameGUI.setPoison(4);
 						gameOutput(area, "You put the Nut pesticide in the container");
 					}else if(getObject(otherWords).substring(1).equals("LemonPoison")){
 						gameState.changePoison(5);
+						gameGUI.setPoison(5);
 						gameOutput(area, "You put the Lemon pesticide in the container");
 					}else if(getObject(otherWords).substring(1).equals("LimePoison")){
 						gameState.changePoison(6);
+						gameGUI.setPoison(6);
 						gameOutput(area, "You put the Lime pesticide in the container.");
 					}else if(getObject(otherWords).startsWith("&")){
 						gameOutput(area, "You cannot put an address in the poison container.");
