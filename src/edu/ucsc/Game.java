@@ -50,6 +50,12 @@ public class Game {
 			return false;
 		}		
 		
+		if(gameState.getDeadTrees()>12){
+			gameOutput(area, "15% of your orchard has died. \n You cannot sustain the farm. \n You have to sell the orchard. You lose.");
+			return false;
+		}
+		
+		
 		if (gameState.getChangeSeason() == true){
 			gameState.advanceSeason();			
 			gameState.changeSeason(false);
