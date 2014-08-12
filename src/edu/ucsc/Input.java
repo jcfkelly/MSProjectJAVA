@@ -30,6 +30,10 @@ public class Input{
 			return 6;
 		}else if(word.contains("put")){
 			return 7;
+		}else if(word.contains("guide")){
+			return 8;
+		}else if(word.contains("book")){
+			return 9;
 		}
 		else{
 			return -1;

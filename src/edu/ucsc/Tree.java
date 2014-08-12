@@ -13,10 +13,9 @@ public class Tree {
 	private boolean alive;
 	private String species;
 	private int treeType;
-	private int resident=0;
+	private int resident;
 	private int season;
 
-	
 	public int getResident() {
 		return resident;
 	}
@@ -60,7 +59,7 @@ public class Tree {
 
 	public Tree(int x, int y, int treeType, String type){ 
 		this.location = new Point(x, y);
-		this.resident = 1;
+		this.resident = 0;
 		this.treeType = treeType;
 		this.alive = true;
 		this.species = type;

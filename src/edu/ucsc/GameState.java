@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class GameState{
 	private boolean changeSeason=false;
-	private boolean inGame=false;
 	private int apple=1;
 	private int orange=2;
 	private int cherry=3;
@@ -17,6 +16,8 @@ public class GameState{
 	private int lime=6;
 	private final int MAX_X=4;
 	private final int MIN_X=-4;
+	
+
 	private final int MAX_Y=10;
 	private final int MIN_Y=0;
 	private int direction = 0;
@@ -27,8 +28,12 @@ public class GameState{
 	private int steps=0;
 	private int season=0; //SEASON 
 	private int poison=1;
+	private int alreadyEnteredOrchard=0;
+	private int deadTrees=0;
 
 	//TODO: create win condition
+
+	
 
 	public GameState(){
 		//complete reset in GameState
@@ -141,7 +146,27 @@ public class GameState{
 		treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent",	new Tree(-2,3, apple, "assets/MS_Project_Trees_YellowTransparent.jpg"));
 		treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
-		//insertRandomPests(6);
+		insertRandomPests(6);
+	}
+	
+	public ArrayList<String> getAddressBook() {
+		return addressBook;
+	}
+	
+	public int getAlreadyEnteredOrchard() {
+		return alreadyEnteredOrchard;
+	}
+
+	public void setAlreadyEnteredOrchard(int alreadyEnteredOrchard) {
+		this.alreadyEnteredOrchard = alreadyEnteredOrchard;
+	}
+	
+	public int getDeadTrees() {
+		return deadTrees;
+	}
+
+	public void setDeadTrees(int deadTrees) {
+		this.deadTrees = deadTrees;
 	}
 	
 	public void insertRandomPollinator(){
@@ -182,14 +207,6 @@ public class GameState{
 	
 	public int getSteps() {
 		return steps;
-	}
-
-	public boolean isInGame() {
-		return inGame;
-	}
-
-	public void setInGame(boolean inGame) {
-		this.inGame = inGame;
 	}
 
 	public boolean movePosition(int dx, int dy){

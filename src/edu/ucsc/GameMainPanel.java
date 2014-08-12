@@ -3,6 +3,7 @@ package edu.ucsc;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameMainPanel extends JPanel{
 	 
@@ -18,6 +19,7 @@ public class GameMainPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;
 	private int introState = -1;
+	private final Dimension SIZE = new Dimension(400,270);
 	
     public GameMainPanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -26,21 +28,21 @@ public class GameMainPanel extends JPanel{
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(400, 270);
+        return SIZE;
     }
 
     @Override
     public Dimension getMaximumSize() {
-        return new Dimension(400, 270);
+        return SIZE;
     }
 
     @Override
     public Dimension getMinimumSize() {
-        return new Dimension(400, 270);
+        return SIZE;
     }
 
-    public void setIntroState(int introState) {
-    	this.introState = introState;
+    public void setIntroState(int state) {
+    	this.introState = state;
         JTextPane textPane = new JTextPane();
         switch (introState) {
             case 0:
@@ -177,48 +179,87 @@ public class GameMainPanel extends JPanel{
     public void showTree(Tree tree){
     	removeAll();
 		JLayeredPane treeLayer = new JLayeredPane();
-		treeLayer.setSize(400, 270);
+		treeLayer.setPreferredSize(SIZE);
+		treeLayer.setMinimumSize(SIZE);
+		treeLayer.setMaximumSize(SIZE);
     	ImageIcon treeImageIcon = new ImageIcon(tree.getTreeSpecies());
 		JLabel treeLabel = new JLabel();
+		treeLabel.setSize(SIZE);
 		treeLabel.setIcon(treeImageIcon);
 		treeLayer.add(treeLabel, 0);
+		JLabel residentLabel = new JLabel();
+		residentLabel.setSize(SIZE);
 		if (tree.getResident()==1){
-			JLabel antLabel = new JLabel();
-			antLabel.setIcon(antsIcon);
-			treeLayer.add(antLabel, 1);
+			residentLabel.setIcon(antsIcon);
 		}else if (tree.getResident()==2){
-			JLabel waspLabel = new JLabel();
-			waspLabel.setIcon(waspsIcon);
-			treeLayer.add(waspLabel, 1);
+			residentLabel.setIcon(waspsIcon);
 		}else if (tree.getResident()==3){
-			JLabel gopherLabel = new JLabel();
-			gopherLabel.setIcon(gophersIcon);
-			treeLayer.add(gopherLabel, 1);
+			residentLabel.setIcon(gophersIcon);
 		}else if (tree.getResident()==4){
-			JLabel aphidLabel = new JLabel();
-			aphidLabel.setIcon(aphidsIcon);
-			treeLayer.add(aphidLabel, 1);
+			residentLabel.setIcon(aphidsIcon);
 		}else if (tree.getResident()==5){
-			JLabel butterflyLabel = new JLabel();
-			butterflyLabel.setIcon(butterfliesIcon);
-			treeLayer.add(butterflyLabel, 1);
+			residentLabel.setIcon(butterfliesIcon);
 		}else if (tree.getResident()==6){
-			JLabel beeLabel = new JLabel();
-			beeLabel.setIcon(beesIcon);
-			treeLayer.add(beeLabel, 1);
+			residentLabel.setIcon(beesIcon);
 		}else if (tree.getResident()==7){
-			JLabel frogLabel = new JLabel();
-			frogLabel.setIcon(frogsIcon);
-			treeLayer.add(frogLabel, 1);	
+			residentLabel.setIcon(frogsIcon);
 		}else if (tree.getResident()==8){
-			JLabel ladybugLabel = new JLabel();
-			ladybugLabel.setIcon(ladybugsIcon);
-			treeLayer.add(ladybugLabel, 1);
+			residentLabel.setIcon(ladybugsIcon);
 		}
+		treeLayer.add(residentLabel, 0);
 		add(treeLayer);
 		revalidate();
 		repaint();
 	}
+    
+    public void showBook(ArrayList<String> addressBook){
+    	introState = 12;
+    	removeAll();
+    	 JTextPane textPane = new JTextPane();
+    	 for(int i =0; i < 100; i++){
+    		 while (addressBook.get(i)!=null){
+    			 textPane.setText(addressBook.get(i) + "\n");
+    		 }
+    	 }
+    	 revalidate();
+    	 repaint();
+    }
+    
+    public void showGuide(){
+    	introState = 13;
+    	removeAll();
+    	JPanel guidePanel = new JPanel();
+    	guidePanel.setPreferredSize(SIZE);
+    	guidePanel.setMinimumSize(SIZE);
+    	guidePanel.setMaximumSize(SIZE);
+    	ImageIcon guideIcon = new ImageIcon("assets/MS_Project_fieldGuide.jpg");
+    	JLabel guideLabel = new JLabel();
+    	guideLabel.setSize(SIZE);
+    	guideLabel.setIcon(guideIcon);
+    	add(guideLabel);
+    	revalidate();
+    	repaint();
+    }
+    
+    public void showShed(){
+    	introState = 14;
+    	removeAll();
+    	JPanel shedPanel = new JPanel();
+    	shedPanel.setPreferredSize(SIZE);
+    	shedPanel.setMinimumSize(SIZE);
+    	shedPanel.setMaximumSize(SIZE);
+    	ImageIcon shedIcon = new ImageIcon("assets/MS_Project_poison.jpg");
+    	JLabel shedLabel = new JLabel();
+    	shedLabel.setSize(SIZE);
+    	shedLabel.setIcon(shedIcon);
+    	add(shedLabel);
+    	revalidate();
+    	repaint();
+    }
+    
+    public boolean isInGame(){
+    	return introState==-1;
+    }
     
     public int getIntroState(){
     	return introState;

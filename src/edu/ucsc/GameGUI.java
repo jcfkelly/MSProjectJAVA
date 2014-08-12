@@ -13,6 +13,8 @@ public class GameGUI extends JPanel implements ActionListener {
     private MyTextActionListener gameLoop;
     private GridBagConstraints c;
     private GridBagLayout gridbag;
+    private ImageIcon poisonIcon;
+    private JLabel poisonLabel = new JLabel();
     
     public GameGUI() {
         super(new GridBagLayout());
@@ -81,6 +83,7 @@ public class GameGUI extends JPanel implements ActionListener {
     }
 
     public void onEnterOrchard(){
+    	
     	//inventory
         JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
         c.gridx = 4;
@@ -89,6 +92,7 @@ public class GameGUI extends JPanel implements ActionListener {
         add(guideButton);
         guideButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	//TODO: MAKE ACTIONS WORK
             	//ugh, how do I access GameState? Do I have to pass it in? 
             }
          });
@@ -98,12 +102,15 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(bookButton, c);
         add(bookButton);      
         
-        //ImageIcon icon = createImageIcon("assets/MS_Project_poison_apple.jpg");
-        
+        //if(gameState.getPoison()==0){
+        	poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
+        //}
+        //TODO: if poison is different poison set to poison
+        poisonLabel.setIcon(poisonIcon);
+        add(poisonLabel);
         revalidate();
         repaint();
     }
-    
     
     /** Handle button click. */
     public void actionPerformed(ActionEvent e) {

@@ -66,7 +66,7 @@ public class Game {
 			look(area, p, otherWords);
 		}
 		else if (commandType == 2){ //for WALK
-			if(gameState.isInGame()){
+			if(panel.isInGame() || panel.getIntroState()==14){
 				walk(panel, area, p, otherWords);
 			}else{
 				gameOutput(area, "You cannot walk while you are reading things or looking"
@@ -74,31 +74,44 @@ public class Game {
 			}
 		}
 		else if (commandType == 3){//for HELP
-			gameState.setInGame(false);
 			help(panel, area, gameGUI);
 		}
 		else if (commandType == 4){//for TURN
-			turn(area, p, otherWords);
+			if(panel.isInGame()){
+				turn(area, p, otherWords);
+			}
 		}
 		else if (commandType == 5){//for ENTER
-			if (otherWords.equalsIgnoreCase("orchard")) {
-				gameState.setInGame(true);
-                enter(panel, area, p, gameGUI);
-            } else {
-                gameOutput(area, "You cannot enter " + otherWords);
-            }
+			//only enter if you are in the first time through introState
+			if (gameState.getAlreadyEnteredOrchard()==0){
+				if (otherWords.equalsIgnoreCase("orchard")) {
+	                enter(panel, area, p, gameGUI);
+	            } else {
+	                gameOutput(area, "You cannot enter " + otherWords);
+	            }
+				gameState.setAlreadyEnteredOrchard(1);
+			}else{
+				gameOutput(area, "You are already in the orchard. \n you probably need to exit back to game.");
+			}
 		}
 		else if(commandType == 6){//for EXIT
-			if (gameState.isInGame()==false){
-				gameState.setInGame(true);
-				exit(panel, area);				
+			if (gameState.getAlreadyEnteredOrchard()!=0){
+				if (!panel.isInGame()){
+					exit(panel, area);				
+				}else{
+					gameOutput(area, "You cannot exit the game, but you can quit it.");
+				}
 			}else{
-				gameOutput(area, "You cannot exit the game, but you can quit it.");
+				gameOutput(area, "You cannot exit to the game because you have not yet entered the orchard.");
 			}
-
 		}else if(commandType == 7){//for EQUALS
-			equals(area, p, otherWords);
+			equals(panel, area, p, otherWords);
+		}else if(commandType == 8){//for GUIDE
+			guide(gameGUI, panel, area, p);
+		}else if(commandType == 9){//for BOOK
+			book(gameGUI, panel, area, p);
 		}
+		
 		else if (commandType == -1){
 			gameOutput(area, "That is not an option. Did you mean to use \n"
 					+ "put, look, next, start, exit, quit, or walk?");
@@ -106,7 +119,21 @@ public class Game {
 		return true;
 	}
 	
-	private static void next(JTextArea area, GameMainPanel panel, Point p, GameGUI gameGUI){
+	private static void book(GameGUI gameGUI, GameMainPanel panel,
+			JTextArea area, Point p) {
+		// TODO Auto-generated method stub
+		panel.showBook(gameState.getAddressBook());
+		gameOutput(area, "You are now looking in the Address Book.");
+	}
+
+	private static void guide(GameGUI gameGUI, GameMainPanel panel,
+			JTextArea area, Point p) {
+		panel.showGuide();
+		gameOutput(area, "You are now looking in the Field Guide.");
+	}
+	
+	private static void next(JTextArea area, GameMainPanel panel,
+			Point p, GameGUI gameGUI){
 		if (panel == null){
 			return;
 		}
@@ -156,7 +183,7 @@ public class Game {
 		return otherWords.substring(0, indexOfEquals);
 	}
 	
-	private static void equals(JTextArea area, Point p, String otherWords){
+	private static void equals(GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
 		if(getSubject(otherWords).equals("*Book")){
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
@@ -180,29 +207,33 @@ public class Game {
 		}
 		
 		else if(getSubject(otherWords).equals("*Poison")){
-			if(gameState.isInGame()==false){
-				if(getObject(otherWords).equals("*Apple")){
-					gameState.changePoison(1);
-					gameOutput(area, "You put the Apple pesticide in the container");
-				}else if(getObject(otherWords).equals("*Orange")){
-					gameState.changePoison(2);
-					gameOutput(area, "You put the Orange pesticide in the container");
-				}else if(getObject(otherWords).equals("*Cherry")){
-					gameState.changePoison(3);
-					gameOutput(area, "You put the Cherry pesticide in the container");
-				}else if(getObject(otherWords).equals("*Nut")){
-					gameState.changePoison(4);
-					gameOutput(area, "You put the Nut pesticide in the container");
-				}else if(getObject(otherWords).equals("*Lemon")){
-					gameState.changePoison(5);
-					gameOutput(area, "You put the Lemon pesticide in the container");
-				}else if(getObject(otherWords).equals("*Lime")){
-					gameState.changePoison(6);
-					gameOutput(area, "You put the Lime pesticide in the container.");
-				}else if(getObject(otherWords).startsWith("&")){
-					gameOutput(area, "You cannot put an address in the poison container.");
+			if(!panel.isInGame()){
+				if(getObject(otherWords).startsWith("*")){
+					if(getObject(otherWords).substring(1).equals("ApplePoison")){
+						gameState.changePoison(1);
+						gameOutput(area, "You put the Apple pesticide in the container");
+					}else if(getObject(otherWords).substring(1).equals("OrangePoison")){
+						gameState.changePoison(2);
+						gameOutput(area, "You put the Orange pesticide in the container");
+					}else if(getObject(otherWords).substring(1).equals("CherryPoison")){
+						gameState.changePoison(3);
+						gameOutput(area, "You put the Cherry pesticide in the container");
+					}else if(getObject(otherWords).substring(1).equals("NutPoison")){
+						gameState.changePoison(4);
+						gameOutput(area, "You put the Nut pesticide in the container");
+					}else if(getObject(otherWords).substring(1).equals("LemonPoison")){
+						gameState.changePoison(5);
+						gameOutput(area, "You put the Lemon pesticide in the container");
+					}else if(getObject(otherWords).substring(1).equals("LimePoison")){
+						gameState.changePoison(6);
+						gameOutput(area, "You put the Lime pesticide in the container.");
+					}else if(getObject(otherWords).startsWith("&")){
+						gameOutput(area, "You cannot put an address in the poison container.");
+					}else{
+						gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+					}
 				}else{
-					gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+					
 				}
 			}else{
 				gameOutput(area, "You are not in the shed.");
@@ -342,9 +373,6 @@ public class Game {
 		}
 	}
 	
-	
-	//TODO: create help function
-	
 	private static void turn(JTextArea area, Point p, String otherWords){
 		if (otherWords.equalsIgnoreCase("right")){
 			gameState.turnRight();
@@ -358,6 +386,13 @@ public class Game {
 	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
 			gameState.changeSeason(true);
+		}
+		
+		if (otherWords.equals("&Shed")){
+			panel.showShed();
+			gameOutput(area, "You should probably use * to move the poisons around. \n "
+					+ "Like put *Poison = *ApplePoison");
+			return;
 		}
 		
 		if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
