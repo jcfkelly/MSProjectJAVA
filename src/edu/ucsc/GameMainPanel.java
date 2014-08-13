@@ -163,9 +163,9 @@ public class GameMainPanel extends JPanel{
             case 11:
             	textPane.setText("If you feel competent, \n"
             			+ " press next or type \n"
-            			+ "�Enter Orchard�\n\n"
+            			+ "'Enter Orchard'\n\n"
             			+ "(If you need help during \n"
-            			+ "gameplay, type �help� in \n"
+            			+ "gameplay, type 'help' in \n"
             			+ "the textbar.)");
             	break;
         }
