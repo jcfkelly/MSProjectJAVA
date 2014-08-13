@@ -41,8 +41,6 @@ public class Input{
 	}
 	
 	public static String getFirstWord(String line){ //make this clean like following function
-		//String[] lineArray = line.split(" "); //using more memory than necessary
-		//return lineArray[0].toUpperCase();
 		int indexOfSpace = line.indexOf(" ");
 		if (indexOfSpace == -1){
 			return line;

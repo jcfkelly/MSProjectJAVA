@@ -39,7 +39,7 @@ public class Game {
 	}
 	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel, GameGUI gameGUI){
-		
+		//screen should echo commands (show is is command not computer answer)
 		if (input.equalsIgnoreCase("quit")){
 			gameOutput(area, "Goodbye!");
 			return false;
@@ -206,6 +206,7 @@ public class Game {
 				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
 			}
 		}else if(getSubject(otherWords).equals("Book")){
+			//distinguish lowercase book from Book
 			if (getObject(otherWords).startsWith("&")){
 				gameOutput(area, "You cannot replace the Book with an address.");
 			}else{
@@ -220,6 +221,7 @@ public class Game {
 		}
 		
 		else if(getSubject(otherWords).equals("*Poison")){
+			//warn for wrong tree
 			if(!panel.isInGame()){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
@@ -309,11 +311,8 @@ public class Game {
 	}
 	
 	private static void look(JTextArea area, Point p, String otherWords) {
-		/*
-		  NOTE: I need to fix this so that if the tree is renamed it looks up the new "rename" :( 
-		  */
+		//fix error messages
 		if (otherWords.equalsIgnoreCase("")){
-			//Set of conditionals that do description of location
 			gameOutput(area, "You see what is in front of you.");
 		}else if(otherWords.equals("*Poison")){
 			if(gameState.getPoison()==1){
