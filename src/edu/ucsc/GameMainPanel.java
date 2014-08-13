@@ -95,6 +95,7 @@ public class GameMainPanel extends JPanel{
             			+ "think are important.");
             	break;
             case 5:
+            	//make help go here
             	textPane.setText("Help: other commands \n\n"
             			+ "Exit :: exits the help section. \n\n"
             			+ "Quit :: quits the game \n\n"
@@ -129,20 +130,22 @@ public class GameMainPanel extends JPanel{
             	textPane.setText("HELP: = \n\n"
             			+ "Book only takes addreses. Use \n"
             			+ "of = also requires knowledge of * and & \n\n"
-            			+ "put *Book = &Apple :: stores address of the \n"
+            			+ "put *Book = &Apple "
+            			+ "\n stores address of the \n"
             			+ "Apple tree in Book. \n"
             			+ "put *Sunstar = *Poison \n"
-            			+ "puts poison in the Sunstar tree.");
+            			+ "puts contents of Poison in the Sunstar tree. \n"
+            			+ "and Poison holds different types of poison.");
             	break;
             case 9:
             	textPane.setText("HELP: Walk \n\n"
             			+ "Walk - You can walk forward and to addresses: \n "
-            			+ "walk :: you walk forward \n"
-            			+ "walk &Apple :: you walk to the address of the Apple tree. \n"
-            			+ "walk north :: you walk north \n"
-            			+ "walk east :: you walk east \n"
-            			+ "walk south :: you walk south \n"
-            			+ "walk west :: you walk west \n"
+            			+ "walk - you walk forward \n"
+            			+ "walk &Apple - you walk to the address of the Apple tree. \n"
+            			+ "walk north - you walk north \n"
+            			+ "walk east - you walk east \n"
+            			+ "walk south - you walk south \n"
+            			+ "walk west - you walk west \n"
             			+ "turn right and turn left changes your orientation.");
             	break;
             case 10:
