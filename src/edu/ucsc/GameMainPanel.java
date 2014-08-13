@@ -126,6 +126,15 @@ public class GameMainPanel extends JPanel{
             			+ "is in the Apple tree.");
             	break;
             case 8:
+            	textPane.setText("HELP: = \n\n"
+            			+ "Book only takes addreses. Use \n"
+            			+ "of = also requires knowledge of * and & \n\n"
+            			+ "put *Book = &Apple :: stores address of the \n"
+            			+ "Apple tree in Book. \n"
+            			+ "put *Sunstar = *Poison \n"
+            			+ "puts poison in the Sunstar tree.");
+            	break;
+            case 9:
             	textPane.setText("HELP: Walk \n\n"
             			+ "Walk - You can walk forward and to addresses: \n "
             			+ "walk :: you walk forward \n"
@@ -135,15 +144,6 @@ public class GameMainPanel extends JPanel{
             			+ "walk south :: you walk south \n"
             			+ "walk west :: you walk west \n"
             			+ "turn right and turn left changes your orientation.");
-            	break;
-            case 9:
-            	textPane.setText("HELP: = \n\n"
-            			+ "Book only takes addreses. Use \n"
-            			+ "of = also requires knowledge of * and & \n\n"
-            			+ "put *Book = &Apple :: stores address of the \n"
-            			+ "Apple tree in Book. \n"
-            			+ "put *Sunstar = *Poison \n"
-            			+ "puts poison in the Sunstar tree.");
             	break;
             case 10:
             	textPane.setText("Note: \n\n"
@@ -226,6 +226,8 @@ public class GameMainPanel extends JPanel{
         scrollPane.setMinimumSize(SIZE);
         scrollPane.setMaximumSize(SIZE);
         add(scrollPane);
+        revalidate();
+        repaint();
     }
     
     public void showGuide(){
