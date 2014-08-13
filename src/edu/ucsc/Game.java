@@ -405,53 +405,69 @@ public class Game {
 			panel.showShed();
 			gameOutput(area, "You should probably use * to move the poisons around. \n "
 					+ "Like put *Poison = *ApplePoison");
-			return;
-		}
-		
-		if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
-			//bound with address book
-			panel.showTree(gameState.getTree(otherWords.substring(1)));
-			gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
-			gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
 			gameState.takeSteps();
 			return;
-		}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
-			gameOutput(area,"You cannot walk to your inventory.");
-			return;
 		}
-		
-		if(otherWords.equalsIgnoreCase("north")){
-			gameState.setDirection(0);
-		}else if(otherWords.equalsIgnoreCase("South")){
-			gameState.setDirection(180);
-		}else if(otherWords.equalsIgnoreCase("east")){
-			gameState.setDirection(90);
-		}else if(otherWords.equalsIgnoreCase("west")){
-			gameState.setDirection(270);
-		}else if (!otherWords.equals("")){
-			gameOutput(area, "Error: not a valid direction or address.");
-			return;
-		}
-		
-		if (gameState.moveForward()){
-			int dir = gameState.getDirection();
-				if(dir == 0){
-					gameOutput(area, "You walk North");
-					gameState.takeStep();
-				}else if (dir ==90){
-					gameOutput(area, "You walk East");
-					gameState.takeStep();
-				}else if(dir ==180){
-					gameOutput(area, "You walk South");
-					gameState.takeStep();
-				}else{//dir == 270
-					gameOutput(area, "You walk West");
-					gameState.takeStep();
-				}
-		}
-		else{
-			//ERROR
-			gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
+		if(panel.getIntroState()==14){
+			if (gameState.getAddressBook().contains(otherWords) &&
+					otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
+				//bound with address book
+				panel.showTree(gameState.getTree(otherWords.substring(1)));
+				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
+				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+				gameState.takeSteps();
+				return;
+			}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
+				gameOutput(area,"You cannot walk to your inventory.");
+				return;
+			}else{
+				gameOutput(area, "You did not write the address in the book. \n Did you write any addresses in the book? \n If not you are stuck in the shed now.");
+			}
+		}else{
+			if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
+				//bound with address book
+				panel.showTree(gameState.getTree(otherWords.substring(1)));
+				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
+				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+				gameState.takeSteps();
+				return;
+			}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
+				gameOutput(area,"You cannot walk to your inventory.");
+				return;
+			}
+			if(otherWords.equalsIgnoreCase("north")){
+				gameState.setDirection(0);
+			}else if(otherWords.equalsIgnoreCase("South")){
+				gameState.setDirection(180);
+			}else if(otherWords.equalsIgnoreCase("east")){
+				gameState.setDirection(90);
+			}else if(otherWords.equalsIgnoreCase("west")){
+				gameState.setDirection(270);
+			}else if (!otherWords.equals("")){
+				gameOutput(area, "Error: not a valid direction or address.");
+				return;
+			}
+			
+			if (gameState.moveForward()){
+				int dir = gameState.getDirection();
+					if(dir == 0){
+						gameOutput(area, "You walk North");
+						gameState.takeStep();
+					}else if (dir ==90){
+						gameOutput(area, "You walk East");
+						gameState.takeStep();
+					}else if(dir ==180){
+						gameOutput(area, "You walk South");
+						gameState.takeStep();
+					}else{//dir == 270
+						gameOutput(area, "You walk West");
+						gameState.takeStep();
+					}
+			}
+			else{
+				//ERROR
+				gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
+			}
 		}
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));		
 	}

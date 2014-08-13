@@ -40,7 +40,7 @@ public class GameState{
 		position = new Point(0,0);
 
 		addressBook = new ArrayList<String>(100); //ensures size is limited
-		addressBook.add(0, "&Shed");
+		addressBook.add("&Shed");
 
 		//Create Trees (Put on one line)
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
@@ -146,10 +146,12 @@ public class GameState{
 		insertRandomPests(6);
 	}
 	
+	
+	
 	public ArrayList<String> getAddressBook() {
 		return addressBook;
 	}
-	
+
 	public int getAlreadyEnteredOrchard() {
 		return alreadyEnteredOrchard;
 	}
@@ -301,6 +303,7 @@ public class GameState{
 		for(String treeName : treeMap.keySet()){
 			if (season > treeMap.get(treeName).getSeason() && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
 				treeMap.get(treeName).setTreeSpecies();
+				deadTrees +=1;
 				return true;
 			}
 		}
