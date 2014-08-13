@@ -20,7 +20,7 @@ public class GameMainPanel extends JPanel{
 	public final int MAX_INTRO_STATE=11;
 	private int introState = -1;
 	private final Dimension SIZE = new Dimension(400,270);
-	
+
     public GameMainPanel() {
         setLayout(new FlowLayout(FlowLayout.CENTER));
         setBackground(Color.WHITE);
@@ -163,9 +163,9 @@ public class GameMainPanel extends JPanel{
             case 11:
             	textPane.setText("If you feel competent, \n"
             			+ " press next or type \n"
-            			+ "“Enter Orchard”\n\n"
+            			+ "ï¿½Enter Orchardï¿½\n\n"
             			+ "(If you need help during \n"
-            			+ "gameplay, type “help” in \n"
+            			+ "gameplay, type ï¿½helpï¿½ in \n"
             			+ "the textbar.)");
             	break;
         }
@@ -215,25 +215,17 @@ public class GameMainPanel extends JPanel{
     public void showBook(ArrayList<String> addressBook){
     	introState = 12;
     	removeAll();
-    	JScrollPane scrollPane = new JScrollPane();
-    	scrollPane.setPreferredSize(SIZE);
-    	scrollPane.setMaximumSize(SIZE);
-    	scrollPane.setMinimumSize(SIZE);
-    	StringBuilder sb = new StringBuilder(addressBook.size());
-    	for (String address: addressBook){
-    		if(address==null || address.equals("")){
-    			continue;
-    		}else{
-    			sb.append(address);
-    			sb.append("\n");
-    		}
-    	}
-    	JTextArea textArea = new JTextArea(sb.toString(), addressBook.size(), 1);
-    	textArea.setBackground(Color.PINK);
-    	scrollPane.setBackground(Color.ORANGE);
-    	scrollPane.add(textArea);
-    	revalidate();
-    	repaint();
+        DefaultListModel<String> bookModel = new DefaultListModel<>();
+        for (String address : addressBook) {
+            bookModel.addElement(address);
+        }
+        JList<String> book = new JList<>(bookModel);
+        book.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(book);
+        scrollPane.setPreferredSize(SIZE);
+        scrollPane.setMinimumSize(SIZE);
+        scrollPane.setMaximumSize(SIZE);
+        add(scrollPane);
     }
     
     public void showGuide(){
