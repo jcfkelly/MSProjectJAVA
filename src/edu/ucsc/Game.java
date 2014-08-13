@@ -55,7 +55,6 @@ public class Game {
 			return false;
 		}
 		
-		
 		if (gameState.getChangeSeason() == true){
 			gameState.advanceSeason();			
 			gameState.changeSeason(false);
@@ -171,6 +170,13 @@ public class Game {
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 		gameOutput(area, "You exit back to the game.");
+	}
+	
+	public static String refreshSteps(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(gameState.getSteps());
+		String strI = sb.toString();
+		return strI;
 	}
 	
 	private static String getObject(String otherWords){
@@ -397,6 +403,7 @@ public class Game {
 	}
 	
 	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+		//refreshSteps();
 		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
 			gameState.changeSeason(true);
 		}
@@ -408,6 +415,7 @@ public class Game {
 			gameState.takeSteps();
 			return;
 		}
+		
 		if(panel.getIntroState()==14){
 			if (gameState.getAddressBook().contains(otherWords) &&
 					otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
@@ -463,8 +471,7 @@ public class Game {
 						gameOutput(area, "You walk West");
 						gameState.takeStep();
 					}
-			}
-			else{
+			}else{
 				//ERROR
 				gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
 			}

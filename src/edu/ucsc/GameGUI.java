@@ -86,6 +86,15 @@ public class GameGUI extends JPanel implements ActionListener {
     }
 
     public void onEnterOrchard(){
+    	//counter
+    	JTextArea counter = new JTextArea();
+    	counter.setSize(40, 20);
+    	counter.setText(Game.refreshSteps());
+    	c.gridx = 4;
+        c.gridy = 1;
+        gridbag.setConstraints(counter, c);
+    	revalidate();
+    	repaint();
     	
     	//inventory
         final JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
@@ -175,11 +184,11 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(bookButton, c);
         add(bookButton);      
         
-        //if(gameState.getPoison()==1){
-        	poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
-        //}
-        //TODO: if poison is different poison set to poison
+        poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
         poisonLabel.setIcon(poisonIcon);
+        c.gridx = 5;
+        c.gridy = 3;
+        gridbag.setConstraints(poisonLabel, c);
         add(poisonLabel);
         revalidate();
         repaint();

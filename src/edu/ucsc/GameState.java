@@ -25,7 +25,7 @@ public class GameState{
 	private ArrayList<String> addressBook; //this is where the things get stored in birdbook 
 	private HashMap<String, Tree> treeMap;
 	private boolean winState=false;
-	private int steps=0;
+	private int steps=0; //COUNTER
 	private int season=0; //SEASON 
 	private int poison=1;
 	private int alreadyEnteredOrchard=0;
