@@ -88,10 +88,14 @@ public class GameGUI extends JPanel implements ActionListener {
     public void onEnterOrchard(){
     	//counter
     	JTextArea counter = new JTextArea();
-    	counter.setSize(40, 20);
+    	JScrollPane counterPane = new JScrollPane(counter);
+    	counterPane.setPreferredSize(new Dimension(40, 25));
+        counterPane.setMaximumSize(new Dimension(40, 25));
+        counterPane.setMinimumSize(new Dimension(40, 25));
+    	counter.setSize(40, 25);
     	counter.setText(Game.refreshSteps());
     	c.gridx = 4;
-        c.gridy = 1;
+        c.gridy = 2;
         gridbag.setConstraints(counter, c);
     	revalidate();
     	repaint();
@@ -193,6 +197,8 @@ public class GameGUI extends JPanel implements ActionListener {
         revalidate();
         repaint();
     }
+    
+    
     
     public void setPoison(int poison){
     	String poisonImage;
