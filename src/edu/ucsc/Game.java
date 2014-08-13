@@ -72,7 +72,7 @@ public class Game {
 		}
 		else if (commandType == 2){ //for WALK
 			if(panel.isInGame() || panel.getIntroState()==14){
-				walk(panel, area, p, otherWords);
+				walk(gameGUI, panel, area, p, otherWords);
 			}else{
 				gameOutput(area, "You cannot walk while you are reading things or looking"
 						+ "\n in the Book or Guide.");
@@ -261,50 +261,20 @@ public class Game {
 
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
-				if(gameState.getPoison()==1 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==1){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Apple pesticide in the tree");
+				int poison = gameState.getPoison();
+				Tree thisTree = gameState.getTree(getSubject(otherWords).substring(1));
+				int thisResident = thisTree.getResident();
+				String poisonString = gameState.getPoisonString(poison);
+				if(poison == thisTree.getTreeType()){
+					if(thisResident==0){
+						gameOutput(area, "You put the "+ poisonString + " pesticide in the tree, \n it does nothing because nothing is in the tree.");
 					}else{
-						gameOutput(area, "You put the Apple pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
-					}
-				}else if(gameState.getPoison()==2 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==2){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Orange pesticide in the tree");
-					}else{
-						gameOutput(area, "You put the Orange pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
-					}
-				}else if(gameState.getPoison()==3 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==3){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Cherry pesticide in the tree");
-					}else{
-						gameOutput(area, "You put the Cherry pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
-					}
-				}else if(gameState.getPoison()==4 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==4){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Nut pesticide in the tree");
-					}else{
-						gameOutput(area, "You put the Nut pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
-					}
-				}else if(gameState.getPoison()==5 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==5){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Lemon pesticide in the tree");
-					}else{
-						gameOutput(area, "You put the Lemon pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
-					}
-				}else if(gameState.getPoison()==6 && gameState.getTree(getSubject(otherWords).substring(1)).getTreeType()==6){
-					if(gameState.getTree(getSubject(otherWords).substring(1)).getResident()!=0){
-						gameOutput(area, "You put the Lime pesticide in the tree");
-					}else{
-						gameOutput(area, "You put the Lime pesticide in the tree, killing the pest.");
-						gameState.getTree(getSubject(otherWords).substring(1)).setResident(0);
+						gameOutput(area, "You put the "+ poisonString +" pesticide in the tree, killing the "+ thisTree.getResidentString() +".");
+						thisTree.setResident(0);
+						panel.showTree(thisTree);
 					}
 				}else{
-					gameOutput(area, "You cannot put a non-"+getSubject(otherWords).substring(1)+" poison in a "+getSubject(otherWords).substring(1)+" tree.");
+					gameOutput(area, "You cannot put a non-"+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree.");
 				}	
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
@@ -402,42 +372,26 @@ public class Game {
 		}
 	}
 	
-	private static void walk(GameMainPanel panel, JTextArea area, Point p, String otherWords){
+	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//refreshSteps();
 		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
 			gameState.changeSeason(true);
 		}
 		
-		if (otherWords.equals("&Shed")){
-			panel.showShed();
-			gameOutput(area, "You should probably use * to move the poisons around. \n "
-					+ "Like put *Poison = *ApplePoison");
-			gameState.takeSteps();
-			return;
-		}
-		
-		if(panel.getIntroState()==14){
-			if (gameState.getAddressBook().contains(otherWords) &&
-					otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
-				//bound with address book
-				panel.showTree(gameState.getTree(otherWords.substring(1)));
-				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
-				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+		else{
+			if (otherWords.startsWith("&")){
+				if (gameState.doesTreeExist(otherWords.substring(1))){
+					//bound with address book
+					panel.showTree(gameState.getTree(otherWords.substring(1)));
+					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
+					gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+				}else if (otherWords.substring(1).equals("Shed")){
+					panel.showShed();
+					gameOutput(area, "You should probably use * to move the poisons around. \n "
+							+ "Like put *Poison = *ApplePoison");
+				}
 				gameState.takeSteps();
-				return;
-			}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
-				gameOutput(area,"You cannot walk to your inventory.");
-				return;
-			}else{
-				gameOutput(area, "You did not write the address in the book. \n Did you write any addresses in the book? \n If not you are stuck in the shed now.");
-			}
-		}else{
-			if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
-				//bound with address book
-				panel.showTree(gameState.getTree(otherWords.substring(1)));
-				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
-				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
-				gameState.takeSteps();
+				gameGUI.refreshCounter();
 				return;
 			}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
 				gameOutput(area,"You cannot walk to your inventory.");
@@ -460,17 +414,15 @@ public class Game {
 				int dir = gameState.getDirection();
 					if(dir == 0){
 						gameOutput(area, "You walk North");
-						gameState.takeStep();
 					}else if (dir ==90){
 						gameOutput(area, "You walk East");
-						gameState.takeStep();
 					}else if(dir ==180){
 						gameOutput(area, "You walk South");
-						gameState.takeStep();
 					}else{//dir == 270
 						gameOutput(area, "You walk West");
-						gameState.takeStep();
 					}
+					gameState.takeStep();
+					gameGUI.refreshCounter();
 			}else{
 				//ERROR
 				gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");

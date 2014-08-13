@@ -18,6 +18,7 @@ public class GameGUI extends JPanel implements ActionListener {
     private GridBagLayout gridbag;
     private ImageIcon poisonIcon;
     private JLabel poisonLabel = new JLabel();
+    private JTextArea counter = new JTextArea();
     
     public GameGUI() {
         super(new GridBagLayout());
@@ -47,6 +48,7 @@ public class GameGUI extends JPanel implements ActionListener {
         add(textField);
 
         textArea = new JTextArea();
+        textArea.setEditable(false);
         textArea.getDocument().putProperty("name", "Text Area");
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setPreferredSize(new Dimension(400, 75));
@@ -85,21 +87,19 @@ public class GameGUI extends JPanel implements ActionListener {
         }
     }
 
+    public void refreshCounter(){
+    	counter.setText("Counter: \n" + Game.refreshSteps());
+    }
+    
     public void onEnterOrchard(){
     	//counter
-    	JTextArea counter = new JTextArea();
-    	JScrollPane counterPane = new JScrollPane(counter);
-    	counterPane.setPreferredSize(new Dimension(40, 25));
-        counterPane.setMaximumSize(new Dimension(40, 25));
-        counterPane.setMinimumSize(new Dimension(40, 25));
-    	counter.setSize(40, 25);
-    	counter.setText(Game.refreshSteps());
-    	c.gridx = 4;
+    	counter.setSize(70, 25);
+    	counter.setText("Counter: \n" + Game.refreshSteps());
+    	c.gridx = 5;
         c.gridy = 2;
         gridbag.setConstraints(counter, c);
-    	revalidate();
-    	repaint();
-    	
+        add(counter);
+        
     	//inventory
         final JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
         c.gridx = 4;

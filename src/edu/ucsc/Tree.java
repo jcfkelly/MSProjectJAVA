@@ -20,6 +20,31 @@ public class Tree {
 		return resident;
 	}
 
+	public String getResidentString(){
+		switch(resident){
+			case 1:
+				return "Ants";
+			case 2: 
+				return "Wasps";
+			case 3: 
+				return "Gophers";
+			case 4: 
+				return "Aphids";
+			case 5:
+				return "Butterflies";
+			case 6: 
+				return "Bees";
+			case 7:
+				return "Frogs";
+			case 8:
+				return "Ladybugs";
+			default: 
+				return "none";
+		}
+	}
+	
+	
+	
 	public void setResident(int resident) {
 		this.resident = resident;
 	}

@@ -326,6 +326,23 @@ public class GameState{
 		return poison;
 	}
 	
+	public String getPoisonString(int poisonTree){
+		switch(poisonTree){
+		case 1:
+			return "Apple";
+		case 2:
+			return "Orange";
+		case 3: 
+			return "Cherry";
+		case 4: 
+			return "Nut";
+		case 5:
+			return "Lemon";
+		default:
+			return "Lime";
+		}
+	}
+	
 	public void changePoison(int i){
 		poison = i;
 	}
