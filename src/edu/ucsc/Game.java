@@ -63,7 +63,9 @@ public class Game {
 		int commandType = Input.isCommand(input);
 		
 		String otherWords = Input.getOtherWords(input);
+		String allWords = Input.getAllWords(input);
 		Point p = gameState.getPosition();
+		gameOutput(area, ">>" + allWords);
 		if (commandType == 0){//for START
 			next(area, panel, p, gameGUI);
 		}
@@ -112,11 +114,18 @@ public class Game {
 				gameOutput(area, "You cannot exit to the game because you have not yet entered the orchard.");
 			}
 		}else if(commandType == 7){//for EQUALS
-			equals(gameGUI, panel, area, p, otherWords);
+			equals(gameGUI, panel, area, p, allWords);
 		}else if(commandType == 8){//for GUIDE
-			guide(gameGUI, panel, area);
+			if(panel.getIntroState()==-1){
+				guide(gameGUI, panel, area);
+			}else{
+				gameOutput(area, "You cannot look in the Guide unless you are in the game.");}
 		}else if(commandType == 9){//for BOOK
-			book(gameGUI, panel, area);
+			if(panel.getIntroState()==-1){
+				book(gameGUI, panel, area);
+			}else{
+				gameOutput(area, "You cannot look in the Book unless you are in the game.");
+			}
 		}
 		
 		else if (commandType == -1){
@@ -198,7 +207,10 @@ public class Game {
 	
 	private static void equals(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
-		if(getSubject(otherWords).equals("*Book")){
+		if(getSubject(otherWords).contains("addressbook")||getSubject(otherWords).equals("book") || getSubject(otherWords).equals("*book") ||getSubject(otherWords).equals("&book") ){
+			gameOutput(area, "You cannot use book, or addressBook because Book \n is the variable for the address book. Capitalization is important. \n Did you mean to use Book, *Book, or &Book?");		
+		}else if(getSubject(otherWords).equals("*Book")){
+			//warn for wrong tree
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
 				gameOutput(area, "You put the address " + getObject(otherWords) + " in the Book.");
 				gameState.addToAddressBook(getObject(otherWords));
@@ -218,10 +230,9 @@ public class Game {
 			}else{
 				gameOutput(area, "You cannot replace the Book with an object");
 			}
-		}
-		
-		else if(getSubject(otherWords).equals("*Poison")){
-			//warn for wrong tree
+		}else if(getSubject(otherWords).contains("fieldguide")){
+			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
+		}else if(getSubject(otherWords).equals("*Poison")){
 			if(!panel.isInGame()){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
@@ -263,13 +274,14 @@ public class Game {
 
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
+				//TODO: make poison contain only one spray. 
 				int poison = gameState.getPoison();
 				Tree thisTree = gameState.getTree(getSubject(otherWords).substring(1));
 				int thisResident = thisTree.getResident();
 				String poisonString = gameState.getPoisonString(poison);
 				if(poison == thisTree.getTreeType()){
 					if(thisResident==0){
-						gameOutput(area, "You put the "+ poisonString + " pesticide in the tree, \n it does nothing because nothing is in the tree.");
+						gameOutput(area, "You put the "+ poisonString + " pesticide in the tree, it does nothing \n because nothing is in the tree. \n You have wasted your one shot of poison spray.");
 					}else{
 						gameOutput(area, "You put the "+ poisonString +" pesticide in the tree, killing the "+ thisTree.getResidentString() +".");
 						thisTree.setResident(0);
@@ -279,7 +291,7 @@ public class Game {
 					gameOutput(area, "You cannot put a non-"+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree.");
 				}	
 			}else{
-				gameOutput(area, "You attempt to put pesticide in " + getObject(otherWords) + " but it does not exist.");
+				gameOutput(area, "You attempt to put pesticide in " + getSubject(otherWords) + " but you probably messed \n up capitalization, forgot there are no spaces in tree names, \n or spelled something incorrectly.");
 			}
 		}else if(getSubject(otherWords).startsWith("*") && !getSubject(otherWords).substring(1).equalsIgnoreCase("poison")){
 			if(getObject(otherWords).startsWith("*") && !getObject(otherWords).substring(1).equalsIgnoreCase("poison")){

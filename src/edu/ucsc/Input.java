@@ -28,11 +28,11 @@ public class Input{
 		}
 		else if(word.equalsIgnoreCase("exit")){
 			return 6;
-		}else if(word.contains("put")){
+		}else if(doesEqualsExist(line)){
 			return 7;
-		}else if(word.contains("guide")){
+		}else if(word.equals("Guide")){
 			return 8;
-		}else if(word.contains("book")){
+		}else if(word.equals("Book")){
 			return 9;
 		}
 		else{
@@ -56,6 +56,18 @@ public class Input{
 		return line.substring(indexOfSpace + 1);
 	}
 	
+	public static String getAllWords(String line){
+		return line;
+	}
+	
+	private static boolean doesEqualsExist(String line){
+		int indexOfEquals = line.indexOf(" = ");
+		if (indexOfEquals ==-1){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	
 	
 }

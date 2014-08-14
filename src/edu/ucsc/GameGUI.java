@@ -51,9 +51,9 @@ public class GameGUI extends JPanel implements ActionListener {
         textArea.setEditable(false);
         textArea.getDocument().putProperty("name", "Text Area");
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setPreferredSize(new Dimension(400, 75));
-        scrollPane.setMaximumSize(new Dimension(400, 75));
-        scrollPane.setMinimumSize(new Dimension(400, 75));
+        scrollPane.setPreferredSize(new Dimension(400, 150));
+        scrollPane.setMaximumSize(new Dimension(400, 150));
+        scrollPane.setMinimumSize(new Dimension(400, 150));
         c.gridx = 0;
         c.gridy = 7;
         c.weightx = 0.0;
