@@ -60,7 +60,7 @@ public class GameState{
 		treeMap.put("BonnieBrae", 			new Tree(2,10, lemon,"assets/MS_Project_Trees_BonnieBrae.jpg"));
 		treeMap.put("Bramley", 				new Tree(-4,0, apple,"assets/MS_Project_Trees_Bramley.jpg"));
 		treeMap.put("Cadanera", 			new Tree(-4,9, orange,"assets/MS_Project_Trees_Cadanera.jpg"));
-		treeMap.put("Calabrese", 			new Tree(-3,10, orange, "assets/MS_Project_Trees_Calabrisi.jpg"));
+		treeMap.put("Calabrisi", 			new Tree(-3,10, orange, "assets/MS_Project_Trees_Calabrisi.jpg"));
 		treeMap.put("CaliforniaNavel", 		new Tree(-2,6, orange, "assets/MS_Project_Trees_CaliforniaNavel.jpg"));
 		treeMap.put("CaraCara", 			new Tree(-2,8, orange, "assets/MS_Project_Trees_CaraCara.jpg"));
 		treeMap.put("Carvalhal", 			new Tree(-2,10, orange, "assets/MS_Project_Trees_Carvalhal.jpg"));

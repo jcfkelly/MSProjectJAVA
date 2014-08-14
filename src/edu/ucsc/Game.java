@@ -396,6 +396,7 @@ public class Game {
 				panel.showTree(gameState.getTree(otherWords.substring(1)));
 				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+				exit(panel, area);
 			}else{
 				gameOutput(area, "You cannot walk to an address that is not stored in Book.");
 			}
