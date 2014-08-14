@@ -350,6 +350,8 @@ public class Game {
 		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
 			if (localTree.getTreeType()==0){
+				int numDeadTrees = gameState.getDeadTrees();
+				gameState.setDeadTrees(numDeadTrees + 1);
 				gameOutput(area, "The tree is dead. You see it is empty. Pests must have killed it.");
 			}else{
 				if(localTree.getResident() == 0){
@@ -375,7 +377,7 @@ public class Game {
 		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
 		}else{
-			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game.");
+			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game. \n If you think it exists, it may be spelled incorrectly, have extra spaces, or \n have incorrect capitalization.");
 		}
 	}
 	

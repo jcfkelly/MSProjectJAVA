@@ -256,6 +256,9 @@ public class GameState{
 	
 	public void turnLeft(){
 		direction -= 90;
+		if (direction <0){
+			direction += 360;
+		}
 		direction%=360;
 	}
 	
