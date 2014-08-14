@@ -55,12 +55,6 @@ public class Game {
 			return false;
 		}
 		
-		if (gameState.getChangeSeason() == true){
-			gameState.advanceSeason();			
-			gameGUI.setSeason(gameState.getSeason());
-			gameState.changeSeason(false);
-		}
-		
 		int commandType = Input.isCommand(input);
 		
 		String otherWords = Input.getOtherWords(input);

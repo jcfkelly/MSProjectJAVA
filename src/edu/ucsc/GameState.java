@@ -196,10 +196,6 @@ public class GameState{
 		}
 	}
 	
-	public void advanceSeason(){
-		season+=1;
-	}
-	
 	public int getSeason(){
 		return season;
 	}
@@ -360,8 +356,8 @@ public class GameState{
 	
 	public boolean winState(){
 		if(getSteps()%200==0 && getSteps()!=0){
-			advanceSeason();
-			if(getSeason()==5){
+			season +=1;
+			if(getSeason()==4){
 				winState = true;
 			}else{
 				winState = false;
