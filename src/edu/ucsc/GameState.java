@@ -136,14 +136,14 @@ public class GameState{
 		treeMap.put("Tomango", 				new Tree(1,10, orange, "assets/MS_Project_Trees_Tomango.jpg"));
 		treeMap.put("Ukon", 				new Tree(4,0, cherry, "assets/MS_Project_Trees_Ukon.jpg"));
 		treeMap.put("VariegatedPink", 		new Tree(2,5, lemon, "assets/MS_Project_Trees_VariegatedPink.jpg"));
-		treeMap.put("Verna", 				new Tree(3,7, lemon, "assets/MS_Project_Trees_Verna.jpg"));
+		treeMap.put("Verna", 				new Tree(1,9, lemon, "assets/MS_Project_Trees_Verna.jpg"));
 		treeMap.put("Vicieda", 				new Tree(1,8, orange, "assets/MS_Project_Trees_Vicieda.jpg"));
 		treeMap.put("Walnut", 				new Tree(4,3, nut, "assets/MS_Project_Trees_Walnut.jpg"));
 		treeMap.put("Washington", 			new Tree(-3,0, apple,"assets/MS_Project_Trees_Washington.jpg"));
 		treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent",	new Tree(-2,3, apple, "assets/MS_Project_Trees_YellowTransparent.jpg"));
 		treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
-		insertRandomPests(6);
+		//insertRandomPests(6);
 	}
 	
 	
@@ -191,7 +191,7 @@ public class GameState{
 				randomTree = treeList.get(random.nextInt(treeList.size()));
 			}
 			randomPest = random.nextInt(4)+1;
-			randomTree.setSeason(season);
+			randomTree.setSeason(getSeason());
 			randomTree.setResident(randomPest);
 		}
 	}
@@ -358,13 +358,11 @@ public class GameState{
 	}
 	
 	public boolean winState(){
-		if(getSteps()%200==0 && getSteps()!=0){
+		if(getChangeSeason()){
 			season +=1;
-			if(getSeason()==4){
-				winState = true;
-			}else{
-				winState = false;
-			}
+			changeSeason(false);
+		}else if (season==4){
+			winState = false;
 		}
 		return winState;
 	}

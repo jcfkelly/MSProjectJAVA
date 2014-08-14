@@ -208,23 +208,28 @@ public class GameGUI extends JPanel implements ActionListener {
     }
     
     public void setSeason(int season){
+    	String seasonImage;
     	switch(season){
     	case 0:
-    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_1.jpg");
+    		seasonImage = "assets/MS_Project_Seasons_1.jpg";
     		break;
     	case 1:
-    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_2.jpg");
+    		seasonImage = "assets/MS_Project_Seasons_2.jpg";
     		break;
     	case 2:
-    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_3.jpg");
+    		seasonImage = "assets/MS_Project_Seasons_3.jpg";
     		break;
     	case 3:
-    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_4.jpg");
+    		seasonImage = "assets/MS_Project_Seasons_4.jpg";
     		break;
     	default:
-    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_0.jpg");
+    		seasonImage = "assets/MS_Project_Seasons_0.jpg";
     		break;	
     	}
+    	seasonIcon = new ImageIcon(seasonImage);
+    	seasonLabel.setIcon(seasonIcon);
+    	revalidate();
+    	repaint();
     }
     
     public void setPoison(int poison){

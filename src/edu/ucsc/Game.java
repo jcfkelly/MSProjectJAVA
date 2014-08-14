@@ -40,6 +40,7 @@ public class Game {
 	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel, GameGUI gameGUI){
 		//screen should echo commands (show is is command not computer answer)
+		gameState.isTreeDead();
 		if (input.equalsIgnoreCase("quit")){
 			gameOutput(area, "Goodbye!");
 			return false;
@@ -408,8 +409,10 @@ public class Game {
 	}
 	
 	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
+		if (gameState.getSeason()!=0 && gameState.getSteps()%20==0){
 			gameState.changeSeason(true);
+			gameState.winState();
+			gameGUI.setSeason(gameState.getSeason());
 		}else{
 			if (otherWords.startsWith("&")){
 				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
