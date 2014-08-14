@@ -212,7 +212,7 @@ public class Game {
 		}else if(getSubject(otherWords).equals("*Book")){
 			//warn for wrong tree
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
-				gameOutput(area, "You put the address " + getObject(otherWords) + " in the Book.");
+				gameOutput(area, "You put the address of " + getObject(otherWords).substring(1) + " in the Book.");
 				gameState.addToAddressBook(getObject(otherWords));
 			}else{
 				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
