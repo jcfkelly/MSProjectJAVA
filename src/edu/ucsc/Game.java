@@ -57,6 +57,7 @@ public class Game {
 		
 		if (gameState.getChangeSeason() == true){
 			gameState.advanceSeason();			
+			gameGUI.setSeason(gameState.getSeason());
 			gameState.changeSeason(false);
 		}
 		
@@ -73,8 +74,10 @@ public class Game {
 			look(area, p, otherWords);
 		}
 		else if (commandType == 2){ //for WALK
-			if(panel.isInGame() || panel.getIntroState()==14){
+			if(panel.isInGame()){
 				walk(gameGUI, panel, area, p, otherWords);
+			}else if(panel.getIntroState()==14){
+				walkFromShed(panel, area, otherWords);
 			}else{
 				gameOutput(area, "You cannot walk while you are reading things or looking"
 						+ "\n in the Book or Guide.");
@@ -274,7 +277,6 @@ public class Game {
 
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			if (getObject(otherWords).equals("*Poison")){
-				//TODO: make poison contain only one spray. 
 				int poison = gameState.getPoison();
 				Tree thisTree = gameState.getTree(getSubject(otherWords).substring(1));
 				int thisResident = thisTree.getResident();
@@ -282,13 +284,23 @@ public class Game {
 				if(poison == thisTree.getTreeType()){
 					if(thisResident==0){
 						gameOutput(area, "You put the "+ poisonString + " pesticide in the tree, it does nothing \n because nothing is in the tree. \n You have wasted your one shot of poison spray.");
+						gameGUI.setPoison(0);
+						gameState.changePoison(0);
+					}else if (poison == 0){
+						gameOutput(area, "You do not have any pesticide in your container. Perhaps you \n should save this address and get more pesticide from the shed.");
 					}else{
 						gameOutput(area, "You put the "+ poisonString +" pesticide in the tree, killing the "+ thisTree.getResidentString() +".");
 						thisTree.setResident(0);
 						panel.showTree(thisTree);
+						gameGUI.setPoison(0);
+						gameState.changePoison(0);
 					}
 				}else{
-					gameOutput(area, "You cannot put a non-"+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree.");
+					if (poison==0){
+						gameOutput(area, "You cannot spray pesticide from an empty container. Save your \n address in Book and then go to the Shed for more pesticide.");
+					}else{
+						gameOutput(area, "You cannot put "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree.");
+					}
 				}	
 			}else{
 				gameOutput(area, "You attempt to put pesticide in " + getSubject(otherWords) + " but you probably messed \n up capitalization, forgot there are no spaces in tree names, \n or spelled something incorrectly.");
@@ -349,21 +361,21 @@ public class Game {
 				if(localTree.getResident() == 0){
 					gameOutput(area, "You see the tree is empty.");
 				}else if(localTree.getResident()==1){
-					gameOutput(area, "You see the tree contains ants. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains ants. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==2){
-					gameOutput(area, "You see the tree contains wasps. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains wasps. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==3){
-					gameOutput(area, "You see the tree contains gophers. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains gophers. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==4){
-					gameOutput(area, "You see the tree contains aphids. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains aphids. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==5){
-					gameOutput(area, "You see the tree contains butterflies. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains butterflies. Use the \n Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==6){
-					gameOutput(area, "You see the tree contains bees. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains bees. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==7){
-					gameOutput(area, "You see the tree contains frogs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains frogs. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==8){
-					gameOutput(area, "You see the tree contains ladybugs. Use the Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains ladybugs. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
 				}				
 			}
 		}else if(otherWords.startsWith("&")){
@@ -383,15 +395,27 @@ public class Game {
 		}
 	}
 	
+	private static void walkFromShed(GameMainPanel panel, JTextArea area, String otherWords){
+		if (otherWords.startsWith("&")){
+			if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords)){
+				//bound with address book
+				panel.showTree(gameState.getTree(otherWords.substring(1)));
+				gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
+				gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+			}else{
+				gameOutput(area, "You cannot walk to an address that is not stored in Book.");
+			}
+		}else{
+			gameOutput(area, "You cannot walk out of the shed. You need an address \n to walk to. Hope you saved an address in the Book.");
+		}
+	}
+	
 	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		//refreshSteps();
 		if (gameState.getSeason()!=0 && gameState.getSteps()%200==0){
 			gameState.changeSeason(true);
-		}
-		
-		else{
+		}else{
 			if (otherWords.startsWith("&")){
-				if (gameState.doesTreeExist(otherWords.substring(1))){
+				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
 					//bound with address book
 					panel.showTree(gameState.getTree(otherWords.substring(1)));
 					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");

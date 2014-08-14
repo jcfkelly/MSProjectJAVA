@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class GameMainPanel extends JPanel{
 	 
-	 private final ImageIcon antsIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Ants.png");
-	 private final ImageIcon aphidsIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Aphids.png");
-	 private final ImageIcon beesIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Bees.png");
-	 private final ImageIcon frogsIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Frogs.png");
-	 private final ImageIcon gophersIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Gophers.png");
-	 private final ImageIcon waspsIcon = 		new ImageIcon("/orchard-game/assets/MS_Project_Wasps.png");
-	 private final ImageIcon butterfliesIcon =	new ImageIcon("/orchard-game/assets/MS_Project_Butterflies.png");
-	 private final ImageIcon ladybugsIcon = 	new ImageIcon("/orchard-game/assets/MS_Project_Ladybugs.png");
+	 private final ImageIcon antsIcon = 		new ImageIcon("assets/MS_Project_Ants.png");
+	 private final ImageIcon aphidsIcon = 		new ImageIcon("assets/MS_Project_Aphids.png");
+	 private final ImageIcon beesIcon = 		new ImageIcon("assets/MS_Project_Bees.png");
+	 private final ImageIcon frogsIcon = 		new ImageIcon("assets/MS_Project_Frogs.png");
+	 private final ImageIcon gophersIcon = 		new ImageIcon("assets/MS_Project_Gophers.png");
+	 private final ImageIcon waspsIcon = 		new ImageIcon("assets/MS_Project_Wasps.png");
+	 private final ImageIcon butterfliesIcon =	new ImageIcon("assets/MS_Project_Butterflies.png");
+	 private final ImageIcon ladybugsIcon = 	new ImageIcon("assets/MS_Project_Ladybugs.png");
 	
 	private static final long serialVersionUID = 1L;
 	public final int MAX_INTRO_STATE=11;
@@ -240,7 +240,7 @@ public class GameMainPanel extends JPanel{
     	guidePanel.setPreferredSize(SIZE);
     	guidePanel.setMinimumSize(SIZE);
     	guidePanel.setMaximumSize(SIZE);
-    	ImageIcon guideIcon = new ImageIcon("/orchard-game/assets/MS_Project_insideFieldGuide.jpg");
+    	ImageIcon guideIcon = new ImageIcon("assets/MS_Project_insideFieldGuide.jpg");
     	JLabel guideLabel = new JLabel();
     	guideLabel.setSize(SIZE);
     	guideLabel.setIcon(guideIcon);
@@ -256,7 +256,7 @@ public class GameMainPanel extends JPanel{
     	shedPanel.setPreferredSize(SIZE);
     	shedPanel.setMinimumSize(SIZE);
     	shedPanel.setMaximumSize(SIZE);
-    	ImageIcon shedIcon = new ImageIcon("/orchard-game/assets/MS_Project_poison.jpg");
+    	ImageIcon shedIcon = new ImageIcon("assets/MS_Project_poison.jpg");
     	JLabel shedLabel = new JLabel();
     	shedLabel.setSize(SIZE);
     	shedLabel.setIcon(shedIcon);

@@ -18,6 +18,8 @@ public class GameGUI extends JPanel implements ActionListener {
     private GridBagLayout gridbag;
     private ImageIcon poisonIcon;
     private JLabel poisonLabel = new JLabel();
+    private ImageIcon seasonIcon;
+    private JLabel seasonLabel = new JLabel();
     private JTextArea counter = new JTextArea();
     
     public GameGUI() {
@@ -101,7 +103,7 @@ public class GameGUI extends JPanel implements ActionListener {
         add(counter);
         
     	//inventory
-        final JButton guideButton = new JButton(new ImageIcon("/orchard-game/assets/MS_Project_fieldGuide.jpg"));
+        final JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
         c.gridx = 4;
         c.gridy = 1;
         gridbag.setConstraints(guideButton, c);
@@ -112,10 +114,10 @@ public class GameGUI extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 				String guideButtonImage;
 				if(gameMainPanel.getIntroState()==13){
-					guideButtonImage = "/orchard-game/assets/MS_Project_fieldGuide.jpg";
+					guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
 					Game.exit(gameMainPanel, textArea);
 				}else{
-					guideButtonImage = "/orchard-game/assets/MS_Project_backButton.jpg";
+					guideButtonImage = "assets/MS_Project_backButton.jpg";
 					Game.guide(GameGUI.this, gameMainPanel, textArea);
 				}
 		    	guideButton.setIcon(new ImageIcon(guideButtonImage));
@@ -144,17 +146,17 @@ public class GameGUI extends JPanel implements ActionListener {
 			}
         	
         });
-        final JButton bookButton = new JButton(new ImageIcon("/orchard-game/assets/MS_Project_addressBook.jpg"));
+        final JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
         bookButton.addMouseListener(new MouseListener(){
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String bookButtonImage;
 				if(gameMainPanel.getIntroState()==12){
-					bookButtonImage = "/orchard-game/assets/MS_Project_addressBook.jpg";
+					bookButtonImage = "assets/MS_Project_addressBook.jpg";
 					Game.exit(gameMainPanel, textArea);
 				}else{
-					bookButtonImage = "/orchard-game/assets/MS_Project_backButton.jpg";
+					bookButtonImage = "assets/MS_Project_backButton.jpg";
 					Game.book(GameGUI.this, gameMainPanel, textArea);
 				}
 		    	bookButton.setIcon(new ImageIcon(bookButtonImage));
@@ -188,41 +190,66 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(bookButton, c);
         add(bookButton);      
         
-        poisonIcon = new ImageIcon("/orchard-game/assets/MS_Project_poison_apple.jpg");
+        poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
         poisonLabel.setIcon(poisonIcon);
         c.gridx = 5;
         c.gridy = 3;
         gridbag.setConstraints(poisonLabel, c);
         add(poisonLabel);
+        
+        seasonIcon = new ImageIcon("assets/MS_Project_Seasons_1.jpg");
+        seasonLabel.setIcon(seasonIcon);
+        c.gridx = 5;
+        c.gridy = 1;
+        gridbag.setConstraints(seasonLabel, c);
+        add(seasonLabel);        
         revalidate();
         repaint();
     }
     
-    
+    public void setSeason(int season){
+    	switch(season){
+    	case 0:
+    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_1.jpg");
+    		break;
+    	case 1:
+    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_2.jpg");
+    		break;
+    	case 2:
+    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_3.jpg");
+    		break;
+    	case 3:
+    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_4.jpg");
+    		break;
+    	default:
+    		seasonIcon = new ImageIcon("assets/MS_Project_Seasons_0.jpg");
+    		break;	
+    	}
+    }
     
     public void setPoison(int poison){
     	String poisonImage;
     	switch(poison){
     		case 0:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_empty.jpg";
+    			poisonImage = "assets/MS_Project_poison_empty.jpg";
     			break;		
     		case 1:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_apple.jpg";
+    			poisonImage = "assets/MS_Project_poison_apple.jpg";
     			break;
     		case 2:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_orange.jpg";
+    			poisonImage = "assets/MS_Project_poison_orange.jpg";
     			break;
     		case 3:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_Cherry.jpg";
+    			poisonImage = "assets/MS_Project_poison_Cherry.jpg";
     			break;
     		case 4:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_nut.jpg";
+    			poisonImage = "assets/MS_Project_poison_nut.jpg";
     			break;
     		case 5:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_lemon.jpg";
+    			poisonImage = "assets/MS_Project_poison_lemon.jpg";
     			break;
     		default:
-    			poisonImage = "/orchard-game/assets/MS_Project_poison_Lime.jpg";
+    			poisonImage = "assets/MS_Project_poison_Lime.jpg";
     			break;
     	}
     	poisonIcon = new ImageIcon(poisonImage);
