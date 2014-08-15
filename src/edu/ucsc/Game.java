@@ -63,7 +63,7 @@ public class Game {
 		Point p = gameState.getPosition();
 		gameOutput(area, ">>" + allWords);
 		if (commandType == 0){//for START
-			next(area, panel, p, gameGUI);
+			next(area, panel, gameGUI);
 		}
 		else if (commandType == 1){//for LOOK
 			look(area, p, otherWords);
@@ -92,7 +92,7 @@ public class Game {
 			//only enter if you are in the first time through introState
 			if (gameState.getAlreadyEnteredOrchard()==0){
 				if (otherWords.equalsIgnoreCase("orchard")) {
-	                enter(panel, area, p, gameGUI);
+	                enter(panel, area, gameGUI);
 	            } else {
 	                gameOutput(area, "You cannot enter " + otherWords);
 	            }
@@ -145,8 +145,7 @@ public class Game {
 		gameOutput(area, "You are now looking in the Field Guide.");
 	}
 	
-	private static void next(JTextArea area, GameMainPanel panel,
-			Point p, GameGUI gameGUI){
+	public static void next(JTextArea area, GameMainPanel panel, GameGUI gameGUI){
 		if (panel == null){
 			return;
 		}
@@ -154,13 +153,13 @@ public class Game {
 		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
 		}else if(introState == panel.MAX_INTRO_STATE){
-			enter(panel, area, p, gameGUI);
+			enter(panel, area, gameGUI);
 		}else{
 			panel.setIntroState(introState+1);
 		}
 	}
 	
-	private static void enter(GameMainPanel panel, JTextArea area, Point p, GameGUI gameGUI){
+	private static void enter(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 		gameGUI.onEnterOrchard();

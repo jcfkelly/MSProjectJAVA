@@ -62,7 +62,52 @@ public class GameGUI extends JPanel implements ActionListener {
         c.gridheight = 2;
         gridbag.setConstraints(scrollPane, c);
         add(scrollPane);
+        
+        final JButton nextButton = new JButton("Next ");
+        c.gridx = 1;
+        c.gridy = 4;
+        c.weightx = 0.0;
+        c.gridheight = 1;
+        c.weighty = 0.0;
+        gridbag.setConstraints(nextButton, c);
+        add(nextButton);
+        nextButton.addMouseListener(new MouseListener(){
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(gameMainPanel.getIntroState()!=-1){
+					nextButton.setVisible(true);
+					Game.next(textArea, gameMainPanel, GameGUI.this);
+				}else if(gameMainPanel.getIntroState()<12){
+					nextButton.setVisible(false);
+				}else{
+					nextButton.setVisible(false);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
+
+        
         JButton button = new JButton("Enter");
         button.addActionListener(this);
         c.gridx = 1;
@@ -73,10 +118,15 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(button, c);
         add(button);
         
+        
+        
+        
         setPreferredSize(new Dimension(740, 580));
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 
+
+    
     class MyTextActionListener implements ActionListener {
         /** Handle the text field Return. */
         public void actionPerformed(ActionEvent e) {
