@@ -131,12 +131,13 @@ public class GameState{
 		treeMap.put("SpanishLime", 			new Tree(2,3, lime, "assets/MS_Project_Trees_SpanishLime.jpg"));
 		treeMap.put("SugarOrange", 			new Tree(-3,5, orange, "assets/MS_Project_Trees_SugarOrange.jpg"));
 		treeMap.put("Sunstar", 				new Tree(0,2, orange, "assets/MS_Project_Trees_Sunstar.jpg"));
+		treeMap.put("Shamouti", 			new Tree(1,9, orange, "assets/MS_Project_Trees_Shamouti.jpg"));
 		treeMap.put("Tangerine", 			new Tree(-3,4, orange, "assets/MS_Project_Trees_Tangerine.jpg"));
 		treeMap.put("Tarocco", 				new Tree(-3,8, orange, "assets/MS_Project_Trees_Tarocco.jpg"));
 		treeMap.put("Tomango", 				new Tree(1,10, orange, "assets/MS_Project_Trees_Tomango.jpg"));
 		treeMap.put("Ukon", 				new Tree(4,0, cherry, "assets/MS_Project_Trees_Ukon.jpg"));
 		treeMap.put("VariegatedPink", 		new Tree(2,5, lemon, "assets/MS_Project_Trees_VariegatedPink.jpg"));
-		treeMap.put("Verna", 				new Tree(1,9, lemon, "assets/MS_Project_Trees_Verna.jpg"));
+		treeMap.put("Verna", 				new Tree(3,7, lemon, "assets/MS_Project_Trees_Verna.jpg"));
 		treeMap.put("Vicieda", 				new Tree(1,8, orange, "assets/MS_Project_Trees_Vicieda.jpg"));
 		treeMap.put("Walnut", 				new Tree(4,3, nut, "assets/MS_Project_Trees_Walnut.jpg"));
 		treeMap.put("Washington", 			new Tree(-3,0, apple,"assets/MS_Project_Trees_Washington.jpg"));
