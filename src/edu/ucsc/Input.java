@@ -13,7 +13,7 @@ public class Input{
 	public static int isCommand(String line){
 		String firstWord = getFirstWord(line);
 		String word = firstWord.toString();
-		if(word.equalsIgnoreCase("start") || word.equalsIgnoreCase("next")){
+		if(word.equalsIgnoreCase("start")){
 			return 0;
 		}else if(word.equalsIgnoreCase("look")){
 			return 1;
@@ -34,6 +34,8 @@ public class Input{
 			return 8;
 		}else if(word.equals("Book")){
 			return 9;
+		}else if(word.equalsIgnoreCase("next")){
+			return 10;
 		}
 		else{
 			return -1;

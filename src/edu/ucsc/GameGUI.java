@@ -21,6 +21,7 @@ public class GameGUI extends JPanel implements ActionListener {
     private ImageIcon seasonIcon;
     private JLabel seasonLabel = new JLabel();
     private JTextArea counter = new JTextArea();
+    private JButton nextButton;
     
     public GameGUI() {
         super(new GridBagLayout());
@@ -63,7 +64,7 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(scrollPane, c);
         add(scrollPane);
         
-        final JButton nextButton = new JButton("Next ");
+        nextButton = new JButton("Next ");
         c.gridx = 1;
         c.gridy = 4;
         c.weightx = 0.0;
@@ -75,14 +76,7 @@ public class GameGUI extends JPanel implements ActionListener {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(gameMainPanel.getIntroState()!=-1){
-					nextButton.setVisible(true);
-					Game.next(textArea, gameMainPanel, GameGUI.this);
-				}else if(gameMainPanel.getIntroState()<12){
-					nextButton.setVisible(false);
-				}else{
-					nextButton.setVisible(false);
-				}
+				typeNext();
 			}
 
 			@Override
@@ -139,11 +133,34 @@ public class GameGUI extends JPanel implements ActionListener {
         }
     }
 
+    public void typeHelp(){
+    	nextButton.setVisible(true);
+    	revalidate();
+    	repaint();
+    }
+    
+    public void hideNextButton(){
+    		nextButton.setVisible(false);
+			revalidate();
+	    	repaint();
+    }
+    
+    public void typeNext(){
+    	if(gameMainPanel.getIntroState()!=-1){
+			Game.next(textArea, gameMainPanel, GameGUI.this);
+		}
+
+    	if(gameMainPanel.isInGame()){
+    		hideNextButton();
+		}
+    }
+    
     public void refreshCounter(){
     	counter.setText("Counter: \n" + Game.refreshSteps());
     }
     
     public void onEnterOrchard(){
+    	hideNextButton();
     	//counter
     	counter.setSize(70, 25);
     	counter.setText("Counter: \n" + Game.refreshSteps());
@@ -165,7 +182,7 @@ public class GameGUI extends JPanel implements ActionListener {
 				String guideButtonImage;
 				if(gameMainPanel.getIntroState()==13){
 					guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
-					Game.exit(gameMainPanel, textArea);
+					Game.exit(GameGUI.this, gameMainPanel, textArea);
 				}else{
 					guideButtonImage = "assets/MS_Project_backButton.jpg";
 					Game.guide(GameGUI.this, gameMainPanel, textArea);
@@ -204,7 +221,7 @@ public class GameGUI extends JPanel implements ActionListener {
 				String bookButtonImage;
 				if(gameMainPanel.getIntroState()==12){
 					bookButtonImage = "assets/MS_Project_addressBook.jpg";
-					Game.exit(gameMainPanel, textArea);
+					Game.exit(GameGUI.this, gameMainPanel, textArea);
 				}else{
 					bookButtonImage = "assets/MS_Project_backButton.jpg";
 					Game.book(GameGUI.this, gameMainPanel, textArea);
@@ -257,7 +274,7 @@ public class GameGUI extends JPanel implements ActionListener {
         repaint();
     }
     
-    public void setSeason(int season){
+    public void setSeasonIcon(int season){
     	String seasonImage;
     	switch(season){
     	case 0:
@@ -282,7 +299,7 @@ public class GameGUI extends JPanel implements ActionListener {
     	repaint();
     }
     
-    public void setPoison(int poison){
+    public void setPoisonIcon(int poison){
     	String poisonImage;
     	switch(poison){
     		case 0:

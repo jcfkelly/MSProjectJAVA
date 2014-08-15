@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 public class GameState{
-	private boolean changeSeason=false;
 	private int apple=1;
 	private int orange=2;
 	private int cherry=3;
@@ -17,23 +16,18 @@ public class GameState{
 	private final int MAX_X=4;
 	private final int MIN_X=-4;
 	
-
+	//TODO: when season changes, trees die
 	private final int MAX_Y=10;
 	private final int MIN_Y=0;
 	private int direction = 0;
 	private Point position;
 	private ArrayList<String> addressBook; //this is where the things get stored in birdbook 
 	private HashMap<String, Tree> treeMap;
-	private boolean winState=false;
 	private int steps=0; //COUNTER
 	private int season=0; //SEASON 
 	private int poison=1;
-	private int alreadyEnteredOrchard=0;
-	private int deadTrees=0;
-
-	//TODO: create win condition
-
-	
+	private boolean alreadyEnteredOrchard=false;
+	private int deadTrees=0;	
 
 	public GameState(){
 		//complete reset in GameState
@@ -44,7 +38,6 @@ public class GameState{
 
 		//Create Trees (Put on one line)
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
-		//TODO: align
 		treeMap.put("Apple", 				new Tree(0,0, apple, "assets/MS_Project_Trees_apple.jpg"));
 		treeMap.put("Ananasrenette",	 	new Tree(0,1, apple, "assets/MS_Project_Trees_ananasrenette.jpg"));
 		treeMap.put("Amanogawa", 			new Tree(1,0, cherry, "assets/MS_Project_Trees_amanogawa.jpg"));
@@ -153,11 +146,11 @@ public class GameState{
 		return addressBook;
 	}
 
-	public int getAlreadyEnteredOrchard() {
+	public boolean getAlreadyEnteredOrchard() {
 		return alreadyEnteredOrchard;
 	}
 
-	public void setAlreadyEnteredOrchard(int alreadyEnteredOrchard) {
+	public void setAlreadyEnteredOrchard(boolean alreadyEnteredOrchard){
 		this.alreadyEnteredOrchard = alreadyEnteredOrchard;
 	}
 	
@@ -192,13 +185,16 @@ public class GameState{
 				randomTree = treeList.get(random.nextInt(treeList.size()));
 			}
 			randomPest = random.nextInt(4)+1;
-			randomTree.setSeason(getSeason());
 			randomTree.setResident(randomPest);
 		}
 	}
 	
 	public int getSeason(){
 		return season;
+	}
+	
+	public void incrementSeason(int season){
+		this.season=season;
 	}
 	
 	public int getSteps() {
@@ -298,18 +294,7 @@ public class GameState{
 		}
 		return null;
 	}
-	
-	public boolean isTreeDead(){
-		for(String treeName : treeMap.keySet()){
-			if (season > treeMap.get(treeName).getSeason() && treeMap.get(treeName).getResident()!=0 && 5>treeMap.get(treeName).getResident()){
-				treeMap.get(treeName).setTreeSpecies();
-				deadTrees +=1;
-				return true;
-			}
-		}
-		return false;
-	}
-	
+		
 	public Tree getTreeFromLocation(Point p){
 		if (treeFromLocation(p) != null){
 			return getTree(treeFromLocation(p));
@@ -348,24 +333,13 @@ public class GameState{
 	public void changePoison(int i){
 		poison = i;
 	}
-	
-	public boolean changeSeason(boolean thisSeason){
-		changeSeason = thisSeason;
-		return changeSeason;
-	}
-
-	public boolean getChangeSeason(){
-		return changeSeason;
-	}
-	
+		
 	public boolean winState(){
-		if(getChangeSeason()){
-			season +=1;
-			changeSeason(false);
-		}else if (season==4){
-			winState = false;
+		if(season==3 && deadTrees<12){
+			return true;
+		}else{
+			return false;
 		}
-		return winState;
 	}
 
 }
