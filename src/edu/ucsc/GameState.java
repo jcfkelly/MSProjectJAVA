@@ -137,7 +137,7 @@ public class GameState{
 		treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent",	new Tree(-2,3, apple, "assets/MS_Project_Trees_YellowTransparent.jpg"));
 		treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
-		//insertRandomPests(6);
+		insertRandomPests(6);
 	}
 	
 	
@@ -160,6 +160,19 @@ public class GameState{
 
 	public void setDeadTrees(int deadTrees) {
 		this.deadTrees = deadTrees;
+	}
+	
+	public void areTreesDead(){
+		for(String tree: treeMap.keySet()){
+			if (getSteps()%200==199){
+				if (treeMap.get(tree).getResident()>0 && 5>treeMap.get(tree).getResident()){
+					treeMap.get(tree).setAlive(false);
+					deadTrees+=1;
+				}
+			}
+		}
+		
+		
 	}
 	
 	public void insertRandomPollinator(){

@@ -77,7 +77,7 @@ public class Tree {
 
 	public Tree(int x, int y, int treeType, String type){ 
 		this.location = new Point(x, y);
-		this.resident = 1;
+		this.resident = 0;
 		this.treeType = treeType;
 		this.alive = true;
 		this.species = type;

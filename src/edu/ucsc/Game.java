@@ -40,6 +40,11 @@ public class Game {
 	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel, GameGUI gameGUI){
 		//screen should echo commands (show is is command not computer answer)
+		if (gameState.getSteps()%200==199){
+			gameState.areTreesDead();
+			gameState.incrementSeason(gameState.getSeason()+1);
+			gameGUI.setSeasonIcon(gameState.getSeason());
+		}
 		
 		if (input.equalsIgnoreCase("quit")){
 			gameOutput(area, "Goodbye!");
@@ -47,12 +52,14 @@ public class Game {
 		}
 		
 		if(gameState.winState()){
+			panel.showEndCondition(gameState.winState());
 			gameOutput(area, "You win!");
 			return false;
 		}		
 		
 		if(gameState.getDeadTrees()>12){
-			gameOutput(area, "15% of your orchard has died. \n You cannot sustain the farm. \n You have to sell the orchard. You lose.");
+			panel.showEndCondition(gameState.winState());
+			gameOutput(area, "15% of your orchard has died. \n You cannot sustain the Orchard. \n You have to sell the Orchard. You lose.");
 			return false;
 		}
 		
@@ -136,7 +143,9 @@ public class Game {
 		
 		else if (commandType == -1){
 			gameOutput(area, "That is not an option. Did you mean to use \n"
-					+ "put, look, next, start, exit, quit, or walk?");
+					+ "turn, look, exit, quit, or walk? Also remember \n"
+					+ "that the = sign needs a space in front and a space \n"
+					+ "behind it.");
 		}
 		return true;
 	}
@@ -175,7 +184,7 @@ public class Game {
 	}
 	
 	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
-		panel.setIntroState(5);
+		panel.setIntroState(4);
 		gameGUI.typeHelp();
         gameOutput(area, "You are looking at the help menu. \n"
         		+ "Type next to move through, or exit to get back to the game.");
@@ -239,7 +248,7 @@ public class Game {
 			}
 		}else if(getSubject(otherWords).contains("fieldguide")){
 			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
-		}else if(getSubject(otherWords).equals("*Poison")){
+		}else if(getSubject(otherWords).equals("")){
 			if(!panel.isInGame()){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
@@ -269,10 +278,10 @@ public class Game {
 					}else if(getObject(otherWords).startsWith("&")){
 						gameOutput(area, "You cannot put an address in the poison container.");
 					}else{
-						gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");
+						gameOutput(area, "You have mis-spelled the pesticide container. Did you type the name like ApplePoison?");
 					}
 				}else{
-					
+					gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");					
 				}
 			}else{
 				gameOutput(area, "You are not in the shed.");
@@ -280,7 +289,7 @@ public class Game {
 		}
 
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
-			if (getObject(otherWords).equals("*Poison")){
+			if (getObject(otherWords).equals("")){
 				int poison = gameState.getPoison();
 				Tree thisTree = gameState.getTree(getSubject(otherWords).substring(1));
 				int thisResident = thisTree.getResident();
@@ -303,7 +312,7 @@ public class Game {
 					if (poison==0){
 						gameOutput(area, "You cannot spray pesticide from an empty container. Save your \n address in Book and then go to the Shed for more pesticide.");
 					}else{
-						gameOutput(area, "You cannot put "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree.");
+						gameOutput(area, "You cannot put "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree. \n Save your address in Book and then go to \n the Shed for different pesticide.");
 					}
 				}	
 			}else{
@@ -342,7 +351,7 @@ public class Game {
 		//fix error messages
 		if (otherWords.equalsIgnoreCase("")){
 			gameOutput(area, "You see what is in front of you.");
-		}else if(otherWords.equals("*Poison")){
+		}else if(otherWords.equals("")){
 			if(gameState.getPoison()==1){
 				gameOutput(area, "You see the Apple poison");
 			}else if(gameState.getPoison()==2){
@@ -367,21 +376,21 @@ public class Game {
 				if(localTree.getResident() == 0){
 					gameOutput(area, "You see the tree is empty.");
 				}else if(localTree.getResident()==1){
-					gameOutput(area, "You see the tree contains ants. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains ants. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==2){
-					gameOutput(area, "You see the tree contains wasps. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains wasps. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==3){
-					gameOutput(area, "You see the tree contains gophers. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains gophers. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==4){
-					gameOutput(area, "You see the tree contains aphids. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains aphids. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==5){
-					gameOutput(area, "You see the tree contains butterflies. Use the \n Guide to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains butterflies. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==6){
-					gameOutput(area, "You see the tree contains bees. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains bees. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==7){
-					gameOutput(area, "You see the tree contains frogs. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains frogs. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}else if(localTree.getResident()==8){
-					gameOutput(area, "You see the tree contains ladybugs. Use the Guide \n to figure out if it is a pest that destroys or pollinator that protects the tree.");
+					gameOutput(area, "You see the tree contains ladybugs. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree.");
 				}				
 			}
 		}else if(otherWords.startsWith("&")){
@@ -418,11 +427,7 @@ public class Game {
 	}
 	
 	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		if (gameState.getSteps()%20==19){
-			//put checking if trees are alive and kill trees with pests
-			gameState.incrementSeason(gameState.getSeason()+1);
-			gameGUI.setSeasonIcon(gameState.getSeason());
-		}
+		
 
 			if (otherWords.startsWith("&")){
 				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
@@ -433,7 +438,7 @@ public class Game {
 				}else if (otherWords.substring(1).equals("Shed")){
 					panel.showShed();
 					gameOutput(area, "You should probably use * to move the poisons around. \n "
-							+ "Like put *Poison = *ApplePoison");
+							+ "Like put  = *ApplePoison");
 				}
 				gameState.takeSteps();
 				gameGUI.refreshCounter();

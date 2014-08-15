@@ -17,7 +17,7 @@ public class GameMainPanel extends JPanel{
 	 private final ImageIcon ladybugsIcon = 	new ImageIcon("assets/MS_Project_Ladybugs.png");
 	
 	private static final long serialVersionUID = 1L;
-	public final int MAX_INTRO_STATE=11;
+	public final int MAX_INTRO_STATE=10;
 	private int introState = -1;
 	private final Dimension SIZE = new Dimension(400,270);
 
@@ -44,100 +44,91 @@ public class GameMainPanel extends JPanel{
     public void setIntroState(int state) {
     	this.introState = state;
         JTextPane textPane = new JTextPane();
+        textPane.setEditable(false);
         switch (introState) {
             case 0:
                 textPane.setText("Type Start or Next");
                 break;
             case 1:
             	textPane.setText("Your Mission: (Should you chose to accept)\n\n"
-            			+ "You own the local orchard. Given \n"
-            			+ "that you are new to this you have \n"
-            			+ "a field guide (Guide) and an Address \n"
-            			+ "Book (Book) to help you sort out the \n"
-            			+ "orchard. The Guide lists all the \n"
-            			+ "pests and pollinators that can be \n"
-            			+ "found on trees in the orchard.");
+            	+ "You own the local orchard. Given that you are new \n"
+            	+ "to this you have a field guide (Guide) and an \n"
+            	+ "Address Book (Book) to help you sort out the \n"
+            	+ "orchard. The Guide lists all the pests and pollinators \n"
+            	+ "that can be found on trees in the orchard. There \n"
+            	+ "are six types of trees in the orchard: Apple, \n"
+            	+ "Orange, Lemon, Lime, Cherry, and Nuts. There \n"
+            	+ "is pesticide in a shed for each type of tree. \n"
+            	+ "Each pesticide safe for a tree matches the ribbon \n"
+            	+ "on the tree.");
             	break;
             case 2:
-            	textPane.setText("Your Mission(Cont):\n\n"
-            + "Different pests grow on different \n"
-            	+ "types of trees in the orchard. There \n"
-            	+ "are six types of trees in the orchard \n"
-            	+ "Apple, Orange, Lemon, Lime, Cherry, \n"
-            	+ "and Nuts. There is pesticide in a \n"
-            	+ "shed for each type of tree. The \n"
-            	+ "address of the shed is written down \n"
-            	+ "in your Book. You can only carry one \n"
-            	+ "type of pesticide at a time. ");
+            	textPane.setText("Your Mission (contd): \n\n"
+            	+ "You have to be careful when applying the pesticide \n"
+            	+ "to a tree though, while the pesticide will kill pests, \n"
+            	+ "it will also kill polinators. Pollinators are good for \n"
+            	+ "the orchard because a tree with pollinators cannot be \n"
+            	+ "infested by pests. Use the Guide to find out whether \n"
+            	+ "what you see on a tree is a pest or not. Remember that \n"
+            	+ "spelling, capitalization, and spacing are important. \n"
+            	+ "trees do not have spaces in their names (which are written \n"
+            	+ "on the tree) and RedOak is more likely to be helpful than \n"
+            	+ "Red Oak, red oak, redoak, or RadOak");
             	break;
             case 3:
-            	textPane.setText("Your Mission (contd): \n\n"
-            			+ "You have to be careful when applying \n"
-            			+ "the pesticide to a tree though, while \n"
-            			+ "the pesticide will kill pests, it \n"
-            			+ "will also kill polinators. \n"
-            			+ "Pollinators are good for the orchard \n"
-            			+ "because a tree with pollinators \n"
-            			+ "cannot be infested by pests. Use the \n"
-            			+ "Guide to find out whether what you \n"
-            			+ "see on a tree is a pest or not.");
+            	textPane.setText("Help: Inventory \n\n"
+            	+ "Your inventory has a Guide, and a Book. When the game \n"
+            	+ "starts you will also see a counter, a season tracker, \n"
+            	+ "and a jar of tree-safe pesticide. The Guide has drawings \n"
+            	+ "of pests and pollinators. The Book has the address of \n"
+            	+ "the Shed, and can store addresses of trees you think are \n"
+            	+ "important. Remember to save your addresses before going to \n"
+            	+ "Shed, becase if you do not save an address to walk back to, \n"
+            	+ "you will be stuck in the Shed forever.");            	
             	break;
             case 4:
-            	textPane.setText("Help: Inventory \n\n"
-            			+ "Your inventory has a Guide, and a Book. \n"
-            			+ "When the game starts you will also see \n"
-            			+ "a counter, a season tracker, and a jar \n"
-            			+ "of tree-safe pesticide. \n"
-            			+ "The Guide has drawings of pests and \n"
-            			+ "pollinators. \n"
-            			+ "The Book has the address of the shed, \n"
-            			+ "and can store addresses of trees you \n"
-            			+ "think are important.");
+            	textPane.setText("Help: other commands \n\n"
+            			+ "Help - sends you to the help section. \n\n"
+            			+ "Exit - exits the help section. \n\n"
+            			+ "Quit - quits the game \n\n"
+            			+ "Guide - opens the field guide (capitalization matters)\n\n"
+            			+ "Book - opens the address book (capitalization matters)\n\n"
+            			+ "Turn - turns left or turns right\n\n");
             	break;
             case 5:
-            	//make help go here
-            	textPane.setText("Help: other commands \n\n"
-            			+ "Exit :: exits the help section. \n\n"
-            			+ "Quit :: quits the game \n\n"
-            			+ "Guide :: opens the field guide \n\n"
-            			+ "Book :: opens the address book \n\n"
-            			+ "Put :: used in conjunction with the = sign");
+            	textPane.setText("Help: Tree-Safe Pesticide and Colors \n\n"
+            			+ "Apple is red, Orange is orange, Cherry is pink, \n"
+            	+ "Nut is blue, Lemon is yellow, and Lime is green.");
             	break;
             case 6:
             	textPane.setText("Help: what about & and *? \n\n"
-            			+ "There are two symbols which wil help you \n"
-            			+ "in your attempt to send pests to a merciful \n"
-            			+ "end: * and &. \n\n"
-            			+ "While trial and error may be appealing, \n"
-            			+ "perhaps some examples of how to use * and \n"
-            			+ "& would benefit you in your journey to \n"
-            			+ "remove these pests. ");
+            	+ "There are two symbols which wil help you in your attempt \n"
+            	+ "to send pests to a merciful end: * and &. \n\n"
+            	+ "If you are in the same area as an Apple \n"
+            	+ "tree, you could use: \n"
+            	+ "put *Book = &Apple \n"
+            	+ "to store the address of the Apple tree in your special address \n"
+            	+ "book called Book. \n\n"
+            	+ "If you want to know what creature is living in the Apple tree, \n"
+            	+ "you can use:\n"
+            	+ "look *Apple \n"
+            	+ "which tells you what pest or pollinator is in the Apple tree.");
             	break;
             case 7:
-            	textPane.setText("How do you use * and &? \n\n"
-            			+ "If you are in the same area as an Apple \n"
-            			+ "tree, you could use: \n"
-            			+ "put *Book = &Apple \n"
-            			+ "to store the address of the Apple tree in \n"
-            			+ "your special address book called Book. \n\n"
-            			+ "If you want to know what creature is \n"
-            			+ "living in the Apple tree, you can use:\n"
-            			+ "*Apple \n"
-            			+ "which tells you what pest or pollinator \n"
-            			+ "is in the Apple tree.");
-            	break;
-            case 8:
             	textPane.setText("HELP: = \n\n"
             			+ "Book only takes addreses. Use \n"
             			+ "of = also requires knowledge of * and & \n\n"
-            			+ "put *Book = &Apple "
+            			+ "*Book = &Apple "
             			+ "\n stores address of the \n"
             			+ "Apple tree in Book. \n"
-            			+ "put *Sunstar = *Poison \n"
+            			+ "*Sunstar = *Poison \n"
             			+ "puts contents of Poison in the Sunstar tree. \n"
-            			+ "and Poison holds different types of poison.");
+            			+ "and Poison holds different types of poison. \n"
+            			+ "*Poison = *NutPoison \n"
+            			+ "would store a serving of Nut pesticide in \n"
+            			+ "the Poison container if you are in the Shed.");
             	break;
-            case 9:
+            case 8:
             	textPane.setText("HELP: Walk \n\n"
             			+ "Walk - You can walk forward and to addresses: \n "
             			+ "walk - you walk forward \n"
@@ -148,27 +139,21 @@ public class GameMainPanel extends JPanel{
             			+ "walk west - you walk west \n"
             			+ "turn right and turn left changes your orientation.");
             	break;
-            case 10:
+            case 9:
             	textPane.setText("Note: \n\n"
-            			+ "If left too long (aka a season)"
-            			+ "pests will destroy a tree. If your \n"
-            			+ "orchard loses 15% of the trees \n"
-            			+ "(approximately 12), then you are in the \n"
-            			+ "red and cannot reconver. Find the pests \n"
-            			+ "and destroy them before they destroy \n"
-            			+ "your livilihood! \n\n"
-            			+ "Remember that the command \n\n"
-            			+ "walk &Shed \n\n"
-            			+ "requires you to have an address in the"
-            			+ "Book to walk back to like \n\n"
-            			+ "walk &Sunstar");
+            	+ "If left too long (aka a season) pests will destroy a tree. \n"
+            	+ "If your orchard loses 15% of the trees (approximately 12), \n"
+            	+ "then you are in the red and cannot reconver. Find the pests \n"
+            	+ "and destroy them before they destroy your livilihood! \n\n"
+            	+ "Remember that the command \n\n"
+            	+ "walk &Shed \n\n"
+            	+ "requires you to have an address in the Book to walk back to like:\n\n"
+            	+ "walk &Sunstar");
             	break;
-            case 11:
-            	textPane.setText("If you feel competent, \n"
-            			+ " press next or type \n"
+            case 10:
+            	textPane.setText("If you feel competent, press next or type \n"
             			+ "'Enter Orchard'\n\n"
-            			+ "(If you need help during \n"
-            			+ "gameplay, type 'help' in \n"
+            			+ "(If you need help during gameplay, type 'help' in \n"
             			+ "the textbar.)");
             	break;
         }
@@ -261,6 +246,27 @@ public class GameMainPanel extends JPanel{
     	shedLabel.setSize(SIZE);
     	shedLabel.setIcon(shedIcon);
     	add(shedLabel);
+    	revalidate();
+    	repaint();
+    }
+    
+    public void showEndCondition(boolean winState){
+    	ImageIcon endConditionIcon;
+    	introState=15;
+    	removeAll();
+    	JPanel endCondition = new JPanel();
+    	endCondition.setPreferredSize(SIZE);
+    	endCondition.setMinimumSize(SIZE);
+    	endCondition.setMaximumSize(SIZE);
+    	if(winState){
+    		endConditionIcon = new ImageIcon("assets/MS_Project_WinScreen.jpg");
+    	}else{
+    		endConditionIcon = new ImageIcon("assets/MS_Project_LoseScreen.jpg");
+    	}
+    	JLabel labelCondition = new JLabel();
+    	labelCondition.setSize(SIZE);
+    	labelCondition.setIcon(endConditionIcon);
+    	add(labelCondition);
     	revalidate();
     	repaint();
     }
