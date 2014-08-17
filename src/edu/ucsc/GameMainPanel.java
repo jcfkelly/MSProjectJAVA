@@ -74,7 +74,8 @@ public class GameMainPanel extends JPanel{
             	+ "spelling, capitalization, and spacing are important. \n"
             	+ "trees do not have spaces in their names (which are written \n"
             	+ "on the tree) and RedOak is more likely to be helpful than \n"
-            	+ "Red Oak, red oak, redoak, or RadOak"
+            	+ "Red Oak, red oak, redoak, or RadOak. Remember that you find \n"
+            	+ "pests and pollinators, you do not put them in the trees."
             	+ "\n\n Press Next to continue.");
             	break;
             case 3:
