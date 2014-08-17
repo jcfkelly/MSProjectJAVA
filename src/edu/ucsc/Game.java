@@ -143,7 +143,7 @@ public class Game {
 		
 		else if (commandType == -1){
 			gameOutput(area, "That is not an option. Did you mean to use \n"
-					+ "turn, look, exit, quit, or walk? Also remember \n"
+					+ "turn, look, exit, quit, help, or walk? Also remember \n"
 					+ "that the = sign needs a space in front and a space \n"
 					+ "behind it.");
 		}
@@ -223,18 +223,24 @@ public class Game {
 	
 	private static void equals(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
-		if(getSubject(otherWords).contains("addressbook")||getSubject(otherWords).equals("book") || getSubject(otherWords).equals("*book") ||getSubject(otherWords).equals("&book") ){
+		if(getSubject(otherWords).equalsIgnoreCase("addressbook")||getSubject(otherWords).equals("book") || getSubject(otherWords).equals("*book") ||getSubject(otherWords).equals("&book") ){
+			//if Subject is some form of mis-spelled address book
 			gameOutput(area, "You cannot use book, or addressBook because Book \n is the variable for the address book. Capitalization is important. \n Did you mean to use Book, *Book, or &Book?");		
 		}else if(getSubject(otherWords).equals("*Book")){
 			//warn for wrong tree
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
+				if(gameState.treeFromLocation(gameState.getPosition()).equalsIgnoreCase(getObject(otherWords).substring(1))){
 				gameOutput(area, "You put the address of " + getObject(otherWords).substring(1) + " in the Book.");
 				gameState.addToAddressBook(getObject(otherWords));
+				}else{
+					gameOutput(area, "Error: That tree is not visible. \n "
+							+ "You tried to put the address of a tree from another \n"
+							+ "location in the Book.");
+				}
 			}else{
-				gameOutput(area, "You cannot put that in the Book, because it is not an address.");
+				gameOutput(area, "You cannot put that in the Book, because it is not an address. \n Did you mis-spell the name of a tree?");
 			}
 		}else if(getSubject(otherWords).equals("Book")){
-			//distinguish lowercase book from Book
 			if (getObject(otherWords).startsWith("&")){
 				gameOutput(area, "You cannot replace the Book with an address.");
 			}else{
@@ -248,7 +254,7 @@ public class Game {
 			}
 		}else if(getSubject(otherWords).contains("fieldguide")){
 			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
-		}else if(getSubject(otherWords).equals("")){
+		}else if(getSubject(otherWords).equals("*Poison")){
 			if(!panel.isInGame()){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
@@ -289,7 +295,8 @@ public class Game {
 		}
 
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
-			if (getObject(otherWords).equals("")){
+			//if the Subject is *Tree
+			if (getObject(otherWords).equals("*Poison")){
 				int poison = gameState.getPoison();
 				Tree thisTree = gameState.getTree(getSubject(otherWords).substring(1));
 				int thisResident = thisTree.getResident();
@@ -351,7 +358,7 @@ public class Game {
 		//fix error messages
 		if (otherWords.equalsIgnoreCase("")){
 			gameOutput(area, "You see what is in front of you.");
-		}else if(otherWords.equals("")){
+		}else if(otherWords.equals("*Poison")){
 			if(gameState.getPoison()==1){
 				gameOutput(area, "You see the Apple poison");
 			}else if(gameState.getPoison()==2){

@@ -47,7 +47,7 @@ public class GameMainPanel extends JPanel{
         textPane.setEditable(false);
         switch (introState) {
             case 0:
-                textPane.setText("Type Start or Next");
+                textPane.setText("Type Start or Press Next");
                 break;
             case 1:
             	textPane.setText("Your Mission: (Should you chose to accept)\n\n"
@@ -60,7 +60,8 @@ public class GameMainPanel extends JPanel{
             	+ "Orange, Lemon, Lime, Cherry, and Nuts. There \n"
             	+ "is pesticide in a shed for each type of tree. \n"
             	+ "Each pesticide safe for a tree matches the ribbon \n"
-            	+ "on the tree.");
+            	+ "on the tree."
+            	+ "\n\n Press Next to continue.");
             	break;
             case 2:
             	textPane.setText("Your Mission (contd): \n\n"
@@ -73,7 +74,8 @@ public class GameMainPanel extends JPanel{
             	+ "spelling, capitalization, and spacing are important. \n"
             	+ "trees do not have spaces in their names (which are written \n"
             	+ "on the tree) and RedOak is more likely to be helpful than \n"
-            	+ "Red Oak, red oak, redoak, or RadOak");
+            	+ "Red Oak, red oak, redoak, or RadOak"
+            	+ "\n\n Press Next to continue.");
             	break;
             case 3:
             	textPane.setText("Help: Inventory \n\n"
@@ -84,7 +86,8 @@ public class GameMainPanel extends JPanel{
             	+ "the Shed, and can store addresses of trees you think are \n"
             	+ "important. Remember to save your addresses before going to \n"
             	+ "Shed, becase if you do not save an address to walk back to, \n"
-            	+ "you will be stuck in the Shed forever.");            	
+            	+ "you will be stuck in the Shed forever."
+            	+ "\n\n Press Next to continue.");            	
             	break;
             case 4:
             	textPane.setText("Help: other commands \n\n"
@@ -93,12 +96,14 @@ public class GameMainPanel extends JPanel{
             			+ "Quit - quits the game \n\n"
             			+ "Guide - opens the field guide (capitalization matters)\n\n"
             			+ "Book - opens the address book (capitalization matters)\n\n"
-            			+ "Turn - turns left or turns right\n\n");
+            			+ "Turn - turns left or turns right\n\n"
+            			+ "\n Press Next to continue.");
             	break;
             case 5:
             	textPane.setText("Help: Tree-Safe Pesticide and Colors \n\n"
             			+ "Apple is red, Orange is orange, Cherry is pink, \n"
-            	+ "Nut is blue, Lemon is yellow, and Lime is green.");
+            	+ "Nut is blue, Lemon is yellow, and Lime is green."
+            	+ "\n\n Press Next to continue.");
             	break;
             case 6:
             	textPane.setText("Help: what about & and *? \n\n"
@@ -112,7 +117,8 @@ public class GameMainPanel extends JPanel{
             	+ "If you want to know what creature is living in the Apple tree, \n"
             	+ "you can use:\n"
             	+ "look *Apple \n"
-            	+ "which tells you what pest or pollinator is in the Apple tree.");
+            	+ "which tells you what pest or pollinator is in the Apple tree."
+            	+ "\n\n Press Next to continue.");
             	break;
             case 7:
             	textPane.setText("HELP: = \n\n"
@@ -126,7 +132,8 @@ public class GameMainPanel extends JPanel{
             			+ "and Poison holds different types of poison. \n"
             			+ "*Poison = *NutPoison \n"
             			+ "would store a serving of Nut pesticide in \n"
-            			+ "the Poison container if you are in the Shed.");
+            			+ "the Poison container if you are in the Shed."
+            			+ "\n\n Press Next to continue.");
             	break;
             case 8:
             	textPane.setText("HELP: Walk \n\n"
@@ -137,7 +144,8 @@ public class GameMainPanel extends JPanel{
             			+ "walk east - you walk east \n"
             			+ "walk south - you walk south \n"
             			+ "walk west - you walk west \n"
-            			+ "turn right and turn left changes your orientation.");
+            			+ "turn right and turn left changes your orientation."
+            			+ "\n\n Press Next to continue.");
             	break;
             case 9:
             	textPane.setText("Note: \n\n"
@@ -148,7 +156,8 @@ public class GameMainPanel extends JPanel{
             	+ "Remember that the command \n\n"
             	+ "walk &Shed \n\n"
             	+ "requires you to have an address in the Book to walk back to like:\n\n"
-            	+ "walk &Sunstar");
+            	+ "walk &Sunstar"
+            	+ "\n\n Press Next to continue.");
             	break;
             case 10:
             	textPane.setText("If you feel competent, press next or type \n"
