@@ -108,22 +108,21 @@ public class GameMainPanel extends JPanel{
             	break;
             case 6:
             	textPane.setText("Help: what about & and *? \n\n"
-            	+ "There are two symbols which wil help you in your attempt \n"
+            	+ "There are two symbols which will help you in your attempt \n"
             	+ "to send pests to a merciful end: * and &. \n\n"
             	+ "If you are in the same area as an Apple \n"
             	+ "tree, you could use: \n"
             	+ "put *Book = &Apple \n"
             	+ "to store the address of the Apple tree in your special address \n"
-            	+ "book called Book. \n\n"
-            	+ "If you want to know what creature is living in the Apple tree, \n"
-            	+ "you can use:\n"
+            	+ "book called Book. If you want to know what creature is living in \n"
+            	+ "the Apple tree, you can use:\n"
             	+ "look *Apple \n"
             	+ "which tells you what pest or pollinator is in the Apple tree."
             	+ "\n\n Press Next to continue.");
             	break;
             case 7:
             	textPane.setText("HELP: = \n\n"
-            			+ "Book only takes addreses. Use \n"
+            			+ "Book only takes addresses. Use \n"
             			+ "of = also requires knowledge of * and & \n\n"
             			+ "*Book = &Apple "
             			+ "\n stores address of the \n"
@@ -152,7 +151,7 @@ public class GameMainPanel extends JPanel{
             	textPane.setText("Note: \n\n"
             	+ "If left too long (aka a season) pests will destroy a tree. \n"
             	+ "If your orchard loses 15% of the trees (approximately 12), \n"
-            	+ "then you are in the red and cannot reconver. Find the pests \n"
+            	+ "then you are in the red and cannot recover. Find the pests \n"
             	+ "and destroy them before they destroy your livilihood! \n\n"
             	+ "Remember that the command \n\n"
             	+ "walk &Shed \n\n"

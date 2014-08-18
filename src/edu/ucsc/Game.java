@@ -116,8 +116,11 @@ public class Game {
 		}
 		else if(commandType == 6){//for EXIT
 			if (gameState.getAlreadyEnteredOrchard()){
-				if (!panel.isInGame()){
+				if (!panel.isInGame() && panel.getIntroState()!=14){
 					exit(gameGUI, panel, area);				
+				}else if(panel.getIntroState()!=14){
+					gameOutput(area, "You cannot exit the Shed, but you can walk back \n"
+							+ "to an address stored in Book.");
 				}else{
 					gameOutput(area, "You cannot exit the game, but you can quit it.");
 				}
@@ -142,10 +145,7 @@ public class Game {
 		}
 		
 		else if (commandType == -1){
-			gameOutput(area, "That is not an option. Did you mean to use \n"
-					+ "turn, look, exit, quit, help, or walk? Also remember \n"
-					+ "that the = sign needs a space in front and a space \n"
-					+ "behind it.");
+			checkTree(area, allWords);
 		}
 		return true;
 	}
@@ -227,7 +227,6 @@ public class Game {
 			//if Subject is some form of mis-spelled address book
 			gameOutput(area, "You cannot use book, or addressBook because Book \n is the variable for the address book. Capitalization is important. \n Did you mean to use Book, *Book, or &Book?");		
 		}else if(getSubject(otherWords).equals("*Book")){
-			//warn for wrong tree
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
 				if(gameState.treeFromLocation(gameState.getPosition()).equalsIgnoreCase(getObject(otherWords).substring(1))){
 				gameOutput(area, "You put the address of " + getObject(otherWords).substring(1) + " in the Book.");
@@ -248,14 +247,15 @@ public class Game {
 			}
 		}else if(getSubject(otherWords).equals("&Book")){
 			if (getObject(otherWords).startsWith("&")){
-				gameOutput(area, "You cannot trade the Book with the address of an object.");
+				gameOutput(area, "You cannot trade the address of Book with the address of an object.");
 			}else{
-				gameOutput(area, "You cannot replace the Book with an object");
+				gameOutput(area, "You cannot replace the address of Book with an object");
 			}
 		}else if(getSubject(otherWords).contains("fieldguide")){
 			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
 		}else if(getSubject(otherWords).equals("*Poison")){
-			if(!panel.isInGame()){
+			//Subject is Poison
+			if(panel.getIntroState()==14){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
 						gameState.changePoison(1);
@@ -284,16 +284,43 @@ public class Game {
 					}else if(getObject(otherWords).startsWith("&")){
 						gameOutput(area, "You cannot put an address in the poison container.");
 					}else{
-						gameOutput(area, "You have mis-spelled the pesticide container. Did you type the name like ApplePoison?");
+						gameOutput(area, "You have mis-spelled the pesticide container. Did you type \n"
+								+ "the name like *NutPoison to get the contents of the container?");
 					}
 				}else{
-					gameOutput(area, "You cannot put a whole container of pesticide in the poison container.");					
+					gameOutput(area, "You cannot put a whole container of pesticide in the poison container. \n"
+							+ "Did you try the name of the container with an asterisk like: *LimePoison?");
 				}
 			}else{
 				gameOutput(area, "You are not in the shed.");
 			}
 		}
-
+		else if(gameState.doesTreeExist(getSubject(otherWords))){
+			//Subject is tree 
+			if(gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace a tree with another tree");				
+			}else if(getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace a tree with the address of another tree");				
+			}else if(getObject(otherWords).startsWith("*") && gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace a tree with the contents of another tree");				
+			}else{
+				gameOutput(area, "Error: You cannot replace a tree with " + getObject(otherWords) + ". "
+						+ "\n Did you mis-spell something, not capitalize properly, or add extra spaces?");
+			}
+		}
+		else if(getSubject(otherWords).startsWith("&") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
+			//Subject is &Tree 
+			if(gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace the address of a tree with another tree");				
+			}else if(getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace the address of a tree with the address of another tree");				
+			}else if(getObject(otherWords).startsWith("*") && gameState.doesTreeExist(getObject(otherWords))){
+				gameOutput(area, "Error: You cannot replace the address of a tree with the contents of another tree");				
+			}else{
+				gameOutput(area, "Error: You cannot replace the address of a tree with " + getObject(otherWords) + ". "
+						+ "\n Did you mis-spell something, not capitalize properly, or add extra spaces?");
+			}
+		}
 		else if(getSubject(otherWords).startsWith("*") && gameState.doesTreeExist(getSubject(otherWords).substring(1))){
 			//if the Subject is *Tree
 			if (getObject(otherWords).equals("*Poison")){
@@ -327,6 +354,7 @@ public class Game {
 				gameOutput(area, "You attempt to put pesticide in " + getSubject(otherWords) + " but you probably messed \n up capitalization, forgot there are no spaces in tree names, \n or spelled something incorrectly.");
 			}
 		}else if(getSubject(otherWords).startsWith("*") && !getSubject(otherWords).substring(1).equalsIgnoreCase("poison")){
+			//poison is subject
 			if(getObject(otherWords).startsWith("*") && !getObject(otherWords).substring(1).equalsIgnoreCase("poison")){
 				gameOutput(area, "You cannot move unknown into another tree.");
 			}else if(getObject(otherWords).startsWith("&")){
@@ -351,7 +379,7 @@ public class Game {
 				gameOutput(area, "You cannot plant a new tree of type "+ otherWords+ " here.");	
 			}
 		}else{
-			gameOutput(area, "That is not the poison container, a tree, or the address book.");
+			checkTree(area, otherWords);
 		}
 	}
 	
@@ -449,6 +477,23 @@ public class Game {
 		}
 	}
 	
+	private static void checkTree(JTextArea area, String otherWords){
+		if (gameState.doesTreeExist(otherWords)){
+			gameOutput(area, "You need to use look *"+otherWords+" if you want to see the content of the tree. \n"
+					+ "It is unclear what you are trying to do.");
+		}else if (otherWords.startsWith("&") && gameState.doesTreeExist(otherWords.substring(1))){
+			gameOutput(area, otherWords+" should not be used alone. Did you mean *Book = "+otherWords+"?");
+		}else if (otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+			gameOutput(area, otherWords+" should not be used alone. Did you mean look "+otherWords+"?");
+		}else{
+			gameOutput(area, "That is not the poison container, a tree, or the address book. \n"
+					+ "Did you mis-spell something, capitalize incorrectly, or add extra space? \n"
+					+ "Or did you mean to use turn, look, exit, quit, help, or walk? \n"
+					+ "Also remember that the = sign needs a space in front and a space \n"
+					+ "behind it.");
+		}
+	}
+	
 	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		
 
@@ -461,7 +506,7 @@ public class Game {
 				}else if (otherWords.substring(1).equals("Shed")){
 					panel.showShed();
 					gameOutput(area, "You should probably use * to move the poisons around. \n "
-							+ "Like put  = *ApplePoison");
+							+ "Like *Poison = *ApplePoison");
 				}
 				gameState.takeSteps();
 				gameGUI.refreshCounter();
