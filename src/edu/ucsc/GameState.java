@@ -145,6 +145,15 @@ public class GameState{
 	public ArrayList<String> getAddressBook() {
 		return addressBook;
 	}
+	
+	public boolean isInBook(String address){
+		for (String treeName: addressBook){
+			if(treeName.equalsIgnoreCase(address)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public boolean getAlreadyEnteredOrchard() {
 		return alreadyEnteredOrchard;

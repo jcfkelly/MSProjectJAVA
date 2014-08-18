@@ -22,6 +22,8 @@ public class GameGUI extends JPanel implements ActionListener {
     private JLabel seasonLabel = new JLabel();
     private JTextArea counter = new JTextArea();
     private JButton nextButton;
+    private JButton guideButton;
+    private JButton bookButton;
     
     public GameGUI() {
         super(new GridBagLayout());
@@ -112,14 +114,103 @@ public class GameGUI extends JPanel implements ActionListener {
         gridbag.setConstraints(button, c);
         add(button);
         
+      	//counter
+    	counter.setText("Counter: \n" + Game.refreshSteps());
+    	c.gridx = 5;
+        c.gridy = 2;
+        gridbag.setConstraints(counter, c);
+        add(counter);
+        counter.setVisible(false);
         
+    	//inventory
+        guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+        c.gridx = 4;
+        c.gridy = 1;
+        gridbag.setConstraints(guideButton, c);
+        add(guideButton);
+        guideButton.setVisible(false);
+        guideButton.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				onGuideButtonClick();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
+        bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+        bookButton.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				onBookButtonClick();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
+        c.gridx = 4;
+        c.gridy = 2;
+        gridbag.setConstraints(bookButton, c);
+        add(bookButton);      
+        bookButton.setVisible(false);
         
+        poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
+        poisonLabel.setIcon(poisonIcon);
+        c.gridx = 5;
+        c.gridy = 3;
+        gridbag.setConstraints(poisonLabel, c);
+        add(poisonLabel);
+        poisonLabel.setVisible(false);
         
-        setPreferredSize(new Dimension(740, 580));
+        seasonIcon = new ImageIcon("assets/MS_Project_Seasons_1.jpg");
+        seasonLabel.setIcon(seasonIcon);
+        c.gridx = 5;
+        c.gridy = 1;
+        gridbag.setConstraints(seasonLabel, c);
+        add(seasonLabel); 
+        seasonLabel.setVisible(false);
+        
+        setPreferredSize(new Dimension(700, 500));
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
-
-
     
     class MyTextActionListener implements ActionListener {
         /** Handle the text field Return. */
@@ -159,117 +250,50 @@ public class GameGUI extends JPanel implements ActionListener {
     	counter.setText("Counter: \n" + Game.refreshSteps());
     }
     
+    public void resetButtons(){
+    	guideButton.setIcon(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+    	bookButton.setIcon(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+    	revalidate();
+    	repaint();
+    }
+    
+    public void onGuideButtonClick(){
+    	bookButton.setIcon(new ImageIcon("assets/MS_Project_addressBook.jpg"));
+    	String guideButtonImage;
+		if(gameMainPanel.getIntroState()==13){
+			guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
+			Game.exit(GameGUI.this, gameMainPanel, textArea);
+		}else{
+			guideButtonImage = "assets/MS_Project_backButton.jpg";
+			Game.guide(GameGUI.this, gameMainPanel, textArea);
+		}
+    	guideButton.setIcon(new ImageIcon(guideButtonImage));
+    	revalidate();
+    	repaint();
+    }
+    
+    public void onBookButtonClick(){
+    	guideButton.setIcon(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
+    	String bookButtonImage;
+		if(gameMainPanel.getIntroState()==12){
+			bookButtonImage = "assets/MS_Project_addressBook.jpg";
+			Game.exit(GameGUI.this, gameMainPanel, textArea);
+		}else{
+			bookButtonImage = "assets/MS_Project_backButton.jpg";
+			Game.book(GameGUI.this, gameMainPanel, textArea);
+		}
+    	bookButton.setIcon(new ImageIcon(bookButtonImage));
+    	revalidate();
+    	repaint();
+    }
+    
     public void onEnterOrchard(){
     	hideNextButton();
-    	//counter
-    	counter.setSize(70, 25);
-    	counter.setText("Counter: \n" + Game.refreshSteps());
-    	c.gridx = 5;
-        c.gridy = 2;
-        gridbag.setConstraints(counter, c);
-        add(counter);
-        
-    	//inventory
-        final JButton guideButton = new JButton(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
-        c.gridx = 4;
-        c.gridy = 1;
-        gridbag.setConstraints(guideButton, c);
-        add(guideButton);
-        guideButton.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String guideButtonImage;
-				if(gameMainPanel.getIntroState()==13){
-					guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
-					Game.exit(GameGUI.this, gameMainPanel, textArea);
-				}else{
-					guideButtonImage = "assets/MS_Project_backButton.jpg";
-					Game.guide(GameGUI.this, gameMainPanel, textArea);
-				}
-		    	guideButton.setIcon(new ImageIcon(guideButtonImage));
-		    	revalidate();
-		    	repaint();
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-        	
-        });
-        final JButton bookButton = new JButton(new ImageIcon("assets/MS_Project_addressBook.jpg"));
-        bookButton.addMouseListener(new MouseListener(){
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				String bookButtonImage;
-				if(gameMainPanel.getIntroState()==12){
-					bookButtonImage = "assets/MS_Project_addressBook.jpg";
-					Game.exit(GameGUI.this, gameMainPanel, textArea);
-				}else{
-					bookButtonImage = "assets/MS_Project_backButton.jpg";
-					Game.book(GameGUI.this, gameMainPanel, textArea);
-				}
-		    	bookButton.setIcon(new ImageIcon(bookButtonImage));
-		    	revalidate();
-		    	repaint();
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				
-			}
-        	
-        });
-        c.gridx = 4;
-        c.gridy = 2;
-        gridbag.setConstraints(bookButton, c);
-        add(bookButton);      
-        
-        poisonIcon = new ImageIcon("assets/MS_Project_poison_apple.jpg");
-        poisonLabel.setIcon(poisonIcon);
-        c.gridx = 5;
-        c.gridy = 3;
-        gridbag.setConstraints(poisonLabel, c);
-        add(poisonLabel);
-        
-        seasonIcon = new ImageIcon("assets/MS_Project_Seasons_1.jpg");
-        seasonLabel.setIcon(seasonIcon);
-        c.gridx = 5;
-        c.gridy = 1;
-        gridbag.setConstraints(seasonLabel, c);
-        add(seasonLabel);        
+    	counter.setVisible(true);
+        guideButton.setVisible(true);
+        bookButton.setVisible(true);
+        poisonLabel.setVisible(true);
+        seasonLabel.setVisible(true);        
         revalidate();
         repaint();
     }

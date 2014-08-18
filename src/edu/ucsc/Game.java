@@ -117,7 +117,7 @@ public class Game {
 		else if(commandType == 6){//for EXIT
 			if (gameState.getAlreadyEnteredOrchard()){
 				if (!panel.isInGame() && panel.getIntroState()!=14){
-					exit(gameGUI, panel, area);				
+					exit(gameGUI, panel, area);			
 				}else if(panel.getIntroState()!=14){
 					gameOutput(area, "You cannot exit the Shed, but you can walk back \n"
 							+ "to an address stored in Book.");
@@ -131,12 +131,12 @@ public class Game {
 			equals(gameGUI, panel, area, p, allWords);
 		}else if(commandType == 8){//for GUIDE
 			if(panel.getIntroState()==-1){
-				guide(gameGUI, panel, area);
+				gameGUI.onGuideButtonClick();
 			}else{
 				gameOutput(area, "You cannot look in the Guide unless you are in the game.");}
 		}else if(commandType == 9){//for BOOK
 			if(panel.getIntroState()==-1){
-				book(gameGUI, panel, area);
+				gameGUI.onBookButtonClick();
 			}else{
 				gameOutput(area, "You cannot look in the Book unless you are in the game.");
 			}
@@ -191,6 +191,7 @@ public class Game {
 	}
 	
 	public static void exit(GameGUI gameGUI, GameMainPanel panel, JTextArea area){
+		gameGUI.resetButtons();
 		gameGUI.hideNextButton();
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
@@ -227,10 +228,15 @@ public class Game {
 			//if Subject is some form of mis-spelled address book
 			gameOutput(area, "You cannot use book, or addressBook because Book \n is the variable for the address book. Capitalization is important. \n Did you mean to use Book, *Book, or &Book?");		
 		}else if(getSubject(otherWords).equals("*Book")){
+			//puttting things in book
 			if (getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords).substring(1))){
 				if(gameState.treeFromLocation(gameState.getPosition()).equalsIgnoreCase(getObject(otherWords).substring(1))){
-				gameOutput(area, "You put the address of " + getObject(otherWords).substring(1) + " in the Book.");
-				gameState.addToAddressBook(getObject(otherWords));
+					if(!gameState.isInBook(getObject(otherWords))){
+						gameOutput(area, "You put the address of " + getObject(otherWords).substring(1) + " in the Book.");
+						gameState.addToAddressBook(getObject(otherWords));
+					}else{
+						gameOutput(area, "Error: You already wrote the address in the Book.");
+					}
 				}else{
 					gameOutput(area, "Error: That tree is not visible. \n "
 							+ "You tried to put the address of a tree from another \n"
@@ -400,6 +406,8 @@ public class Game {
 				gameOutput(area, "You see the Lemon poison");
 			}else if(gameState.getPoison()==6){
 				gameOutput(area, "You see the Lime poison");
+			}else if(gameState.getPoison()==0){
+				gameOutput(area, "You see the empty Poison container");
 			}
 		}
 		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
