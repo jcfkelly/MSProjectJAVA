@@ -96,7 +96,7 @@ public class Game {
 			}
 		}
 		else if (commandType == 3){//for HELP
-			help(panel, area, gameGUI);
+			help(panel, area, gameGUI, otherWords);
 		}
 		else if (commandType == 4){//for TURN
 			if(panel.isInGame()){
@@ -122,7 +122,7 @@ public class Game {
 			if (gameState.getAlreadyEnteredOrchard()){
 				if (!panel.isInGame() && panel.getIntroState()!=shedNum){
 					exit(gameGUI, panel, area);			
-				}else if(panel.getIntroState()!=shedNum){
+				}else if(panel.getIntroState()==shedNum){
 					gameOutput(area, "You cannot exit the Shed, but you can walk back \n"
 							+ "to an address stored in Book.");
 				}else{
@@ -229,11 +229,23 @@ public class Game {
         		+ "or if it is just fruit.");
 	}
 	
-	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
-		panel.setIntroState(4);
-		gameGUI.typeHelp();
-        gameOutput(area, "You are looking at the help menu. \n"
-        		+ "Type next to move through, or exit to get back to the game.");
+	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI, String otherWords){
+		 if(otherWords.equalsIgnoreCase("walk")){
+			panel.setIntroState(10);
+			gameGUI.typeHelp();
+	        gameOutput(area, "You are looking at the help menu. \n"
+	        		+ "Type next to move through, or exit to get back to the game.");
+		}else if(otherWords.equalsIgnoreCase("poison")){
+			panel.setIntroState(7);
+			gameGUI.typeHelp();
+	        gameOutput(area, "You are looking at the help menu. \n"
+	        		+ "Type next to move through, or exit to get back to the game.");
+		}else{
+			panel.setIntroState(4);
+			gameGUI.typeHelp();
+	        gameOutput(area, "You are looking at the help menu. \n"
+	        		+ "Type next to move through, or exit to get back to the game.");
+		}
 	}
 	
 	public static void exit(GameGUI gameGUI, GameMainPanel panel, JTextArea area){

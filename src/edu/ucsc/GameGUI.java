@@ -260,7 +260,7 @@ public class GameGUI extends JPanel implements ActionListener {
     public void onGuideButtonClick(){
     	bookButton.setIcon(new ImageIcon("assets/MS_Project_addressBook.jpg"));
     	String guideButtonImage;
-		if(gameMainPanel.getIntroState()==14){
+		if(gameMainPanel.getIntroState()==15){
 			guideButtonImage = "assets/MS_Project_fieldGuide.jpg";
 			Game.exit(GameGUI.this, gameMainPanel, textArea);
 		}else{
@@ -275,7 +275,7 @@ public class GameGUI extends JPanel implements ActionListener {
     public void onBookButtonClick(){
     	guideButton.setIcon(new ImageIcon("assets/MS_Project_fieldGuide.jpg"));
     	String bookButtonImage;
-		if(gameMainPanel.getIntroState()==15){
+		if(gameMainPanel.getIntroState()==14){
 			bookButtonImage = "assets/MS_Project_addressBook.jpg";
 			Game.exit(GameGUI.this, gameMainPanel, textArea);
 		}else{
