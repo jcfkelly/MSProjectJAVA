@@ -223,7 +223,10 @@ public class Game {
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 		gameGUI.onEnterOrchard();
-        gameOutput(area, "You enter the Orchard.");
+        gameOutput(area, "You enter the Orchard.\n"
+        		+ "Maybe you should walk around and find the pests before they \n"
+        		+ "kill trees. Remember to look at trees to see if that is a pest \n"
+        		+ "or if it is just fruit.");
 	}
 	
 	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
@@ -481,21 +484,43 @@ public class Game {
 				if(localTree.getResident() == 0){
 					gameOutput(area, "You see the "+ thisTreeType +" tree is empty.");
 				}else if(localTree.getResident()==1){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains ants. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains ants. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==2){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains wasps. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains wasps. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==3){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains gophers. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains gophers. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==4){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains aphids. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains aphids. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==5){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains butterflies. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains butterflies. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==6){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains bees. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains bees. Use the Guide to figure out "
+							+ "\n if it is a pest that destroys or pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==7){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains frogs. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains frogs. Use the Guide to figure out "
+							+ "\n if it is a pest that destroys or pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}else if(localTree.getResident()==8){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains ladybugs. Use the Guide to figure out \n if it is a pest that destroys or pollinator that protects the tree. \n Also, remember to store the address of the tree in Book.");
+					gameOutput(area, "You see the "+ thisTreeType +" tree contains ladybugs. Use the Guide \n"
+							+ "to figure out if it is a pest that destroys or \n"
+							+ "pollinator that protects the tree. "
+							+ "\n Also, remember to store the address of the tree in Book.");
 				}				
 			}
 		}else if(otherWords.startsWith("&")){
@@ -608,7 +633,8 @@ public class Game {
 					gameGUI.refreshCounter();
 			}else{
 				//ERROR
-				gameOutput(area, "You have reached the border of the Orchard. You cannot continue to walk in this direction.");
+				gameOutput(area, "You have reached the border of the Orchard. \n"
+						+ "You cannot continue to walk in this direction.");
 			}
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));		
 	}
