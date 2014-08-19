@@ -36,6 +36,8 @@ public class Input{
 			return 9;
 		}else if(word.equalsIgnoreCase("next")){
 			return 10;
+		}else if(word.equalsIgnoreCase("Yes") || word.equalsIgnoreCase("Y") ||word.equalsIgnoreCase("No") || word.equalsIgnoreCase("N")){
+			return 11;
 		}
 		else{
 			return -1;

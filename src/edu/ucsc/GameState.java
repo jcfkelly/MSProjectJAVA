@@ -173,7 +173,7 @@ public class GameState{
 	
 	public void areTreesDead(){
 		for(String tree: treeMap.keySet()){
-			if (getSteps()%200==199){
+			if (getSteps()%100==99){
 				if (treeMap.get(tree).getResident()>0 && 5>treeMap.get(tree).getResident()){
 					treeMap.get(tree).setAlive(false);
 					deadTrees+=1;
