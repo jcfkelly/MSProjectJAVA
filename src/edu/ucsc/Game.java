@@ -10,6 +10,9 @@ import javax.swing.JTextArea;
 import edu.ucsc.Input;
 
 public class Game {
+	private static boolean fromEquals = false;
+	private static boolean fromShed = false;
+	private static int shedNum = 16;
 	private static GameState gameState = new GameState();
 	public static GameState getGameState(){
 		return gameState;
@@ -39,8 +42,9 @@ public class Game {
 	}
 	
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel, GameGUI gameGUI){
+		
 		//screen should echo commands (show is is command not computer answer)
-		if (gameState.getSteps()%200==199){
+		if (gameState.getSteps()%100==99){
 			gameState.areTreesDead();
 			gameState.incrementSeason(gameState.getSeason()+1);
 			gameGUI.setSeasonIcon(gameState.getSeason());
@@ -84,7 +88,7 @@ public class Game {
 		else if (commandType == 2){ //for WALK
 			if(panel.isInGame()){
 				walk(gameGUI, panel, area, p, otherWords);
-			}else if(panel.getIntroState()==14){
+			}else if(panel.getIntroState()==shedNum){
 				walkFromShed(gameGUI, panel, area, otherWords);
 			}else{
 				gameOutput(area, "You cannot walk while you are reading things or looking"
@@ -106,19 +110,19 @@ public class Game {
 			if (!gameState.getAlreadyEnteredOrchard()){
 				if (otherWords.equalsIgnoreCase("orchard")) {
 	                enter(panel, area, gameGUI);
+	                gameState.setAlreadyEnteredOrchard(true);
 	            } else {
 	                gameOutput(area, "You cannot enter " + otherWords);
-	            }
-				gameState.setAlreadyEnteredOrchard(true);
+	            }	
 			}else{
 				gameOutput(area, "You are already in the orchard. \n you probably need to exit back to game.");
 			}
 		}
 		else if(commandType == 6){//for EXIT
 			if (gameState.getAlreadyEnteredOrchard()){
-				if (!panel.isInGame() && panel.getIntroState()!=14){
+				if (!panel.isInGame() && panel.getIntroState()!=shedNum){
 					exit(gameGUI, panel, area);			
-				}else if(panel.getIntroState()!=14){
+				}else if(panel.getIntroState()!=shedNum){
 					gameOutput(area, "You cannot exit the Shed, but you can walk back \n"
 							+ "to an address stored in Book.");
 				}else{
@@ -142,12 +146,50 @@ public class Game {
 			}
 		}else if(commandType ==10){
 			gameGUI.typeNext();
+		}else if(commandType == 11){
+			if(fromEquals){
+				YesNo(area, allWords, gameState.getTreeFromLocation(p), panel, gameGUI, gameState.getPoisonString(gameState.getPoison()));
+				fromEquals = false;
+			}else if(fromShed){
+				YesNo(area, allWords, gameState.getTreeFromLocation(p), panel, gameGUI, gameState.getPoisonString(gameState.getPoison()));
+				fromShed = false;
+			}else{
+				gameOutput(area, "You can only reply Yes/No when you are answering a question.");
+			}
 		}
 		
 		else if (commandType == -1){
 			checkTree(area, allWords);
 		}
 		return true;
+	}
+	
+	private static void YesNo(JTextArea area, String otherWords, Tree thisTree, GameMainPanel panel, GameGUI gameGUI, String poisonString){
+		if(fromEquals){
+			if (otherWords.equalsIgnoreCase("yes") || otherWords.equalsIgnoreCase("Y")){
+				gameOutput(area, "You put the pesticide on the "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree. \n"
+						+ "You have killed this tree.");
+				thisTree.setResident(0);
+				thisTree.setAlive(false);
+				panel.showTree(thisTree);
+				gameGUI.setPoisonIcon(0);
+				gameState.changePoison(0);
+			}else{
+				gameOutput(area, "You decide not to put a "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree. \n"
+						+ "The tree lives.");
+				fromEquals = false;
+			}
+		}else if(fromShed){
+			if (otherWords.equalsIgnoreCase("yes") || otherWords.equalsIgnoreCase("Y")){
+				panel.showShed();
+				gameOutput(area, "You walk to shed. You did not write an address to get back to, \n"
+						+ "so now you are trapped forever in the Shed.");
+			}else{
+				gameOutput(area, "You decide not to walk to the Shed before writing an address to \n"
+						+ "walk back to.");
+				fromShed = false;
+			}
+		}
 	}
 	
 	public static void book(GameGUI gameGUI, GameMainPanel panel,
@@ -170,6 +212,7 @@ public class Game {
 		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
 		}else if(introState == panel.MAX_INTRO_STATE){
+			gameState.setAlreadyEnteredOrchard(true);
 			enter(panel, area, gameGUI);
 		}else{
 			panel.setIntroState(introState+1);
@@ -261,7 +304,7 @@ public class Game {
 			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
 		}else if(getSubject(otherWords).equals("*Poison")){
 			//Subject is Poison
-			if(panel.getIntroState()==14){
+			if(panel.getIntroState()==shedNum){
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
 						gameState.changePoison(1);
@@ -353,7 +396,10 @@ public class Game {
 					if (poison==0){
 						gameOutput(area, "You cannot spray pesticide from an empty container. Save your \n address in Book and then go to the Shed for more pesticide.");
 					}else{
-						gameOutput(area, "You cannot put "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree. \n Save your address in Book and then go to \n the Shed for different pesticide.");
+						gameOutput(area, "You are about to put a "+ poisonString +" poison in a "+ gameState.getPoisonString(thisTree.getTreeType())+" tree. "
+								+ "\n You might kill this tree if you do not use the tree-safe poison. "
+								+ "\n Do you still want to spray this tree with the poison?");
+						fromEquals = true;
 					}
 				}	
 			}else{
@@ -503,7 +549,12 @@ public class Game {
 	}
 	
 	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
-		
+		if (gameState.getSteps()%20==19){
+			gameState.insertRandomPests(1);
+		}
+		if(gameState.getSteps()%40==39){
+			gameState.insertRandomPollinator();
+		}
 
 			if (otherWords.startsWith("&")){
 				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
@@ -512,9 +563,15 @@ public class Game {
 					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 					gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
 				}else if (otherWords.substring(1).equals("Shed")){
-					panel.showShed();
-					gameOutput(area, "You should probably use * to move the poisons around. \n "
-							+ "Like *Poison = *ApplePoison");
+					if (gameState.getAddressBook().size()>1){
+						panel.showShed();
+						gameOutput(area, "You should probably use * to move the poisons around. \n "
+								+ "Like *Poison = *ApplePoison");
+					}else{
+						gameOutput(area, "Are you sure you want to walk to the shed without any address \n"
+								+ "stored in the book?");
+						fromShed = true;
+					}					
 				}
 				gameState.takeSteps();
 				gameGUI.refreshCounter();
