@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import edu.ucsc.Input;
 
 public class Game {
+	private static boolean inShed = false;
 	private static boolean fromEquals = false;
 	private static boolean fromShed = false;
 	private static int shedNum = 16;
@@ -251,9 +252,18 @@ public class Game {
 	public static void exit(GameGUI gameGUI, GameMainPanel panel, JTextArea area){
 		gameGUI.resetButtons();
 		gameGUI.hideNextButton();
-		panel.setIntroState(-1);
-		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
-		gameOutput(area, "You exit back to the game.");
+		if(inShed && panel.getIntroState()!=shedNum){
+			panel.showShed();
+			panel.setIntroState(shedNum);
+			gameOutput(area, "You exit back to the Shed.");
+			inShed = false;
+		}else{
+			panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
+			panel.setIntroState(-1);
+			gameOutput(area, "You exit back to the game.");
+		}
+		panel.revalidate();
+		panel.repaint();
 	}
 	
 	public static String refreshSteps(){
@@ -320,6 +330,7 @@ public class Game {
 		}else if(getSubject(otherWords).equals("*Poison")){
 			//Subject is Poison
 			if(panel.getIntroState()==shedNum){
+				inShed = true;
 				if(getObject(otherWords).startsWith("*")){
 					if(getObject(otherWords).substring(1).equals("ApplePoison")){
 						gameState.changePoison(1);
@@ -471,7 +482,7 @@ public class Game {
 				gameOutput(area, "You see the empty Poison container");
 			}
 		}
-		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))&& gameState.getPosition()==gameState.getTree(otherWords.substring(1)).getLocation()){
 			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
 			String thisTreeType = "";
 			if(localTree.getTreeType()==1){
@@ -535,7 +546,10 @@ public class Game {
 							+ "\n Also, remember to store the address of the tree in Book.");
 				}				
 			}
-		}else if(otherWords.startsWith("&")){
+		}else if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
+			gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
+		}
+		else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
 		}else{
 			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game. \n If you think it exists, it may be spelled incorrectly, have extra spaces, or \n have incorrect capitalization.");
@@ -566,6 +580,7 @@ public class Game {
 		}else{
 			gameOutput(area, "You cannot walk out of the shed. You need an address \n to walk to. Hope you saved an address in the Book.");
 		}
+		inShed = false;
 	}
 	
 	private static void checkTree(JTextArea area, String otherWords){
@@ -600,6 +615,7 @@ public class Game {
 					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 					gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
 				}else if (otherWords.substring(1).equals("Shed")){
+					inShed = true;
 					if (gameState.getAddressBook().size()>1){
 						panel.showShed();
 						gameOutput(area, "You should probably use * to move the poisons around. \n "

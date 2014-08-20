@@ -229,7 +229,8 @@ public class GameGUI extends JPanel implements ActionListener {
     	revalidate();
     	repaint();
     }
-    
+    //buttons for getting out of Book and Guide going back to last screen
+    //back button for help
     public void hideNextButton(){
     		nextButton.setVisible(false);
 			revalidate();
