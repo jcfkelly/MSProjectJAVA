@@ -45,7 +45,7 @@ public class Game {
 	public static boolean gameLoop(String input, JTextArea area, GameMainPanel panel, GameGUI gameGUI){
 		
 		//screen should echo commands (show is is command not computer answer)
-		if (gameState.getSteps()%100==99){
+		if (gameState.getSteps()%50==49){
 			gameState.areTreesDead();
 			gameState.incrementSeason(gameState.getSeason()+1);
 			gameGUI.setSeasonIcon(gameState.getSeason());
@@ -133,7 +133,7 @@ public class Game {
 				gameOutput(area, "You cannot exit to the game because you have not yet entered the orchard.");
 			}
 		}else if(commandType == 7){//for EQUALS
-			equals(gameGUI, panel, area, p, allWords);
+			equalsSign(gameGUI, panel, area, p, allWords);
 		}else if(commandType == 8){//for GUIDE
 			if(panel.getIntroState()==-1){
 				gameGUI.onGuideButtonClick();
@@ -157,6 +157,8 @@ public class Game {
 			}else{
 				gameOutput(area, "You can only reply Yes/No when you are answering a question.");
 			}
+		}else if(commandType == 12){
+			back(area, panel, gameGUI);
 		}
 		
 		else if (commandType == -1){
@@ -220,6 +222,20 @@ public class Game {
 		}
 	}
 	
+	public static void back(JTextArea area, GameMainPanel panel, GameGUI gameGUI){
+		if (panel == null){
+			return;
+		}
+		int introState = panel.getIntroState();
+		if (introState == -1){
+			gameOutput(area, "Error: This is not in the game.");			
+		}else if(introState <= 5){
+			gameOutput(area, "Error: You cannot go any further back.");
+		}else{
+			panel.setIntroState(introState-1);
+		}
+	}
+	
 	private static void enter(GameMainPanel panel, JTextArea area, GameGUI gameGUI){
 		panel.setIntroState(-1);
 		panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
@@ -252,6 +268,7 @@ public class Game {
 	public static void exit(GameGUI gameGUI, GameMainPanel panel, JTextArea area){
 		gameGUI.resetButtons();
 		gameGUI.hideNextButton();
+		gameGUI.hideBackButton();
 		if(inShed && panel.getIntroState()!=shedNum){
 			panel.showShed();
 			panel.setIntroState(shedNum);
@@ -290,7 +307,7 @@ public class Game {
 		return otherWords.substring(0, indexOfEquals);
 	}
 	
-	private static void equals(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
+	private static void equalsSign(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
 		//Command Subject = Object
 		if(getSubject(otherWords).equalsIgnoreCase("addressbook")||getSubject(otherWords).equals("book") || getSubject(otherWords).equals("*book") ||getSubject(otherWords).equals("&book") ){
 			//if Subject is some form of mis-spelled address book
@@ -311,22 +328,30 @@ public class Game {
 							+ "location in the Book.");
 				}
 			}else{
-				gameOutput(area, "You cannot put that in the Book, because it is not an address. \n Did you mis-spell the name of a tree?");
+				gameOutput(area, "Error: You cannot put that in the Book, because " + getObject(otherWords)
+						+ "\n is not an address. \n Did you mis-spell the name of a tree?");
 			}
 		}else if(getSubject(otherWords).equals("Book")){
 			if (getObject(otherWords).startsWith("&")){
-				gameOutput(area, "You cannot replace the Book with an address.");
+				gameOutput(area, "Error: You cannot replace the Book with an address.");
+			}else if (getObject(otherWords).startsWith("*")){
+				if(gameState.doesTreeExist(getObject(otherWords).substring(1)) && gameState.getTree(getObject(otherWords).substring(1)).getResident()!=0){
+					gameOutput(area, "Error: You cannot replace the Book with the contents of a tree.");					
+				}else{
+					gameOutput(area, "Error: You cannot replace the Book with the contents of a tree. \n "
+							+ "Furthermore, this tree is empty.");
+				}
 			}else{
-				gameOutput(area, "You cannot replace the Book with an object");
+				gameOutput(area, "Error: You cannot replace the Book with an object");
 			}
 		}else if(getSubject(otherWords).equals("&Book")){
 			if (getObject(otherWords).startsWith("&")){
-				gameOutput(area, "You cannot trade the address of Book with the address of an object.");
+				gameOutput(area, "Error: You cannot trade the address of Book with the address of an object.");
 			}else{
-				gameOutput(area, "You cannot replace the address of Book with an object");
+				gameOutput(area, "Error: You cannot replace the address of Book with an object");
 			}
 		}else if(getSubject(otherWords).contains("fieldguide")){
-			gameOutput(area, "You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
+			gameOutput(area, "Error: You cannot use guide, or fieldGuide because Guide \n is the variable for the field guide. Capitalization is important.\n Did you mean to use Guide?");
 		}else if(getSubject(otherWords).equals("*Poison")){
 			//Subject is Poison
 			if(panel.getIntroState()==shedNum){
@@ -357,14 +382,19 @@ public class Game {
 						gameGUI.setPoisonIcon(6);
 						gameOutput(area, "You put the Lime pesticide in the container.");
 					}else if(getObject(otherWords).startsWith("&")){
-						gameOutput(area, "You cannot put an address in the poison container.");
+						gameOutput(area, "Error: You cannot put an address in the poison container.");
 					}else{
-						gameOutput(area, "You have mis-spelled the pesticide container. Did you type \n"
+						gameOutput(area, "Error: You have mis-spelled the pesticide container. Did you type \n"
 								+ "the name like *NutPoison to get the contents of the container?");
 					}
+				}else if(getObject(otherWords).startsWith("&")){
+					gameOutput(area, "Error: You cannot put the address of a container of pesticide \n"
+							+ "in the poison container. Did you try the name of the container \n"
+							+ "with an asterisk like: *LimePoison?");
 				}else{
-					gameOutput(area, "You cannot put a whole container of pesticide in the poison container. \n"
-							+ "Did you try the name of the container with an asterisk like: *LimePoison?");
+					gameOutput(area, "Error: You cannot put a whole container of pesticide in \n"
+							+ "the poison container. Did you try the name of the container \n"
+							+ "with an asterisk like: *NutPoison?");
 				}
 			}else{
 				gameOutput(area, "You are not in the shed.");
@@ -373,12 +403,18 @@ public class Game {
 		else if(gameState.doesTreeExist(getSubject(otherWords))){
 			//Subject is tree 
 			if(gameState.doesTreeExist(getObject(otherWords))){
-				gameOutput(area, "Error: You cannot replace a tree with another tree");				
+				gameOutput(area, "Error: You cannot replace a tree with another tree.");				
 			}else if(getObject(otherWords).startsWith("&") && gameState.doesTreeExist(getObject(otherWords))){
 				gameOutput(area, "Error: You cannot replace a tree with the address of another tree");				
 			}else if(getObject(otherWords).startsWith("*") && gameState.doesTreeExist(getObject(otherWords))){
 				gameOutput(area, "Error: You cannot replace a tree with the contents of another tree");				
 			}else{
+				if(gameState.getTree(getObject(otherWords).substring(1)).getResident()!=0){
+					gameOutput(area, "Error: You cannot replace the Book with the contents of a tree.");					
+				}else{
+					gameOutput(area, "Error: You cannot replace the Book with the contents of a tree. \n "
+							+ "Furthermore, this tree is empty.");
+				}
 				gameOutput(area, "Error: You cannot replace a tree with " + getObject(otherWords) + ". "
 						+ "\n Did you mis-spell something, not capitalize properly, or add extra spaces?");
 			}
@@ -569,7 +605,10 @@ public class Game {
 	}
 	
 	private static void walkFromShed(GameGUI gameGUI, GameMainPanel panel, JTextArea area, String otherWords){
-		if (otherWords.startsWith("&")){
+		if(otherWords.equals("") && gameState.getAddressBook().contains("&Apple")){
+			gameOutput(area, "You walk out of the Shed to the Apple tree.");
+			exit(gameGUI, panel, area);
+		}else if (otherWords.startsWith("&")){
 			if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords)){
 				//bound with address book
 				panel.showTree(gameState.getTree(otherWords.substring(1)));
@@ -613,6 +652,7 @@ public class Game {
 			if (otherWords.startsWith("&")){
 				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
 					//bound with address book
+					inShed = false;
 					panel.showTree(gameState.getTree(otherWords.substring(1)));
 					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 					gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());

@@ -24,6 +24,7 @@ public class GameGUI extends JPanel implements ActionListener {
     private JButton nextButton;
     private JButton guideButton;
     private JButton bookButton;
+    private JButton backButton;
     
     public GameGUI() {
         super(new GridBagLayout());
@@ -67,7 +68,7 @@ public class GameGUI extends JPanel implements ActionListener {
         add(scrollPane);
         
         nextButton = new JButton("Next ");
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 4;
         c.weightx = 0.0;
         c.gridheight = 1;
@@ -79,6 +80,43 @@ public class GameGUI extends JPanel implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				typeNext();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+        	
+        });
+        
+        backButton = new JButton("Back ");
+        c.gridx = 1;
+        c.gridy = 4;
+        c.weightx = 0.0;
+        c.gridheight = 1;
+        c.weighty = 0.0;
+        gridbag.setConstraints(backButton, c);
+        add(backButton);
+        backButton.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				typeBack();
 			}
 
 			@Override
@@ -226,6 +264,7 @@ public class GameGUI extends JPanel implements ActionListener {
 
     public void typeHelp(){
     	nextButton.setVisible(true);
+    	backButton.setVisible(true);
     	revalidate();
     	repaint();
     }
@@ -237,6 +276,23 @@ public class GameGUI extends JPanel implements ActionListener {
 	    	repaint();
     }
     
+    public void hideBackButton(){
+		backButton.setVisible(false);
+		revalidate();
+    	repaint();
+    }
+    
+    public void typeBack(){
+    	if(gameMainPanel.getIntroState()!=-1){
+			Game.back(textArea, gameMainPanel, GameGUI.this);
+		}
+
+    	if(gameMainPanel.isInGame()){
+    		hideNextButton();
+    		hideBackButton();
+		}
+    }
+    
     public void typeNext(){
     	if(gameMainPanel.getIntroState()!=-1){
 			Game.next(textArea, gameMainPanel, GameGUI.this);
@@ -244,6 +300,7 @@ public class GameGUI extends JPanel implements ActionListener {
 
     	if(gameMainPanel.isInGame()){
     		hideNextButton();
+    		hideBackButton();
 		}
     }
     

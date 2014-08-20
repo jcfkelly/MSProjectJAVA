@@ -13,11 +13,9 @@ public class GameState{
 	private int nut=4;
 	private int lemon=5;
 	private int lime=6;
-	private final int MAX_X=4;
-	private final int MIN_X=-4;
-	
-	//TODO: when season changes, trees die
-	private final int MAX_Y=10;
+	private final int MAX_X=3;
+	private final int MIN_X=-3;
+	private final int MAX_Y=5;
 	private final int MIN_Y=0;
 	private int direction = 0;
 	private Point position;
@@ -35,6 +33,7 @@ public class GameState{
 
 		addressBook = new ArrayList<String>(100); //ensures size is limited
 		addressBook.add("&Shed");
+		addressBook.add("&Apple");
 
 		//Create Trees (Put on one line)
 		treeMap = new HashMap<String, Tree>(); //contains names as keys
@@ -42,73 +41,73 @@ public class GameState{
 		treeMap.put("Ananasrenette",	 	new Tree(0,1, apple, "assets/MS_Project_Trees_ananasrenette.jpg"));
 		treeMap.put("Amanogawa", 			new Tree(1,0, cherry, "assets/MS_Project_Trees_amanogawa.jpg"));
 		treeMap.put("Accolade", 			new Tree(1,1, cherry, "assets/MS_Project_Trees_accolade.jpg"));
-		treeMap.put("Almond", 				new Tree(4,7, nut, "assets/MS_Project_Trees_Almond.jpg"));
+		//treeMap.put("Almond", 				new Tree(4,7, nut, "assets/MS_Project_Trees_Almond.jpg"));
 		treeMap.put("AmericanHazelnut", 	new Tree(3,5, nut, "assets/MS_Project_Trees_AmericanHazelnut.jpg"));
 		treeMap.put("ArkansasBlack",		new Tree(-3,2, apple, "assets/MS_Project_Trees_ArkansasBlack.jpg"));
-		treeMap.put("Bahianinha", 			new Tree(-4,5, orange, "assets/MS_Project_Trees_bahianinha.jpg"));
-		treeMap.put("Belladonna",	 		new Tree(-2,9, orange, "assets/MS_Project_Trees_Belladonna.jpg"));
-		treeMap.put("Berna", 				new Tree(-4,10, orange, "assets/MS_Project_Trees_Berna.jpg"));
-		treeMap.put("BlackWalnut",			new Tree(4,9, nut, "assets/MS_Project_Trees_BlackWalnut.jpg"));
+		//treeMap.put("Bahianinha", 			new Tree(-4,5, orange, "assets/MS_Project_Trees_bahianinha.jpg"));
+		//treeMap.put("Belladonna",	 		new Tree(-2,9, orange, "assets/MS_Project_Trees_Belladonna.jpg"));
+		//treeMap.put("Berna", 				new Tree(-4,10, orange, "assets/MS_Project_Trees_Berna.jpg"));
+		//treeMap.put("BlackWalnut",			new Tree(4,9, nut, "assets/MS_Project_Trees_BlackWalnut.jpg"));
 		treeMap.put("BloodOrange",	 		new Tree(-2,5, orange, "assets/MS_Project_Trees_BloodOrange.jpg"));
-		treeMap.put("BonnieBrae", 			new Tree(2,10, lemon,"assets/MS_Project_Trees_BonnieBrae.jpg"));
-		treeMap.put("Bramley", 				new Tree(-4,0, apple,"assets/MS_Project_Trees_Bramley.jpg"));
-		treeMap.put("Cadanera", 			new Tree(-4,9, orange,"assets/MS_Project_Trees_Cadanera.jpg"));
-		treeMap.put("Calabrisi", 			new Tree(-3,10, orange, "assets/MS_Project_Trees_Calabrisi.jpg"));
-		treeMap.put("CaliforniaNavel", 		new Tree(-2,6, orange, "assets/MS_Project_Trees_CaliforniaNavel.jpg"));
-		treeMap.put("CaraCara", 			new Tree(-2,8, orange, "assets/MS_Project_Trees_CaraCara.jpg"));
-		treeMap.put("Carvalhal", 			new Tree(-2,10, orange, "assets/MS_Project_Trees_Carvalhal.jpg"));
+		//treeMap.put("BonnieBrae", 			new Tree(2,10, lemon,"assets/MS_Project_Trees_BonnieBrae.jpg"));
+		//treeMap.put("Bramley", 				new Tree(-4,0, apple,"assets/MS_Project_Trees_Bramley.jpg"));
+		//treeMap.put("Cadanera", 			new Tree(-4,9, orange,"assets/MS_Project_Trees_Cadanera.jpg"));
+		//treeMap.put("Calabrisi", 			new Tree(-3,10, orange, "assets/MS_Project_Trees_Calabrisi.jpg"));
+		//treeMap.put("CaliforniaNavel", 		new Tree(-2,6, orange, "assets/MS_Project_Trees_CaliforniaNavel.jpg"));
+		//treeMap.put("CaraCara", 			new Tree(-2,8, orange, "assets/MS_Project_Trees_CaraCara.jpg"));
+		//treeMap.put("Carvalhal", 			new Tree(-2,10, orange, "assets/MS_Project_Trees_Carvalhal.jpg"));
 		treeMap.put("Cherry", 				new Tree(3,1, cherry, "assets/MS_Project_Trees_Cherry.jpg"));
-		treeMap.put("Chestnut", 			new Tree(4,6, nut, "assets/MS_Project_Trees_Chestnut.jpg"));
-		treeMap.put("ChineseChestnut", 		new Tree(4,10, nut, "assets/MS_Project_Trees_ChineseChestnut.jpg"));
-		treeMap.put("Clanor", 				new Tree(-3,9, orange,"assets/MS_Project_Trees_Clanor.jpg"));		
+		//treeMap.put("Chestnut", 			new Tree(4,6, nut, "assets/MS_Project_Trees_Chestnut.jpg"));
+		//treeMap.put("ChineseChestnut", 		new Tree(4,10, nut, "assets/MS_Project_Trees_ChineseChestnut.jpg"));
+		//treeMap.put("Clanor", 				new Tree(-3,9, orange,"assets/MS_Project_Trees_Clanor.jpg"));		
 		treeMap.put("Colorata", 			new Tree(2,1, cherry,"assets/MS_Project_Trees_Colorata.jpg"));
-		treeMap.put("DreamNavel", 			new Tree(-4,6, orange,  "assets/MS_Project_Trees_DreamNavel.jpg"));
+		//treeMap.put("DreamNavel", 			new Tree(-4,6, orange,  "assets/MS_Project_Trees_DreamNavel.jpg"));
 		treeMap.put("Eureka", 				new Tree(2,8, lemon, "assets/MS_Project_Trees_Eureka.jpg"));
 		treeMap.put("FemmineloStTeresa", 	new Tree(3,10, lemon, "assets/MS_Project_Trees_FemmineloStTeresa.jpg"));
-		treeMap.put("Fuji", 				new Tree(-4,1, apple,"assets/MS_Project_Trees_Fuji.jpg"));
-		treeMap.put("Fukuhara", 			new Tree(-1,10, orange, "assets/MS_Project_Trees_Fukuhara.jpg"));
+	//	treeMap.put("Fuji", 				new Tree(-4,1, apple,"assets/MS_Project_Trees_Fuji.jpg"));
+		//treeMap.put("Fukuhara", 			new Tree(-1,10, orange, "assets/MS_Project_Trees_Fukuhara.jpg"));
 		treeMap.put("Gala", 				new Tree(-3,1, apple,"assets/MS_Project_Trees_Gala.jpg"));
-		treeMap.put("Gardner", 				new Tree(-1,9, orange, "assets/MS_Project_Trees_Gardner.jpg"));
-		treeMap.put("GoldenDelicious",		new Tree(-4,3, apple, "assets/MS_Project_Trees_GoldenDelicious.jpg"));
-		treeMap.put("Goldenrette", 			new Tree(-4,2, apple, "assets/MS_Project_Trees_Goldenrette.jpg"));
+		//treeMap.put("Gardner", 				new Tree(-1,9, orange, "assets/MS_Project_Trees_Gardner.jpg"));
+		//treeMap.put("GoldenDelicious",		new Tree(-4,3, apple, "assets/MS_Project_Trees_GoldenDelicious.jpg"));
+		//treeMap.put("Goldenrette", 			new Tree(-4,2, apple, "assets/MS_Project_Trees_Goldenrette.jpg"));
 		treeMap.put("Granny", 				new Tree(-2,0, apple, "assets/MS_Project_Trees_Granny.jpg"));
-		treeMap.put("Homosassa", 			new Tree(-1,8, orange, "assets/MS_Project_Trees_Homosassa.jpg"));
+		//treeMap.put("Homosassa", 			new Tree(-1,8, orange, "assets/MS_Project_Trees_Homosassa.jpg"));
 		treeMap.put("HoneyLocust", 			new Tree(3,2, nut, "assets/MS_Project_Trees_HoneyLocust.jpg"));
-		treeMap.put("Jaffa", 				new Tree(-1,7, orange, "assets/MS_Project_Trees_Jaffa.jpg"));
-		treeMap.put("Jhambiri", 			new Tree(3,9, orange, "assets/MS_Project_Trees_Jhambiri.jpg"));
-		treeMap.put("Jincheng", 			new Tree(-1,6, orange, "assets/MS_Project_Trees_Jincheng.jpg"));
+		//treeMap.put("Jaffa", 				new Tree(-1,7, orange, "assets/MS_Project_Trees_Jaffa.jpg"));
+		//treeMap.put("Jhambiri", 			new Tree(3,9, orange, "assets/MS_Project_Trees_Jhambiri.jpg"));
+		//treeMap.put("Jincheng", 			new Tree(-1,6, orange, "assets/MS_Project_Trees_Jincheng.jpg"));
 		treeMap.put("KaffirLime", 			new Tree(1,5, lime, "assets/MS_Project_Trees_KaffirLime.jpg"));
 		treeMap.put("Kanzan", 				new Tree(2,0, cherry, "assets/MS_Project_Trees_Kanzan.jpg"));
 		treeMap.put("KeyLime", 				new Tree(1,4, lime, "assets/MS_Project_Trees_KeyLime.jpg"));
-		treeMap.put("Kona", 				new Tree(0,10, orange, "assets/MS_Project_Trees_Kona.jpg"));
-		treeMap.put("LateNavel", 			new Tree(-3,6, orange, "assets/MS_Project_Trees_LateNavel.jpg"));
-		treeMap.put("Lemon", 				new Tree(2,9, lemon, "assets/MS_Project_Trees_Lemon.jpg"));
+		//treeMap.put("Kona", 				new Tree(0,10, orange, "assets/MS_Project_Trees_Kona.jpg"));
+		//treeMap.put("LateNavel", 			new Tree(-3,6, orange, "assets/MS_Project_Trees_LateNavel.jpg"));
+		//treeMap.put("Lemon", 				new Tree(2,9, lemon, "assets/MS_Project_Trees_Lemon.jpg"));
 		treeMap.put("Limequat", 			new Tree(2,2, lime, "assets/MS_Project_Trees_Limequat.jpg"));
-		treeMap.put("Lisbon", 				new Tree(3,8, lemon, "assets/MS_Project_Trees_Lisbon.jpg"));
-		treeMap.put("Macadamia", 			new Tree(4,5, nut, "assets/MS_Project_Trees_Macadamia.jpg"));
-		treeMap.put("Macetera", 			new Tree(0,9, orange, "assets/MS_Project_Trees_Macetera.jpg"));
-		treeMap.put("Malta", 				new Tree(0,8, orange,"assets/MS_Project_Trees_Malta.jpg"));
-		treeMap.put("Maltese", 				new Tree(-2,7, orange, "assets/MS_Project_Trees_Maltese.jpg"));
-		treeMap.put("Marrs", 				new Tree(0,7, orange,"assets/MS_Project_Trees_Marrs.jpg"));
+		//treeMap.put("Lisbon", 				new Tree(3,8, lemon, "assets/MS_Project_Trees_Lisbon.jpg"));
+		//treeMap.put("Macadamia", 			new Tree(4,5, nut, "assets/MS_Project_Trees_Macadamia.jpg"));
+		//treeMap.put("Macetera", 			new Tree(0,9, orange, "assets/MS_Project_Trees_Macetera.jpg"));
+		//treeMap.put("Malta", 				new Tree(0,8, orange,"assets/MS_Project_Trees_Malta.jpg"));
+		//treeMap.put("Maltese", 				new Tree(-2,7, orange, "assets/MS_Project_Trees_Maltese.jpg"));
+		//treeMap.put("Marrs", 				new Tree(0,7, orange,"assets/MS_Project_Trees_Marrs.jpg"));
 		treeMap.put("McIntosh", 			new Tree(-1,0, apple, "assets/MS_Project_Trees_McIntosh.jpg"));
-		treeMap.put("Meyer", 				new Tree(2,7, lemon, "assets/MS_Project_Trees_Meyer.jpg"));
-		treeMap.put("Midsweet", 			new Tree(0,6, orange, "assets/MS_Project_Trees_Midsweet.jpg"));
+		//treeMap.put("Meyer", 				new Tree(2,7, lemon, "assets/MS_Project_Trees_Meyer.jpg"));
+		//treeMap.put("Midsweet", 			new Tree(0,6, orange, "assets/MS_Project_Trees_Midsweet.jpg"));
 		treeMap.put("Morello", 				new Tree(3,0, cherry, "assets/MS_Project_Trees_Morello.jpg"));
-		treeMap.put("Moro", 				new Tree(-3,7, orange, "assets/MS_Project_Trees_Moro.jpg"));
+		//treeMap.put("Moro", 				new Tree(-3,7, orange, "assets/MS_Project_Trees_Moro.jpg"));
 		treeMap.put("Mosambi", 				new Tree(-1,5, orange, "assets/MS_Project_Trees_Mosambi.jpg"));
 		treeMap.put("MuskLime", 			new Tree(1,3, lime, "assets/MS_Project_Trees_MuskLime.jpg"));
 		treeMap.put("NavelOrange", 			new Tree(-2,4, orange, "assets/MS_Project_Trees_NavelOrange.jpg"));
 		treeMap.put("NorthernHardyPecan", 	new Tree(3,4, nut, "assets/MS_Project_Trees_Northern-hardyPecan.jpg"));
-		treeMap.put("Orange", 				new Tree(-4,4, orange, "assets/MS_Project_Trees_Orange.jpg"));
+		//treeMap.put("Orange", 				new Tree(-4,4, orange, "assets/MS_Project_Trees_Orange.jpg"));
 		treeMap.put("PacificRose", 			new Tree(-3,3, apple, "assets/MS_Project_Trees_PacificRose.jpg"));
 		treeMap.put("ParsonBrown", 			new Tree(0,5, orange, "assets/MS_Project_Trees_ParsonBrown.jpg"));
-		treeMap.put("Pecan", 				new Tree(4,4, nut, "assets/MS_Project_Trees_Pecan.jpg"));
+		//treeMap.put("Pecan", 				new Tree(4,4, nut, "assets/MS_Project_Trees_Pecan.jpg"));
 		treeMap.put("Pera", 				new Tree(-1,4, orange, "assets/MS_Project_Trees_Pera.jpg"));
 		treeMap.put("PersianLime", 			new Tree(1,2, lime, "assets/MS_Project_Trees_PersianLime.jpg"));
 		treeMap.put("PineappleOrange", 		new Tree(-1,3, orange, "assets/MS_Project_Trees_PineappleOrange.jpg"));
 		treeMap.put("PinkLady", 			new Tree(-1,1, apple, "assets/MS_Project_Trees_PinkLady.jpg"));
-		treeMap.put("Pistachio", 			new Tree(4,2, nut, "assets/MS_Project_Trees_Pistachio.jpg"));
-		treeMap.put("Ponderosa", 			new Tree(2,6, lemon, "assets/MS_Project_Trees_Ponderosa.jpg"));
+		//treeMap.put("Pistachio", 			new Tree(4,2, nut, "assets/MS_Project_Trees_Pistachio.jpg"));
+		//treeMap.put("Ponderosa", 			new Tree(2,6, lemon, "assets/MS_Project_Trees_Ponderosa.jpg"));
 		treeMap.put("Queen", 				new Tree(0,3, orange, "assets/MS_Project_Trees_Queen.jpg"));
 		treeMap.put("RangpurLime", 			new Tree(2,4, lime, "assets/MS_Project_Trees_RangpurLime.jpg"));
 		treeMap.put("RedDelicious", 		new Tree(-2,1, apple, "assets/MS_Project_Trees_RedDelicious.jpg"));
@@ -116,27 +115,27 @@ public class GameState{
 		treeMap.put("RhodeRed", 			new Tree(-1,2, orange, "assets/MS_Project_Trees_RhodeRed.jpg"));
 		treeMap.put("Roble", 				new Tree(0,4, orange, "assets/MS_Project_Trees_Roble.jpg"));
 		treeMap.put("Sampion", 				new Tree(-2,2, apple, "assets/MS_Project_Trees_Sampion.jpg"));
-		treeMap.put("Sanguinelli", 			new Tree(-4,7, orange, "assets/MS_Project_Trees_Sanguinelli.jpg"));
-		treeMap.put("ScarletNavel", 		new Tree(-4,8, orange, "assets/MS_Project_Trees_ScarletNavel.jpg"));
-		treeMap.put("ShagbarkHickory", 		new Tree(4,8, nut, "assets/MS_Project_Trees_ShagbarkHickory.jpg"));
-		treeMap.put("Shirotai", 			new Tree(4,1, cherry, "assets/MS_Project_Trees_Shirotai.jpg"));
-		treeMap.put("Sorrento", 			new Tree(1,6, lemon, "assets/MS_Project_Trees_Sorrento.jpg"));
+		//treeMap.put("Sanguinelli", 			new Tree(-4,7, orange, "assets/MS_Project_Trees_Sanguinelli.jpg"));
+		//treeMap.put("ScarletNavel", 		new Tree(-4,8, orange, "assets/MS_Project_Trees_ScarletNavel.jpg"));
+		//treeMap.put("ShagbarkHickory", 		new Tree(4,8, nut, "assets/MS_Project_Trees_ShagbarkHickory.jpg"));
+		//treeMap.put("Shirotai", 			new Tree(4,1, cherry, "assets/MS_Project_Trees_Shirotai.jpg"));
+		//treeMap.put("Sorrento", 			new Tree(1,6, lemon, "assets/MS_Project_Trees_Sorrento.jpg"));
 		treeMap.put("SpanishLime", 			new Tree(2,3, lime, "assets/MS_Project_Trees_SpanishLime.jpg"));
 		treeMap.put("SugarOrange", 			new Tree(-3,5, orange, "assets/MS_Project_Trees_SugarOrange.jpg"));
 		treeMap.put("Sunstar", 				new Tree(0,2, orange, "assets/MS_Project_Trees_Sunstar.jpg"));
-		treeMap.put("Shamouti", 			new Tree(1,9, orange, "assets/MS_Project_Trees_Shamouti.jpg"));
+		//treeMap.put("Shamouti", 			new Tree(1,9, orange, "assets/MS_Project_Trees_Shamouti.jpg"));
 		treeMap.put("Tangerine", 			new Tree(-3,4, orange, "assets/MS_Project_Trees_Tangerine.jpg"));
-		treeMap.put("Tarocco", 				new Tree(-3,8, orange, "assets/MS_Project_Trees_Tarocco.jpg"));
-		treeMap.put("Tomango", 				new Tree(1,10, orange, "assets/MS_Project_Trees_Tomango.jpg"));
-		treeMap.put("Ukon", 				new Tree(4,0, cherry, "assets/MS_Project_Trees_Ukon.jpg"));
+		//treeMap.put("Tarocco", 				new Tree(-3,8, orange, "assets/MS_Project_Trees_Tarocco.jpg"));
+		//treeMap.put("Tomango", 				new Tree(1,10, orange, "assets/MS_Project_Trees_Tomango.jpg"));
+		//treeMap.put("Ukon", 				new Tree(4,0, cherry, "assets/MS_Project_Trees_Ukon.jpg"));
 		treeMap.put("VariegatedPink", 		new Tree(2,5, lemon, "assets/MS_Project_Trees_VariegatedPink.jpg"));
-		treeMap.put("Verna", 				new Tree(3,7, lemon, "assets/MS_Project_Trees_Verna.jpg"));
-		treeMap.put("Vicieda", 				new Tree(1,8, orange, "assets/MS_Project_Trees_Vicieda.jpg"));
-		treeMap.put("Walnut", 				new Tree(4,3, nut, "assets/MS_Project_Trees_Walnut.jpg"));
+		//treeMap.put("Verna", 				new Tree(3,7, lemon, "assets/MS_Project_Trees_Verna.jpg"));
+		//treeMap.put("Vicieda", 				new Tree(1,8, orange, "assets/MS_Project_Trees_Vicieda.jpg"));
+		//treeMap.put("Walnut", 				new Tree(4,3, nut, "assets/MS_Project_Trees_Walnut.jpg"));
 		treeMap.put("Washington", 			new Tree(-3,0, apple,"assets/MS_Project_Trees_Washington.jpg"));
-		treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
+		//treeMap.put("Westin", 				new Tree(1,7, orange, "assets/MS_Project_Trees_Westin.jpg"));
 		treeMap.put("YellowTransparent",	new Tree(-2,3, apple, "assets/MS_Project_Trees_YellowTransparent.jpg"));
-		treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
+		//treeMap.put("YenBen", 				new Tree(3,6, lemon, "assets/MS_Project_Trees_YenBen.jpg"));
 		insertRandomPests(6);
 	}
 	
@@ -173,7 +172,7 @@ public class GameState{
 	
 	public void areTreesDead(){
 		for(String tree: treeMap.keySet()){
-			if (getSteps()%100==99){
+			if (getSteps()%50==49){
 				if (treeMap.get(tree).getResident()>0 && 5>treeMap.get(tree).getResident()){
 					treeMap.get(tree).setAlive(false);
 					deadTrees+=1;

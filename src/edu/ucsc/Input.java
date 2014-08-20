@@ -38,6 +38,8 @@ public class Input{
 			return 10;
 		}else if(word.equalsIgnoreCase("Yes") || word.equalsIgnoreCase("Y") ||word.equalsIgnoreCase("No") || word.equalsIgnoreCase("N")){
 			return 11;
+		}else if(word.equalsIgnoreCase("back")){
+			return 12;
 		}
 		else{
 			return -1;
