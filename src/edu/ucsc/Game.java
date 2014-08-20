@@ -232,21 +232,21 @@ public class Game {
 	
 	private static void help(GameMainPanel panel, JTextArea area, GameGUI gameGUI, String otherWords){
 		 if(otherWords.equalsIgnoreCase("walk")){
-			panel.setIntroState(10);
-			gameGUI.typeHelp();
-	        gameOutput(area, "You are looking at the help menu. \n"
-	        		+ "Type next to move through, or exit to get back to the game.");
-		}else if(otherWords.equalsIgnoreCase("poison")){
-			panel.setIntroState(7);
-			gameGUI.typeHelp();
-	        gameOutput(area, "You are looking at the help menu. \n"
-	        		+ "Type next to move through, or exit to get back to the game.");
-		}else{
-			panel.setIntroState(4);
-			gameGUI.typeHelp();
-	        gameOutput(area, "You are looking at the help menu. \n"
-	        		+ "Type next to move through, or exit to get back to the game.");
-		}
+				panel.setIntroState(10);
+				gameGUI.typeHelp();
+		        gameOutput(area, "You are looking at the help menu. \n"
+		        		+ "Type next to move through, or exit to get back to the game.");
+			}else if(otherWords.equalsIgnoreCase("poison")){
+				panel.setIntroState(7);
+				gameGUI.typeHelp();
+		        gameOutput(area, "You are looking at the help menu. \n"
+		        		+ "Type next to move through, or exit to get back to the game.");
+			}else{
+				panel.setIntroState(4);
+				gameGUI.typeHelp();
+		        gameOutput(area, "You are looking at the help menu. \n"
+		        		+ "Type next to move through, or exit to get back to the game.");
+			}
 	}
 	
 	public static void exit(GameGUI gameGUI, GameMainPanel panel, JTextArea area){
@@ -546,6 +546,8 @@ public class Game {
 							+ "\n Also, remember to store the address of the tree in Book.");
 				}				
 			}
+		}else if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
+			gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
 		}else if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
 			gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
 		}
