@@ -158,7 +158,7 @@ public class Game {
 				gameOutput(area, "You can only reply Yes/No when you are answering a question.");
 			}
 		}else if(commandType == 12){
-			back(area, panel, gameGUI);
+			gameGUI.typeBack();
 		}
 		
 		else if (commandType == -1){
@@ -273,14 +273,11 @@ public class Game {
 			panel.showShed();
 			panel.setIntroState(shedNum);
 			gameOutput(area, "You exit back to the Shed.");
-			inShed = false;
 		}else{
 			panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 			panel.setIntroState(-1);
 			gameOutput(area, "You exit back to the game.");
 		}
-		panel.revalidate();
-		panel.repaint();
 	}
 	
 	public static String refreshSteps(){

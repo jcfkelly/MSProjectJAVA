@@ -347,6 +347,7 @@ public class GameGUI extends JPanel implements ActionListener {
     
     public void onEnterOrchard(){
     	hideNextButton();
+    	hideBackButton();
     	counter.setVisible(true);
         guideButton.setVisible(true);
         bookButton.setVisible(true);
