@@ -278,6 +278,7 @@ public class Game {
 			panel.setIntroState(-1);
 			gameOutput(area, "You exit back to the game.");
 		}
+		gameOutput(area, "Is it making it here too?"); //For debugging purposes
 	}
 	
 	public static String refreshSteps(){
