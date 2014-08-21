@@ -88,7 +88,7 @@ public class Game {
 		}
 		else if (commandType == 2){ //for WALK
 			if(panel.isInGame()){
-				walk(gameGUI, panel, area, p, otherWords);
+				walk(gameGUI, panel, area, otherWords);
 			}else if(panel.getIntroState()==shedNum){
 				walkFromShed(gameGUI, panel, area, otherWords);
 			}else{
@@ -270,15 +270,14 @@ public class Game {
 		gameGUI.hideNextButton();
 		gameGUI.hideBackButton();
 		if(inShed && panel.getIntroState()!=shedNum){
-			panel.showShed();
 			panel.setIntroState(shedNum);
+			panel.showShed();
 			gameOutput(area, "You exit back to the Shed.");
 		}else{
-			panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 			panel.setIntroState(-1);
+			panel.showTree(gameState.getTreeFromLocation(gameState.getPosition()));
 			gameOutput(area, "You exit back to the game.");
 		}
-		gameOutput(area, "Is it making it here too?"); //For debugging purposes
 	}
 	
 	public static String refreshSteps(){
@@ -603,10 +602,7 @@ public class Game {
 	}
 	
 	private static void walkFromShed(GameGUI gameGUI, GameMainPanel panel, JTextArea area, String otherWords){
-		if(otherWords.equals("") && gameState.getAddressBook().contains("&Apple")){
-			gameOutput(area, "You walk out of the Shed to the Apple tree.");
-			exit(gameGUI, panel, area);
-		}else if (otherWords.startsWith("&")){
+		if (otherWords.startsWith("&")){
 			if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords)){
 				//bound with address book
 				panel.showTree(gameState.getTree(otherWords.substring(1)));
@@ -616,8 +612,16 @@ public class Game {
 			}else{
 				gameOutput(area, "You cannot walk to an address that is not stored in Book.");
 			}
+			gameState.takeSteps();
+			gameGUI.refreshCounter();
 		}else{
-			gameOutput(area, "You cannot walk out of the shed. You need an address \n to walk to. Hope you saved an address in the Book.");
+			if(otherWords.equals("")){
+				panel.setIntroState(-1);
+				walk(gameGUI, panel, area, "&Apple");
+				gameOutput(area, "You walk out of the Shed to the Apple tree.");
+			}else{
+				gameOutput(area, "You cannot walk out of the shed. You need an address \n to walk to. Hope you saved an address in the Book.");
+			}
 		}
 		inShed = false;
 	}
@@ -639,7 +643,7 @@ public class Game {
 		}
 	}
 	
-	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, Point p, String otherWords){
+	private static void walk(GameGUI gameGUI, GameMainPanel panel, JTextArea area, String otherWords){
 		if (gameState.getSteps()%20==19){
 			gameState.insertRandomPests(1);
 		}
@@ -647,6 +651,14 @@ public class Game {
 			gameState.insertRandomPollinator();
 		}
 
+			if(otherWords.equals("&Apple")){
+				gameState.takeSteps();
+				gameGUI.refreshCounter();
+				gameState.moveToPoint(new Point(0,0));
+				panel.showTree(gameState.getTree(otherWords.substring(1)));
+				return;
+			}
+			
 			if (otherWords.startsWith("&")){
 				if (gameState.doesTreeExist(otherWords.substring(1)) && gameState.getAddressBook().contains(otherWords.substring(1))){
 					//bound with address book
