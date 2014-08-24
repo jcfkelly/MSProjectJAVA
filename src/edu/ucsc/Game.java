@@ -229,7 +229,7 @@ public class Game {
 		int introState = panel.getIntroState();
 		if (introState == -1){
 			gameOutput(area, "Error: This is not in the game.");			
-		}else if(introState <= 5){
+		}else if(introState < 2){
 			gameOutput(area, "Error: You cannot go any further back.");
 		}else{
 			panel.setIntroState(introState-1);
@@ -515,76 +515,79 @@ public class Game {
 				gameOutput(area, "You see the empty Poison container");
 			}
 		}
-		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))&& gameState.getPosition()==gameState.getTree(otherWords.substring(1)).getLocation()){
-			Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
-			String thisTreeType = "";
-			if(localTree.getTreeType()==1){
-				thisTreeType = "Apple";
-			}else if(localTree.getTreeType()==2){
-				thisTreeType = "Orange";
-			}else if(localTree.getTreeType()==3){
-				thisTreeType = "Cherry";
-			}else if(localTree.getTreeType()==4){
-				thisTreeType = "Nut";
-			}else if(localTree.getTreeType()==5){
-				thisTreeType = "Lemon";
-			}else if(localTree.getTreeType()==6){
-				thisTreeType = "Lime";
-			}
-			
-			if (localTree.getTreeType()==0){
-				int numDeadTrees = gameState.getDeadTrees();
-				gameState.setDeadTrees(numDeadTrees + 1);
-				gameOutput(area, "The "+ thisTreeType +" tree is dead. You see it is empty. Pests must have killed it.");
+		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
+			if (gameState.getPosition()==gameState.getTree(otherWords.substring(1)).getLocation()){
+				Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
+				String thisTreeType = "";
+				if(localTree.getTreeType()==1){
+					thisTreeType = "Apple";
+				}else if(localTree.getTreeType()==2){
+					thisTreeType = "Orange";
+				}else if(localTree.getTreeType()==3){
+					thisTreeType = "Cherry";
+				}else if(localTree.getTreeType()==4){
+					thisTreeType = "Nut";
+				}else if(localTree.getTreeType()==5){
+					thisTreeType = "Lemon";
+				}else if(localTree.getTreeType()==6){
+					thisTreeType = "Lime";
+				}
+				
+				if (localTree.getTreeType()==0){
+					int numDeadTrees = gameState.getDeadTrees();
+					gameState.setDeadTrees(numDeadTrees + 1);
+					gameOutput(area, "The "+ thisTreeType +" tree is dead. You see it is empty. Pests must have killed it.");
+				}else{
+					if(localTree.getResident() == 0){
+						gameOutput(area, "You see the "+ thisTreeType +" tree is empty.");
+					}else if(localTree.getResident()==1){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains ants. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==2){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains wasps. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==3){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains gophers. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==4){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains aphids. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==5){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains butterflies. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==6){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains bees. Use the Guide to figure out "
+								+ "\n if it is a pest that destroys or pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==7){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains frogs. Use the Guide to figure out "
+								+ "\n if it is a pest that destroys or pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}else if(localTree.getResident()==8){
+						gameOutput(area, "You see the "+ thisTreeType +" tree contains ladybugs. Use the Guide \n"
+								+ "to figure out if it is a pest that destroys or \n"
+								+ "pollinator that protects the tree. "
+								+ "\n Also, remember to store the address of the tree in Book.");
+					}
+				}
 			}else{
-				if(localTree.getResident() == 0){
-					gameOutput(area, "You see the "+ thisTreeType +" tree is empty.");
-				}else if(localTree.getResident()==1){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains ants. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==2){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains wasps. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==3){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains gophers. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==4){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains aphids. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==5){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains butterflies. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==6){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains bees. Use the Guide to figure out "
-							+ "\n if it is a pest that destroys or pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==7){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains frogs. Use the Guide to figure out "
-							+ "\n if it is a pest that destroys or pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}else if(localTree.getResident()==8){
-					gameOutput(area, "You see the "+ thisTreeType +" tree contains ladybugs. Use the Guide \n"
-							+ "to figure out if it is a pest that destroys or \n"
-							+ "pollinator that protects the tree. "
-							+ "\n Also, remember to store the address of the tree in Book.");
-				}				
+				if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
+					gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
+				}else{
+					gameOutput(area, "Error: that is not the name of a tree in this game.\n If you think it exists, it may be spelled incorrectly, have extra spaces, or \n have incorrect capitalization");
+				}
 			}
-		}else if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
-			gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
-		}else if(gameState.getPosition()!=gameState.getTree(otherWords.substring(1)).getLocation()){
-			gameOutput(area, "Error: You cannot look at a tree that is not in the location.");
-		}
-		else if(otherWords.startsWith("&")){
+		}else if(otherWords.startsWith("&")){
 			gameOutput(area, "Error: you cannot look at addresses.");
 		}else{
 			gameOutput(area, "Error: " +otherWords + " is neither a Tree, nor is it an object in game. \n If you think it exists, it may be spelled incorrectly, have extra spaces, or \n have incorrect capitalization.");
