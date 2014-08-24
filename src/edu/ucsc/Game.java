@@ -669,6 +669,9 @@ public class Game {
 					panel.showTree(gameState.getTree(otherWords.substring(1)));
 					gameOutput(area, "You walk to " + otherWords.substring(1) + ".");
 					gameState.moveToPoint(gameState.getTree(otherWords.substring(1)).getLocation());
+					gameState.takeSteps();
+					gameGUI.refreshCounter();
+					return;
 				}else if (otherWords.substring(1).equals("Shed")){
 					inShed = true;
 					if (gameState.getAddressBook().size()>1){
@@ -679,11 +682,15 @@ public class Game {
 						gameOutput(area, "Are you sure you want to walk to the shed without any address \n"
 								+ "stored in the book?");
 						fromShed = true;
-					}					
+					}
+					gameState.takeSteps();
+					gameGUI.refreshCounter();
+					return;
+				}else if (!gameState.doesTreeExist(otherWords.substring(1))){
+					gameOutput(area, "Error: Something is mis-spelled, \n"
+							+ "not capitalized, or not spaced correctly.");
+					return;
 				}
-				gameState.takeSteps();
-				gameGUI.refreshCounter();
-				return;
 			}else if(otherWords.equals("&Book") || otherWords.equals("&Guide")){
 				gameOutput(area,"You cannot walk to your inventory.");
 				return;
