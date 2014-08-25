@@ -516,7 +516,7 @@ public class Game {
 			}
 		}
 		else if(otherWords.startsWith("*") && gameState.doesTreeExist(otherWords.substring(1))){
-			if (gameState.getPosition()==gameState.getTree(otherWords.substring(1)).getLocation()){
+			if (gameState.getPosition().equals(gameState.getTree(otherWords.substring(1)).getLocation())){
 				Tree localTree = gameState.getTree(getSubject(otherWords).substring(1));
 				String thisTreeType = "";
 				if(localTree.getTreeType()==1){
